@@ -31,17 +31,21 @@
  *
  */
 
-/*----------------------------------------------------------------------------------------------
+/*-------------------------------------------------------------------------------------
  *
- *                                     Learning algorithms
+ *                                Learning algorithms
  *
- *----------------------------------------------------------------------------------------------
+ *-------------------------------------------------------------------------------------
  */
 
 struct training_set
 {
     double**         ratings;            //Known ratings
     unsigned int     training_set_size;  //The number of ratings
+	unsigned int     dimensionality; //dimensionality of the joint latent factor space
+
+	unsigned int     users_number;
+	unsigned int     items_number;
 };
 
 struct model_parameters
@@ -49,7 +53,7 @@ struct model_parameters
     unsigned int     users_number;
     unsigned int     items_number;
 
-    double            lambda;            //The constant lambda controls the extent of regularization
+    double            lambda;          //The constant lambda controls the extent of regularization
     double            step;            //step size in stochastic gradient descent algorithm
 
     unsigned int    dimensionality; //dimensionality of the joint latent factor space
@@ -60,7 +64,18 @@ struct learned_factors
 {
     double**         user_factor_vectors;
     double**         item_factor_vectors;
+
+	unsigned int     dimensionality;
+
+	unsigned int     users_number;
+	unsigned int     items_number;
 };
+
+typedef struct training_set       training_set_t;
+
+typedef struct model_parameters   model_parameters_t;
+
+typedef struct learned_factors    learned_factors_t;
 
 /*
  * learn:            Learn using training set and the model parameters
@@ -78,11 +93,11 @@ struct learned_factors*
 learn(struct training_set* tset, struct model_parameters* params);
 
 
-/*----------------------------------------------------------------------------------------------
+/*------------------------------------------------------------------------------------
  *
- *                                     Rating estimation/computaion
+ *                          Rating estimation/computaion
  *
- *----------------------------------------------------------------------------------------------
+ *------------------------------------------------------------------------------------
  */
 
 /*
@@ -124,3 +139,67 @@ regularized_squared_error(
                           double r,
                           double lambda,
                           unsigned int size);
+
+
+/*------------------------------------------------------------------------------------
+ *
+ *                                Helper functions
+ *
+ *------------------------------------------------------------------------------------
+ */
+
+/*
+ * init_training_set:  allocate space for the training set
+ *                               
+ *
+ * Arguments:
+ *      params        Parameters of the model
+ *
+ * Returns:
+ *      Return an initialized training set.
+ *
+ */
+struct training_set* 
+init_training_set(struct model_parameters* params);
+
+/*
+ * free_training_set:  delete the training set from memory
+ */
+void
+free_training_set(training_set_t* tset);
+
+/*
+ * free_learned_factors:  delete the learned factors from memory
+ */
+void 
+free_learned_factors(learned_factors_t* lfactors);
+
+/*
+ * set_known_rating: fill the training set with a known user/item rating
+ *                               
+ *
+ * Arguments:
+ *      user_index: The index of a user
+ *		user_index: The index of an item
+ *		value:      The rating of an item
+ *      tset:       The training set to be filled
+ *
+ */
+void set_known_rating(int user_index, int item_index, double value, training_set_t* tset);
+
+
+/*
+* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+*                                some learned factors.
+*
+* Arguments:
+*      user_index: The index of a user
+*	   user_index: The index of an item
+*      lfactors  : Learned factors
+*
+* Returns:
+*      The estimated rating.
+*
+*/
+double
+estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors);

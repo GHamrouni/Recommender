@@ -211,8 +211,102 @@ learn(struct training_set* tset, struct model_parameters* params)
             }
         }
 
+	lfactors->dimensionality = params->dimensionality;
+	lfactors->items_number = params->items_number;
+	lfactors->users_number = params->users_number;
+
     return lfactors;
 }
 
 
+/*----------------------------------------------------------------------------------------------
+ *
+ *                                     Helper functions
+ *
+ *----------------------------------------------------------------------------------------------
+ */
 
+/*
+ * init_training_set:  allocate space for the training set
+ */
+struct training_set* 
+init_training_set(struct model_parameters* params)
+{
+	struct training_set* tset = malloc(sizeof(struct training_set));
+	unsigned int i = 0;
+	unsigned int j = 0;
+
+	tset->ratings = malloc(sizeof(double*) * params->items_number);
+
+	for (i = 0; i < params->items_number; i++)
+	{
+		tset->ratings[i] = malloc(sizeof(double) * params->users_number);
+
+		for (j = 0; j < params->users_number; j++)
+			tset->ratings[i][j] = 1;
+	}
+
+	tset->dimensionality = params->dimensionality;
+	tset->items_number = params->items_number;
+	tset->users_number = params->users_number;
+		 
+	return tset;
+}
+
+/*
+ * free_training_set:  delete the training set from memory
+ */
+void
+free_training_set(training_set_t* tset)
+{
+	unsigned int i = 0;
+	
+	for (i = 0; i < tset->items_number; i++)
+	{
+		free(tset->ratings[i]);
+	}
+
+	free(tset->ratings);
+	free(tset);
+}
+
+/*
+ * free_learned_factors:  delete the learned factors from memory
+ */
+void 
+free_learned_factors(learned_factors_t* lfactors)
+{
+	unsigned int i = 0;
+
+	for (i = 0; i < lfactors->items_number; i++)
+		free(lfactors->item_factor_vectors[i]);
+
+	free(lfactors->item_factor_vectors);
+
+	for (i = 0; i < lfactors->users_number; i++)
+		free(lfactors->user_factor_vectors[i]);
+
+	free(lfactors->user_factor_vectors);
+
+	free(lfactors);
+}
+
+/*
+ * set_known_rating: fill the training set with a known user/item rating                            
+ */
+void set_known_rating(int user_index, int item_index, double _value, training_set_t* tset)
+{
+	tset->ratings[item_index][user_index] = _value;
+}
+
+/*
+* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+*                                some learned factors.
+*/
+double
+estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors)
+{
+	return estimate_item_rating(lfactors->user_factor_vectors[user_index], 
+	                            lfactors->item_factor_vectors[item_index], 
+	                            lfactors->dimensionality);
+}
