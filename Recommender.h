@@ -53,11 +53,11 @@ struct model_parameters
     unsigned int     users_number;
     unsigned int     items_number;
 
-    double            lambda;          //The constant lambda controls the extent of regularization
-    double            step;            //step size in stochastic gradient descent algorithm
+    double           lambda;          //The constant lambda controls the extent of regularization
+    double           step;            //step size in stochastic gradient descent algorithm
 
-    unsigned int    dimensionality; //dimensionality of the joint latent factor space
-    unsigned int    iteration_number;
+    unsigned int     dimensionality; //dimensionality of the joint latent factor space
+    unsigned int     iteration_number;
 };
 
 struct learned_factors
@@ -71,11 +71,11 @@ struct learned_factors
     unsigned int     items_number;
 };
 
-typedef struct training_set       training_set_t;
+typedef struct training_set        training_set_t;
 
-typedef struct model_parameters   model_parameters_t;
+typedef struct model_parameters    model_parameters_t;
 
-typedef struct learned_factors    learned_factors_t;
+typedef struct learned_factors     learned_factors_t;
 
 /*
  * learn:            Learn using training set and the model parameters
@@ -105,10 +105,10 @@ learn(struct training_set* tset, struct model_parameters* params);
 *
 * Arguments:
 *      user_vector     The user's vector, measure the extent to which a user
-*                         is interested in a factor
+*                      is interested in a factor
 *      item_vector     The item's vector, measure the extent to which the item
-*                         possesses those factors
-*      dim              The size of the vectors
+*                      possesses those factors
+*      dim             The size of the vectors
 *
 * Returns:
 *      The dot product between the two vectors.
@@ -125,8 +125,8 @@ estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 *      user_vector     The user's factor vector to be computed
 *      item_vector     The item's factor vector to be computed
 *      r               The known rating from the training set.
-*      lambda            The constant lambda controls the extent of regularization
-*      size              The size of the vectors
+*      lambda          The constant lambda controls the extent of regularization
+*      size            The size of the vectors
 *
 * Returns:
 *      Return the regularized squared error.
@@ -134,11 +134,11 @@ estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 */
 double
 regularized_squared_error(
-                          double* user_vector,
-                          double* item_vector,
-                          double r,
-                          double lambda,
-                          unsigned int size);
+                           double* user_vector,
+                           double* item_vector,
+                           double r,
+                           double lambda,
+                           unsigned int size);
 
 
 /*------------------------------------------------------------------------------------
@@ -180,8 +180,8 @@ free_learned_factors(learned_factors_t* lfactors);
  *
  * Arguments:
  *      user_index: The index of a user
- *        user_index: The index of an item
- *        value:      The rating of an item
+ *      user_index: The index of an item
+ *      value:      The rating of an item
  *      tset:       The training set to be filled
  *
  */
@@ -194,7 +194,7 @@ void set_known_rating(int user_index, int item_index, double value, training_set
 *
 * Arguments:
 *      user_index: The index of a user
-*       user_index: The index of an item
+*      user_index: The index of an item
 *      lfactors  : Learned factors
 *
 * Returns:
