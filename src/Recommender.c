@@ -43,10 +43,10 @@
 *
 * Arguments:
 *      user_vector     The user's vector, measure the extent to which a user
-*      				   is interested in a factor
+*                         is interested in a factor
 *      item_vector     The item's vector, measure the extent to which the item
-*      				   possesses those factors
-*      dim   		   The size of the vectors
+*                         possesses those factors
+*      dim              The size of the vectors
 *
 * Returns:
 *      The dot product between the two vectors.
@@ -55,13 +55,13 @@
 double
 estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 {
-	double sum = 0;
-	unsigned int i;
+    double sum = 0;
+    unsigned int i;
 
-	for (i = 0; i < dim; i++)
-		sum += user_vector[i] * item_vector[i];
+    for (i = 0; i < dim; i++)
+        sum += user_vector[i] * item_vector[i];
 
-	return sum;
+    return sum;
 }
 
 
@@ -69,8 +69,8 @@ estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 * length2:  Return the squared length of a vector
 *
 * Arguments:
-*      vector     	   A vector (array) of double
-*      size   		   The size of the vector
+*      vector            A vector (array) of double
+*      size              The size of the vector
 *
 * Returns:
 *      Return the squared length of a vector.
@@ -79,26 +79,26 @@ estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 double
 length2(double* vector, unsigned int size)
 {
-	double sum = 0;
-	unsigned int i;
+    double sum = 0;
+    unsigned int i;
 
-	for (i = 0; i < size; i++)
-		sum += vector[i] * vector[i];
+    for (i = 0; i < size; i++)
+        sum += vector[i] * vector[i];
 
-	return sum;
+    return sum;
 }
 
 
 /*
 * regularized_squared_error:  Return the the regularized squared
-* 							  error on the set of known ratings
+*                               error on the set of known ratings
 *
 * Arguments:
 *      user_vector     The user's factor vector to be computed
 *      item_vector     The item's factor vector to be computed
-*      r			   The known rating from the training set.
-*      lambda     	   The constant lambda controls the extent of regularization
-*      size   		   The size of the vectors
+*      r               The known rating from the training set.
+*      lambda            The constant lambda controls the extent of regularization
+*      size              The size of the vectors
 *
 * Returns:
 *      Return the regularized squared error.
@@ -106,73 +106,73 @@ length2(double* vector, unsigned int size)
 */
 double
 regularized_squared_error(
-						  double* user_vector,
-						  double* item_vector,
-						  double r,
-						  double lambda,
-						  unsigned int size)
+                          double* user_vector,
+                          double* item_vector,
+                          double r,
+                          double lambda,
+                          unsigned int size)
 {
-	double diff = (r - estimate_item_rating(user_vector, item_vector, size));
+    double diff = (r - estimate_item_rating(user_vector, item_vector, size));
 
-	return diff * diff + lambda * (length2(user_vector, size) + length2(item_vector, size));
+    return diff * diff + lambda * (length2(user_vector, size) + length2(item_vector, size));
 }
 
 
 /*----------------------------------------------------------------------------------------------
  *
- * 									Learning algorithms
+ *                                     Learning algorithms
  *
  *----------------------------------------------------------------------------------------------
  */
 
 struct learned_factors* init_learned_factors(struct model_parameters* params)
 {
-	struct learned_factors* lfactors = malloc(sizeof(struct learned_factors));
-	unsigned int i = 0;
-	unsigned int j = 0;
+    struct learned_factors* lfactors = malloc(sizeof(struct learned_factors));
+    unsigned int i = 0;
+    unsigned int j = 0;
 
-	lfactors->item_factor_vectors = malloc(sizeof(double*) * params->items_number);
-	lfactors->user_factor_vectors = malloc(sizeof(double*) * params->users_number);
+    lfactors->item_factor_vectors = malloc(sizeof(double*) * params->items_number);
+    lfactors->user_factor_vectors = malloc(sizeof(double*) * params->users_number);
 
-	for (i = 0; i < params->items_number; i++)
-	{
-		lfactors->item_factor_vectors[i] =  malloc(sizeof(double) * params->dimensionality);
-		
-		for (j = 0; j < params->dimensionality; j++)
-		{
-			lfactors->item_factor_vectors[i][j] = 0.1;
-		}
-	}
+    for (i = 0; i < params->items_number; i++)
+    {
+        lfactors->item_factor_vectors[i] =  malloc(sizeof(double) * params->dimensionality);
+        
+        for (j = 0; j < params->dimensionality; j++)
+        {
+            lfactors->item_factor_vectors[i][j] = 0.1;
+        }
+    }
 
-	for (i = 0; i < params->users_number; i++)
-	{
-		lfactors->user_factor_vectors[i] =  malloc(sizeof(double) * params->dimensionality);
+    for (i = 0; i < params->users_number; i++)
+    {
+        lfactors->user_factor_vectors[i] =  malloc(sizeof(double) * params->dimensionality);
 
-		for (j = 0; j < params->dimensionality; j++)
-		{
-			lfactors->user_factor_vectors[i][j] = 0.1;
-		}
-	}
+        for (j = 0; j < params->dimensionality; j++)
+        {
+            lfactors->user_factor_vectors[i][j] = 0.1;
+        }
+    }
 
-	return lfactors;
+    return lfactors;
 }
 
 void 
 compute_factors(
-					double* item_factors, 
-					double* user_factors, 
-					double lambda, 
-					double step, 
-					double predicted_error, 
-					unsigned int dimensionality)
+                    double* item_factors, 
+                    double* user_factors, 
+                    double lambda, 
+                    double step, 
+                    double predicted_error, 
+                    unsigned int dimensionality)
 {
-	unsigned int i = 0;
+    unsigned int i = 0;
 
-	for (i = 0; i < dimensionality; i++)
-	{
-		item_factors[i] = item_factors[i] + step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
-		user_factors[i] = user_factors[i] + step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
-	}
+    for (i = 0; i < dimensionality; i++)
+    {
+        item_factors[i] = item_factors[i] + step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
+        user_factors[i] = user_factors[i] + step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
+    }
 }
 
 /*
@@ -181,37 +181,37 @@ compute_factors(
 struct learned_factors*
 learn(struct training_set* tset, struct model_parameters* params)
 {
-	struct learned_factors* lfactors = init_learned_factors(params);
+    struct learned_factors* lfactors = init_learned_factors(params);
 
-	unsigned int i = 0;
-	unsigned int u = 0;
+    unsigned int i = 0;
+    unsigned int u = 0;
 
-	unsigned int k = 0;
+    unsigned int k = 0;
 
-	double r_iu = 0;
-	double r_iu_estimated = 0;
+    double r_iu = 0;
+    double r_iu_estimated = 0;
 
-	double e_iu = 0;
+    double e_iu = 0;
 
-	for (i = 0; i < params->items_number; i++)
-		for (u = 0; u < params->users_number; u++)
-		{
-			r_iu = tset->ratings[i][u];
+    for (i = 0; i < params->items_number; i++)
+        for (u = 0; u < params->users_number; u++)
+        {
+            r_iu = tset->ratings[i][u];
 
-			for (k = 0; k < params->iteration_number; k++)
-			{
-				double* item_factors = lfactors->item_factor_vectors[i];
-				double* user_factors = lfactors->user_factor_vectors[u];
+            for (k = 0; k < params->iteration_number; k++)
+            {
+                double* item_factors = lfactors->item_factor_vectors[i];
+                double* user_factors = lfactors->user_factor_vectors[u];
 
-				r_iu_estimated = estimate_item_rating(item_factors, user_factors, params->dimensionality);
+                r_iu_estimated = estimate_item_rating(item_factors, user_factors, params->dimensionality);
 
-				e_iu = r_iu - r_iu_estimated;
+                e_iu = r_iu - r_iu_estimated;
 
-				compute_factors(item_factors, user_factors, params->lambda, params->step, e_iu, params->dimensionality);
-			}
-		}
+                compute_factors(item_factors, user_factors, params->lambda, params->step, e_iu, params->dimensionality);
+            }
+        }
 
-	return lfactors;
+    return lfactors;
 }
 
 

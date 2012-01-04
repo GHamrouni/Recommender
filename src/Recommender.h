@@ -33,42 +33,42 @@
 
 /*----------------------------------------------------------------------------------------------
  *
- * 									Learning algorithms
+ *                                     Learning algorithms
  *
  *----------------------------------------------------------------------------------------------
  */
 
 struct training_set
 {
-	double** 		ratings;			//Known ratings
-	unsigned int 	training_set_size;  //The number of ratings
+    double**         ratings;            //Known ratings
+    unsigned int     training_set_size;  //The number of ratings
 };
 
 struct model_parameters
 {
-	unsigned int 	users_number;
-	unsigned int 	items_number;
+    unsigned int     users_number;
+    unsigned int     items_number;
 
-	double			lambda;			//The constant lambda controls the extent of regularization
-	double			step;			//step size in stochastic gradient descent algorithm
+    double            lambda;            //The constant lambda controls the extent of regularization
+    double            step;            //step size in stochastic gradient descent algorithm
 
-	unsigned int	dimensionality; //dimensionality of the joint latent factor space
-	unsigned int	iteration_number;
+    unsigned int    dimensionality; //dimensionality of the joint latent factor space
+    unsigned int    iteration_number;
 };
 
 struct learned_factors
 {
-	double** 		user_factor_vectors;
-	double** 		item_factor_vectors;
+    double**         user_factor_vectors;
+    double**         item_factor_vectors;
 };
 
 /*
- * learn:			Learn using training set and the model parameters
- * 							  
+ * learn:            Learn using training set and the model parameters
+ *                               
  *
  * Arguments:
- *      tset		The training set contains the known rating of items
- *      params		Parameters of the model
+ *      tset        The training set contains the known rating of items
+ *      params        Parameters of the model
  *
  * Returns:
  *      Return the learned factors.
@@ -80,7 +80,7 @@ learn(struct training_set* tset, struct model_parameters* params);
 
 /*----------------------------------------------------------------------------------------------
  *
- * 									Rating estimation/computaion
+ *                                     Rating estimation/computaion
  *
  *----------------------------------------------------------------------------------------------
  */
@@ -90,10 +90,10 @@ learn(struct training_set* tset, struct model_parameters* params);
 *
 * Arguments:
 *      user_vector     The user's vector, measure the extent to which a user
-*      				   is interested in a factor
+*                         is interested in a factor
 *      item_vector     The item's vector, measure the extent to which the item
-*      				   possesses those factors
-*      dim   		   The size of the vectors
+*                         possesses those factors
+*      dim              The size of the vectors
 *
 * Returns:
 *      The dot product between the two vectors.
@@ -104,14 +104,14 @@ estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 
 /*
 * regularized_squared_error:  Return the the regularized squared
-* 							  error on the set of known ratings
+*                               error on the set of known ratings
 *
 * Arguments:
 *      user_vector     The user's factor vector to be computed
 *      item_vector     The item's factor vector to be computed
-*      r			   The known rating from the training set.
-*      lambda     	   The constant lambda controls the extent of regularization
-*      size   		   The size of the vectors
+*      r               The known rating from the training set.
+*      lambda            The constant lambda controls the extent of regularization
+*      size              The size of the vectors
 *
 * Returns:
 *      Return the regularized squared error.
@@ -119,8 +119,8 @@ estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 */
 double
 regularized_squared_error(
-						  double* user_vector,
-						  double* item_vector,
-						  double r,
-						  double lambda,
-						  unsigned int size);
+                          double* user_vector,
+                          double* item_vector,
+                          double r,
+                          double lambda,
+                          unsigned int size);
