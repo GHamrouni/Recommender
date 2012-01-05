@@ -31,6 +31,9 @@
  *
  */
 
+#ifndef RECOMMANDER_H
+#define RECOMMANDER_H
+
 /*-------------------------------------------------------------------------------------
  *
  *                                Learning algorithms
@@ -203,3 +206,5 @@ void set_known_rating(int user_index, int item_index, double value, training_set
 */
 double
 estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors);
+
+#endif //RECOMMANDER_H
