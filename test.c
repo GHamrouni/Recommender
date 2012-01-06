@@ -12,15 +12,15 @@ int main(void) {
 
 	//Model configuration
 	//Setup model parameters
-	model_parameters_t* params = malloc(sizeof(model_parameters_t));
-
-	params->dimensionality = 20;
-	params->iteration_number = 10000;
-	params->items_number = 2;
-	params->users_number = 2;
-	params->lambda = 0.1;
-	params->step = 0.000001;
-
+	model_parameters_t params;
+	
+	params.dimensionality = 20;
+	params.iteration_number = 10000;
+	params.items_number = 2;
+	params.users_number = 2;
+	params.lambda = 0.1;
+	params.step = 0.000001;
+	
 	//Learning
 	//Initialize a training set
 	tset = init_training_set(params);
@@ -36,7 +36,6 @@ int main(void) {
 
 	free_learned_factors(learned);
 	free_training_set(tset);
-	free(params);
 
 	system("pause");
 

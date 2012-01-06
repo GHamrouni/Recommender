@@ -93,7 +93,7 @@ typedef struct learned_factors     learned_factors_t;
  *
  */
 struct learned_factors*
-learn(struct training_set* tset, struct model_parameters* params);
+learn(struct training_set* tset, struct model_parameters params);
 
 
 /*------------------------------------------------------------------------------------
@@ -163,7 +163,7 @@ regularized_squared_error(
  *
  */
 struct training_set* 
-init_training_set(struct model_parameters* params);
+init_training_set(struct model_parameters params);
 
 /*
  * free_training_set:  delete the training set from memory

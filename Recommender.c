@@ -125,30 +125,30 @@ regularized_squared_error(
  *----------------------------------------------------------------------------------------------
  */
 
-struct learned_factors* init_learned_factors(struct model_parameters* params)
+struct learned_factors* init_learned_factors(struct model_parameters params)
 {
     struct learned_factors* lfactors = malloc(sizeof(struct learned_factors));
     unsigned int i = 0;
     unsigned int j = 0;
 
-    lfactors->item_factor_vectors = malloc(sizeof(double*) * params->items_number);
-    lfactors->user_factor_vectors = malloc(sizeof(double*) * params->users_number);
+    lfactors->item_factor_vectors = malloc(sizeof(double*) * params.items_number);
+    lfactors->user_factor_vectors = malloc(sizeof(double*) * params.users_number);
 
-    for (i = 0; i < params->items_number; i++)
+    for (i = 0; i < params.items_number; i++)
     {
-        lfactors->item_factor_vectors[i] =  malloc(sizeof(double) * params->dimensionality);
+        lfactors->item_factor_vectors[i] =  malloc(sizeof(double) * params.dimensionality);
         
-        for (j = 0; j < params->dimensionality; j++)
+        for (j = 0; j < params.dimensionality; j++)
         {
             lfactors->item_factor_vectors[i][j] = 0.1;
         }
     }
 
-    for (i = 0; i < params->users_number; i++)
+    for (i = 0; i < params.users_number; i++)
     {
-        lfactors->user_factor_vectors[i] =  malloc(sizeof(double) * params->dimensionality);
+        lfactors->user_factor_vectors[i] =  malloc(sizeof(double) * params.dimensionality);
 
-        for (j = 0; j < params->dimensionality; j++)
+        for (j = 0; j < params.dimensionality; j++)
         {
             lfactors->user_factor_vectors[i][j] = 0.1;
         }
@@ -179,7 +179,7 @@ compute_factors(
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn(struct training_set* tset, struct model_parameters* params)
+learn(struct training_set* tset, struct model_parameters params)
 {
     struct learned_factors* lfactors = init_learned_factors(params);
 
@@ -193,27 +193,27 @@ learn(struct training_set* tset, struct model_parameters* params)
 
     double e_iu = 0;
 
-    for (i = 0; i < params->items_number; i++)
-        for (u = 0; u < params->users_number; u++)
+    for (i = 0; i < params.items_number; i++)
+        for (u = 0; u < params.users_number; u++)
         {
             r_iu = tset->ratings[i][u];
 
-            for (k = 0; k < params->iteration_number; k++)
+            for (k = 0; k < params.iteration_number; k++)
             {
                 double* item_factors = lfactors->item_factor_vectors[i];
                 double* user_factors = lfactors->user_factor_vectors[u];
 
-                r_iu_estimated = estimate_item_rating(item_factors, user_factors, params->dimensionality);
+                r_iu_estimated = estimate_item_rating(item_factors, user_factors, params.dimensionality);
 
                 e_iu = r_iu - r_iu_estimated;
 
-                compute_factors(item_factors, user_factors, params->lambda, params->step, e_iu, params->dimensionality);
+                compute_factors(item_factors, user_factors, params.lambda, params.step, e_iu, params.dimensionality);
             }
         }
 
-	lfactors->dimensionality = params->dimensionality;
-	lfactors->items_number = params->items_number;
-	lfactors->users_number = params->users_number;
+	lfactors->dimensionality = params.dimensionality;
+	lfactors->items_number = params.items_number;
+	lfactors->users_number = params.users_number;
 
     return lfactors;
 }
@@ -230,25 +230,25 @@ learn(struct training_set* tset, struct model_parameters* params)
  * init_training_set:  allocate space for the training set
  */
 struct training_set* 
-init_training_set(struct model_parameters* params)
+init_training_set(struct model_parameters params)
 {
 	struct training_set* tset = malloc(sizeof(struct training_set));
 	unsigned int i = 0;
 	unsigned int j = 0;
 
-	tset->ratings = malloc(sizeof(double*) * params->items_number);
+	tset->ratings = malloc(sizeof(double*) * params.items_number);
 
-	for (i = 0; i < params->items_number; i++)
+	for (i = 0; i < params.items_number; i++)
 	{
-		tset->ratings[i] = malloc(sizeof(double) * params->users_number);
+		tset->ratings[i] = malloc(sizeof(double) * params.users_number);
 
-		for (j = 0; j < params->users_number; j++)
+		for (j = 0; j < params.users_number; j++)
 			tset->ratings[i][j] = 1;
 	}
 
-	tset->dimensionality = params->dimensionality;
-	tset->items_number = params->items_number;
-	tset->users_number = params->users_number;
+	tset->dimensionality = params.dimensionality;
+	tset->items_number = params.items_number;
+	tset->users_number = params.users_number;
 		 
 	return tset;
 }
