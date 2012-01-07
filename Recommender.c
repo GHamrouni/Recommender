@@ -189,19 +189,19 @@ learn(struct training_set* tset, struct model_parameters params)
     double r_iu_estimated = 0;
 
     double e_iu = 0;
-	double* item_factors;
-	double* user_factors;
+    double* item_factors;
+    double* user_factors;
 
-	r = k = u = i = 0;
+    r = k = u = i = 0;
 
-	for (k = 0; k < params.iteration_number; k++)
-	{
+    for (k = 0; k < params.iteration_number; k++)
+    {
         for (r = 0; r < params.training_set_size; r++)
         {
              r_iu = tset->ratings[r].value;
 
-    		 i = tset->ratings[r].item_index;
-	    	 u = tset->ratings[r].user_index;
+             i = tset->ratings[r].item_index;
+             u = tset->ratings[r].user_index;
 
              item_factors = lfactors->item_factor_vectors[i];
              user_factors = lfactors->user_factor_vectors[u];
@@ -214,9 +214,9 @@ learn(struct training_set* tset, struct model_parameters params)
          }
      }
 
-	lfactors->dimensionality = params.dimensionality;
-	lfactors->items_number = params.items_number;
-	lfactors->users_number = params.users_number;
+    lfactors->dimensionality = params.dimensionality;
+    lfactors->items_number = params.items_number;
+    lfactors->users_number = params.users_number;
 
     return lfactors;
 }
@@ -235,15 +235,15 @@ learn(struct training_set* tset, struct model_parameters params)
 struct training_set* 
 init_training_set(struct model_parameters params)
 {
-	struct training_set* tset = malloc(sizeof(struct training_set));
+    struct training_set* tset = malloc(sizeof(struct training_set));
 
-	tset->ratings = malloc(sizeof(rating_t) * params.training_set_size);
+    tset->ratings = malloc(sizeof(rating_t) * params.training_set_size);
 
-	tset->current_rating_index = 0;
-	tset->training_set_size = params.training_set_size;
-	tset->dimensionality = params.dimensionality;
-		 
-	return tset;
+    tset->current_rating_index = 0;
+    tset->training_set_size = params.training_set_size;
+    tset->dimensionality = params.dimensionality;
+         
+    return tset;
 }
 
 /*
@@ -252,8 +252,8 @@ init_training_set(struct model_parameters params)
 void
 free_training_set(training_set_t* tset)
 {
-	free(tset->ratings);
-	free(tset);
+    free(tset->ratings);
+    free(tset);
 }
 
 /*
@@ -262,19 +262,19 @@ free_training_set(training_set_t* tset)
 void 
 free_learned_factors(learned_factors_t* lfactors)
 {
-	unsigned int i = 0;
+    unsigned int i = 0;
 
-	for (i = 0; i < lfactors->items_number; i++)
-		free(lfactors->item_factor_vectors[i]);
+    for (i = 0; i < lfactors->items_number; i++)
+        free(lfactors->item_factor_vectors[i]);
 
-	free(lfactors->item_factor_vectors);
+    free(lfactors->item_factor_vectors);
 
-	for (i = 0; i < lfactors->users_number; i++)
-		free(lfactors->user_factor_vectors[i]);
+    for (i = 0; i < lfactors->users_number; i++)
+        free(lfactors->user_factor_vectors[i]);
 
-	free(lfactors->user_factor_vectors);
+    free(lfactors->user_factor_vectors);
 
-	free(lfactors);
+    free(lfactors);
 }
 
 /*
@@ -282,11 +282,11 @@ free_learned_factors(learned_factors_t* lfactors)
  */
 void set_known_rating(int user_index, int item_index, double _value, training_set_t* tset)
 {
-	tset->ratings[tset->current_rating_index].user_index = user_index;
-	tset->ratings[tset->current_rating_index].item_index = item_index; 
-	tset->ratings[tset->current_rating_index].value = _value;
+    tset->ratings[tset->current_rating_index].user_index = user_index;
+    tset->ratings[tset->current_rating_index].item_index = item_index; 
+    tset->ratings[tset->current_rating_index].value = _value;
 
-	tset->current_rating_index++;
+    tset->current_rating_index++;
 }
 
 /*
@@ -296,7 +296,7 @@ void set_known_rating(int user_index, int item_index, double _value, training_se
 double
 estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors)
 {
-	return estimate_item_rating(lfactors->user_factor_vectors[user_index], 
-	                            lfactors->item_factor_vectors[item_index], 
-	                            lfactors->dimensionality);
+    return estimate_item_rating(lfactors->user_factor_vectors[user_index], 
+                                lfactors->item_factor_vectors[item_index], 
+                                lfactors->dimensionality);
 }
