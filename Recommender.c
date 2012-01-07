@@ -183,33 +183,34 @@ learn(struct training_set* tset, struct model_parameters params)
 {
     struct learned_factors* lfactors = init_learned_factors(params);
 
-    unsigned int i = 0;
-    unsigned int u = 0;
-
-    unsigned int k = 0;
+    unsigned int r, k, i, u;
 
     double r_iu = 0;
     double r_iu_estimated = 0;
 
     double e_iu = 0;
 
-    for (i = 0; i < params.items_number; i++)
-        for (u = 0; u < params.users_number; u++)
-        {
-            r_iu = tset->ratings[i][u];
+	r = k = u = i = 0;
 
-            for (k = 0; k < params.iteration_number; k++)
-            {
-                double* item_factors = lfactors->item_factor_vectors[i];
-                double* user_factors = lfactors->user_factor_vectors[u];
+    for (r = 0; r < params.training_set_size; r++)
+    {
+         r_iu = tset->ratings[r].value;
 
-                r_iu_estimated = estimate_item_rating(item_factors, user_factors, params.dimensionality);
+		 i = tset->ratings[r].item_index;
+		 u = tset->ratings[r].user_index;
 
-                e_iu = r_iu - r_iu_estimated;
+         for (k = 0; k < params.iteration_number; k++)
+         {
+             double* item_factors = lfactors->item_factor_vectors[i];
+             double* user_factors = lfactors->user_factor_vectors[u];
 
-                compute_factors(item_factors, user_factors, params.lambda, params.step, e_iu, params.dimensionality);
-            }
-        }
+             r_iu_estimated = estimate_item_rating(item_factors, user_factors, params.dimensionality);
+
+             e_iu = r_iu - r_iu_estimated;
+
+             compute_factors(item_factors, user_factors, params.lambda, params.step, e_iu, params.dimensionality);
+         }
+     }
 
 	lfactors->dimensionality = params.dimensionality;
 	lfactors->items_number = params.items_number;
@@ -233,22 +234,12 @@ struct training_set*
 init_training_set(struct model_parameters params)
 {
 	struct training_set* tset = malloc(sizeof(struct training_set));
-	unsigned int i = 0;
-	unsigned int j = 0;
 
-	tset->ratings = malloc(sizeof(double*) * params.items_number);
+	tset->ratings = malloc(sizeof(rating_t) * params.training_set_size);
 
-	for (i = 0; i < params.items_number; i++)
-	{
-		tset->ratings[i] = malloc(sizeof(double) * params.users_number);
-
-		for (j = 0; j < params.users_number; j++)
-			tset->ratings[i][j] = 1;
-	}
-
+	tset->current_rating_index = 0;
+	tset->training_set_size = params.training_set_size;
 	tset->dimensionality = params.dimensionality;
-	tset->items_number = params.items_number;
-	tset->users_number = params.users_number;
 		 
 	return tset;
 }
@@ -259,13 +250,6 @@ init_training_set(struct model_parameters params)
 void
 free_training_set(training_set_t* tset)
 {
-	unsigned int i = 0;
-	
-	for (i = 0; i < tset->items_number; i++)
-	{
-		free(tset->ratings[i]);
-	}
-
 	free(tset->ratings);
 	free(tset);
 }
@@ -296,7 +280,11 @@ free_learned_factors(learned_factors_t* lfactors)
  */
 void set_known_rating(int user_index, int item_index, double _value, training_set_t* tset)
 {
-	tset->ratings[item_index][user_index] = _value;
+	tset->ratings[tset->current_rating_index].user_index = user_index;
+	tset->ratings[tset->current_rating_index].item_index = item_index; 
+	tset->ratings[tset->current_rating_index].value = _value;
+
+	tset->current_rating_index++;
 }
 
 /*

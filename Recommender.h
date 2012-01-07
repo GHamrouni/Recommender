@@ -41,15 +41,24 @@
  *-------------------------------------------------------------------------------------
  */
 
+struct rating
+{
+	int user_index;
+	int item_index;
+	double value;
+};
+
+typedef struct rating              rating_t;
+
 struct training_set
 {
-    double**         ratings;            //Known ratings
-    unsigned int     training_set_size;  //The number of ratings
-    unsigned int     dimensionality; //dimensionality of the joint latent factor space
-
-    unsigned int     users_number;
-    unsigned int     items_number;
+    rating_t*        ratings;            //Known ratings
+    unsigned int     training_set_size;  //The number of known ratings
+    unsigned int     dimensionality;     //dimensionality of the joint latent factor space
+	unsigned int     current_rating_index;
 };
+
+typedef struct training_set        training_set_t;
 
 struct model_parameters
 {
@@ -61,7 +70,11 @@ struct model_parameters
 
     unsigned int     dimensionality; //dimensionality of the joint latent factor space
     unsigned int     iteration_number;
+
+	unsigned int     training_set_size;  //The number of known ratings
 };
+
+typedef struct model_parameters    model_parameters_t;
 
 struct learned_factors
 {
@@ -73,10 +86,6 @@ struct learned_factors
     unsigned int     users_number;
     unsigned int     items_number;
 };
-
-typedef struct training_set        training_set_t;
-
-typedef struct model_parameters    model_parameters_t;
 
 typedef struct learned_factors     learned_factors_t;
 
@@ -188,7 +197,8 @@ free_learned_factors(learned_factors_t* lfactors);
  *      tset:       The training set to be filled
  *
  */
-void set_known_rating(int user_index, int item_index, double value, training_set_t* tset);
+void 
+set_known_rating(int user_index, int item_index, double value, training_set_t* tset);
 
 
 /*
