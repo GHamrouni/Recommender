@@ -6,7 +6,7 @@ Computing the product recommendation using a latent factor model
 
 Keywords
 --------
-collaborative ?ltering, recommender system
+collaborative filtering, recommender system
 
 References
 --------
