@@ -189,20 +189,22 @@ learn(struct training_set* tset, struct model_parameters params)
     double r_iu_estimated = 0;
 
     double e_iu = 0;
+	double* item_factors;
+	double* user_factors;
 
 	r = k = u = i = 0;
 
-    for (r = 0; r < params.training_set_size; r++)
-    {
-         r_iu = tset->ratings[r].value;
+	for (k = 0; k < params.iteration_number; k++)
+	{
+        for (r = 0; r < params.training_set_size; r++)
+        {
+             r_iu = tset->ratings[r].value;
 
-		 i = tset->ratings[r].item_index;
-		 u = tset->ratings[r].user_index;
+    		 i = tset->ratings[r].item_index;
+	    	 u = tset->ratings[r].user_index;
 
-         for (k = 0; k < params.iteration_number; k++)
-         {
-             double* item_factors = lfactors->item_factor_vectors[i];
-             double* user_factors = lfactors->user_factor_vectors[u];
+             item_factors = lfactors->item_factor_vectors[i];
+             user_factors = lfactors->user_factor_vectors[u];
 
              r_iu_estimated = estimate_item_rating(item_factors, user_factors, params.dimensionality);
 

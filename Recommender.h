@@ -24,23 +24,19 @@
 * SUCH DAMAGE.
 */
 
-/*
- *
- * Recommender system using matrix factorization (MF)
- * Computing the product recommendation using latent factor models
- *
- */
+/************************************************************************/
+/* Recommender system using matrix factorization (MF)                   */
+/* Computing the product recommendation using latent factor models      */
+/************************************************************************/
 
 #ifndef RECOMMANDER_H
 #define RECOMMANDER_H
 
-/*-------------------------------------------------------------------------------------
- *
- *                                Learning algorithms
- *
- *-------------------------------------------------------------------------------------
- */
+/************************************************************************/
+/*                         Learning algorithms                          */
+/************************************************************************/
 
+//A known user rating
 struct rating
 {
 	int user_index;
@@ -48,7 +44,7 @@ struct rating
 	double value;
 };
 
-typedef struct rating              rating_t;
+typedef struct rating rating_t;
 
 struct training_set
 {
@@ -58,7 +54,7 @@ struct training_set
 	unsigned int     current_rating_index;
 };
 
-typedef struct training_set        training_set_t;
+typedef struct training_set training_set_t;
 
 struct model_parameters
 {
@@ -74,7 +70,7 @@ struct model_parameters
 	unsigned int     training_set_size;  //The number of known ratings
 };
 
-typedef struct model_parameters    model_parameters_t;
+typedef struct model_parameters model_parameters_t;
 
 struct learned_factors
 {
@@ -87,7 +83,7 @@ struct learned_factors
     unsigned int     items_number;
 };
 
-typedef struct learned_factors     learned_factors_t;
+typedef struct learned_factors learned_factors_t;
 
 /*
  * learn:            Learn using training set and the model parameters
@@ -104,13 +100,9 @@ typedef struct learned_factors     learned_factors_t;
 struct learned_factors*
 learn(struct training_set* tset, struct model_parameters params);
 
-
-/*------------------------------------------------------------------------------------
- *
- *                          Rating estimation/computaion
- *
- *------------------------------------------------------------------------------------
- */
+/************************************************************************/
+/*                    Rating estimation/computation                     */
+/************************************************************************/
 
 /*
 * rate_item:  Return the approximates user’s rating of an item
@@ -152,13 +144,9 @@ regularized_squared_error(
                            double lambda,
                            unsigned int size);
 
-
-/*------------------------------------------------------------------------------------
- *
- *                                Helper functions
- *
- *------------------------------------------------------------------------------------
- */
+/************************************************************************/
+/*                          Helper functions                            */
+/************************************************************************/
 
 /*
  * init_training_set:  allocate space for the training set
