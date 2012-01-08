@@ -24,14 +24,8 @@
 * SUCH DAMAGE.
 */
 
-/*
- *
- * Recommender system using matrix factorization (MF)
- * Computing the product recommendation using latent factor models
- *
- */
-
-#include "Recommender.h"
+#include "training_set.h"
+#include "model_parameters.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,26 +34,46 @@
 
 /*----------------------------------------------------------------------------------------------
  *
- *                                     Learning algorithms
+ *                                     Helper functions
  *
  *----------------------------------------------------------------------------------------------
  */
 
 /*
- * Stochastic gradient descent
+ * init_training_set:  allocate space for the training set
  */
-struct learned_factors*
-learn(struct training_set* tset, struct model_parameters params, struct learning_model model)
+struct training_set* 
+init_training_set(struct model_parameters params)
 {
-    return model.learning_algorithm(tset, params);
+    struct training_set* tset = malloc(sizeof(struct training_set));
+
+    tset->ratings = malloc(sizeof(rating_t) * params.training_set_size);
+
+    tset->current_rating_index = 0;
+    tset->training_set_size = params.training_set_size;
+    tset->dimensionality = params.dimensionality;
+         
+    return tset;
 }
 
 /*
-* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
-*                                some learned factors.
-*/
-double
-estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors, struct learning_model model)
+ * free_training_set:  delete the training set from memory
+ */
+void
+free_training_set(training_set_t* tset)
 {
-    return model.rating_estimator(user_index, item_index, lfactors);
+    free(tset->ratings);
+    free(tset);
+}
+
+/*
+ * set_known_rating: fill the training set with a known user/item rating                            
+ */
+void set_known_rating(int user_index, int item_index, double _value, training_set_t* tset)
+{
+    tset->ratings[tset->current_rating_index].user_index = user_index;
+    tset->ratings[tset->current_rating_index].item_index = item_index; 
+    tset->ratings[tset->current_rating_index].value = _value;
+
+    tset->current_rating_index++;
 }

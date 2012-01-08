@@ -24,63 +24,66 @@
 * SUCH DAMAGE.
 */
 
-/************************************************************************/
-/* Recommender system using matrix factorization (MF)                   */
-/* Computing the product recommendation using latent factor models      */
-/************************************************************************/
+#ifndef TRAINING_SET_H
+#define TRAINING_SET_H
 
-#ifndef RECOMMANDER_H
-#define RECOMMANDER_H
-
-
-//includes
-#include "model_parameters.h"
-#include "training_set.h"
-#include "learned_factors.h"
-#include "learning_algorithm.h"
-#include "rating_estimator.h"
-
-/************************************************************************/
-/*                         Learning algorithms                          */
-/************************************************************************/
-
-struct learning_model
+//A known user rating
+struct rating
 {
-	learning_algorithm_t learning_algorithm;
-	rating_estimator_t   rating_estimator;
+	int user_index;
+	int item_index;
+	double value;
 };
 
-typedef struct learning_model learning_model_t;
+typedef struct rating rating_t;
+
+struct training_set
+{
+    rating_t*        ratings;            //Known ratings
+    unsigned int     training_set_size;  //The number of known ratings
+    unsigned int     dimensionality;     //dimensionality of the joint latent factor space
+	unsigned int     current_rating_index;
+};
+
+typedef struct training_set training_set_t;
+
+/************************************************************************/
+/*                          Helper functions                            */
+/************************************************************************/
 
 /*
- * learn:            Learn using training set and the model parameters
+ * init_training_set:  allocate space for the training set
  *                               
  *
  * Arguments:
- *      tset        The training set contains the known rating of items
  *      params        Parameters of the model
  *
  * Returns:
- *      Return the learned factors.
+ *      Return an initialized training set.
  *
  */
-struct learned_factors*
-learn(struct training_set* tset, struct model_parameters params, struct learning_model model);
+struct training_set* 
+init_training_set(struct model_parameters params);
 
 /*
-* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
-*                                some learned factors.
-*
-* Arguments:
-*      user_index: The index of a user
-*      user_index: The index of an item
-*      lfactors  : Learned factors
-*
-* Returns:
-*      The estimated rating.
-*
-*/
-double
-estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors, struct learning_model model);
+ * free_training_set:  delete the training set from memory
+ */
+void
+free_training_set(training_set_t* tset);
 
-#endif //RECOMMANDER_H
+/*
+ * set_known_rating: fill the training set with a known user/item rating
+ *                               
+ *
+ * Arguments:
+ *      user_index: The index of a user
+ *      user_index: The index of an item
+ *      value:      The rating of an item
+ *      tset:       The training set to be filled
+ *
+ */
+void 
+set_known_rating(int user_index, int item_index, double value, training_set_t* tset);
+
+
+#endif //TRAINING_SET_H

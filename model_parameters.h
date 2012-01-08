@@ -24,42 +24,23 @@
 * SUCH DAMAGE.
 */
 
-/*
- *
- * Recommender system using matrix factorization (MF)
- * Computing the product recommendation using latent factor models
- *
- */
+#ifndef MODEL_PARAMETERS_H
+#define MODEL_PARAMETERS_H
 
-#include "Recommender.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory.h>
-#include <math.h>
-
-/*----------------------------------------------------------------------------------------------
- *
- *                                     Learning algorithms
- *
- *----------------------------------------------------------------------------------------------
- */
-
-/*
- * Stochastic gradient descent
- */
-struct learned_factors*
-learn(struct training_set* tset, struct model_parameters params, struct learning_model model)
+struct model_parameters
 {
-    return model.learning_algorithm(tset, params);
-}
+    unsigned int     users_number;
+    unsigned int     items_number;
 
-/*
-* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
-*                                some learned factors.
-*/
-double
-estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors, struct learning_model model)
-{
-    return model.rating_estimator(user_index, item_index, lfactors);
-}
+    double           lambda;          //The constant lambda controls the extent of regularization
+    double           step;            //step size in stochastic gradient descent algorithm
+
+    unsigned int     dimensionality; //dimensionality of the joint latent factor space
+    unsigned int     iteration_number;
+
+	unsigned int     training_set_size;  //The number of known ratings
+};
+
+typedef struct model_parameters model_parameters_t;
+
+#endif //MODEL_PARAMETERS_H

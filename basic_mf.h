@@ -24,42 +24,53 @@
 * SUCH DAMAGE.
 */
 
-/*
- *
- * Recommender system using matrix factorization (MF)
- * Computing the product recommendation using latent factor models
- *
- */
+/************************************************************************/
+/* Recommender system using matrix factorization (MF)                   */
+/* Computing the product recommendation using latent factor models      */
+/************************************************************************/
 
-#include "Recommender.h"
+#ifndef BASIC_MATRIX_FACTORIZATION_H
+#define BASIC_MATRIX_FACTORIZATION_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <memory.h>
-#include <math.h>
 
-/*----------------------------------------------------------------------------------------------
- *
- *                                     Learning algorithms
- *
- *----------------------------------------------------------------------------------------------
- */
+//includes
+#include "model_parameters.h"
+#include "training_set.h"
+#include "learned_factors.h"
+
+/************************************************************************/
+/*                         Learning algorithms                          */
+/************************************************************************/
 
 /*
- * Stochastic gradient descent
+ * learn:            Learn using training set and the model parameters
+ *                               
+ *
+ * Arguments:
+ *      tset        The training set contains the known rating of items
+ *      params        Parameters of the model
+ *
+ * Returns:
+ *      Return the learned factors.
+ *
  */
 struct learned_factors*
-learn(struct training_set* tset, struct model_parameters params, struct learning_model model)
-{
-    return model.learning_algorithm(tset, params);
-}
+learn_basic_mf(struct training_set* tset, struct model_parameters params);
 
 /*
 * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
 *                                some learned factors.
+*
+* Arguments:
+*      user_index: The index of a user
+*      user_index: The index of an item
+*      lfactors  : Learned factors
+*
+* Returns:
+*      The estimated rating.
+*
 */
 double
-estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors, struct learning_model model)
-{
-    return model.rating_estimator(user_index, item_index, lfactors);
-}
+estimate_rating_basic_mf(int user_index, int item_index, learned_factors_t* lfactors);
+
+#endif //BASIC_MATRIX_FACTORIZATION_H

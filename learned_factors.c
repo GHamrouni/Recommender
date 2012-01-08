@@ -31,35 +31,63 @@
  *
  */
 
-#include "Recommender.h"
+#include "learned_factors.h"
+#include "model_parameters.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
 
-/*----------------------------------------------------------------------------------------------
- *
- *                                     Learning algorithms
- *
- *----------------------------------------------------------------------------------------------
- */
-
-/*
- * Stochastic gradient descent
- */
-struct learned_factors*
-learn(struct training_set* tset, struct model_parameters params, struct learning_model model)
+struct learned_factors* init_learned_factors(struct model_parameters params)
 {
-    return model.learning_algorithm(tset, params);
+    struct learned_factors* lfactors = malloc(sizeof(struct learned_factors));
+    unsigned int i = 0;
+    unsigned int j = 0;
+
+    lfactors->item_factor_vectors = malloc(sizeof(double*) * params.items_number);
+    lfactors->user_factor_vectors = malloc(sizeof(double*) * params.users_number);
+
+    for (i = 0; i < params.items_number; i++)
+    {
+        lfactors->item_factor_vectors[i] =  malloc(sizeof(double) * params.dimensionality);
+        
+        for (j = 0; j < params.dimensionality; j++)
+        {
+            lfactors->item_factor_vectors[i][j] = 0.1;
+        }
+    }
+
+    for (i = 0; i < params.users_number; i++)
+    {
+        lfactors->user_factor_vectors[i] =  malloc(sizeof(double) * params.dimensionality);
+
+        for (j = 0; j < params.dimensionality; j++)
+        {
+            lfactors->user_factor_vectors[i][j] = 0.1;
+        }
+    }
+
+    return lfactors;
 }
 
 /*
-* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
-*                                some learned factors.
-*/
-double
-estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors, struct learning_model model)
+ * free_learned_factors:  delete the learned factors from memory
+ */
+void 
+free_learned_factors(learned_factors_t* lfactors)
 {
-    return model.rating_estimator(user_index, item_index, lfactors);
+    unsigned int i = 0;
+
+    for (i = 0; i < lfactors->items_number; i++)
+        free(lfactors->item_factor_vectors[i]);
+
+    free(lfactors->item_factor_vectors);
+
+    for (i = 0; i < lfactors->users_number; i++)
+        free(lfactors->user_factor_vectors[i]);
+
+    free(lfactors->user_factor_vectors);
+
+    free(lfactors);
 }
