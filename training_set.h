@@ -30,9 +30,10 @@
 //A known user rating
 struct rating
 {
+	double value;
 	int user_index;
 	int item_index;
-	double value;
+	int is_known;
 };
 
 typedef struct rating rating_t;
@@ -43,6 +44,11 @@ struct training_set
     unsigned int     training_set_size;  //The number of known ratings
     unsigned int     dimensionality;     //dimensionality of the joint latent factor space
 	unsigned int     current_rating_index;
+
+	rating_t**       ratings_matrix;
+	double**         implicit_feedback;
+
+	double           ratings_sum;
 };
 
 typedef struct training_set training_set_t;
@@ -85,5 +91,74 @@ free_training_set(training_set_t* tset);
 void 
 set_known_rating(int user_index, int item_index, double value, training_set_t* tset);
 
+/*
+ * set_known_rating: fill the training set with a known user/item rating
+ *                               
+ *
+ * Arguments:
+ *      user_index: The index of a user
+ *      user_index: The index of an item
+ *      value:      The rating of an item
+ *      tset:       The training set to be filled
+ *
+ */
+void
+set_implicit_feedback(int user_index, int item_index, training_set_t* tset);
+
+/*
+ * user_ratings_average: get the average of the vector formed by 
+ *                              the ratings of a user
+ *                               
+ *
+ * Arguments:
+ *      user_index: The index of a user
+ *      tset:       The training set to be filled
+ *      params      Parameters of the model
+ *
+ */
+double 
+user_ratings_average(int user_index, training_set_t* tset, struct model_parameters params);
+
+/*
+ * item_ratings_average: get the average of the vector formed by 
+ *                              the ratings of an item
+ *                               
+ *
+ * Arguments:
+ *      item_index: The index of an item
+ *      tset:       The training set to be filled
+ *      params      Parameters of the model
+ *
+ */
+double 
+item_ratings_average(int item_index, training_set_t* tset, struct model_parameters params);
+
+/*
+ * implicit_feedback_magnitude: get the magnitude of the vector formed by 
+ *                              the implicit preferences of a user
+ *                               
+ *
+ * Arguments:
+ *      user_index: The index of a user
+ *      tset:       The training set to be filled
+ *      params      Parameters of the model
+ *
+ */
+double 
+implicit_feedback_magnitude(int user_index, training_set_t* tset, struct model_parameters params);
+
+/*
+ * implicit_feedback_sum: get the sum of the vector formed by 
+ *                        the implicit preferences of a user
+ *                               
+ *
+ * Arguments:
+ *      user_index: The index of a user
+ *      tset:       The training set to be filled
+ *      params      Parameters of the model
+ *
+ */
+double
+implicit_feedback_sum(int user_index, training_set_t* tset, struct model_parameters params);
 
 #endif //TRAINING_SET_H

@@ -24,34 +24,11 @@
 * SUCH DAMAGE.
 */
 
-#ifndef LEARNED_FACTORS_H
-#define LEARNED_FACTORS_H
+#ifndef TEMPORAL_DYNAMICS_H
+#define TEMPORAL_DYNAMICS_H
 
-struct learned_factors
-{
-	double**         user_factor_vectors;
-	double**         item_factor_vectors;
-
-	double*          user_bias;
-	double*          item_bias;
-	double           ratings_average;
-
-	unsigned int     dimensionality;
-
-	unsigned int     users_number;
-	unsigned int     items_number;
-};
-
-typedef struct learned_factors learned_factors_t;
-
-
-learned_factors_t* 
-init_learned_factors(struct model_parameters params);
-
-/*
- * free_learned_factors:  delete the learned factors from memory
- */
+//TODO
 void 
-free_learned_factors(learned_factors_t* lfactors);
+update_learned_factors(struct learned_factors* lfactors, struct training_set* tset);
 
-#endif //LEARNED_FACTORS_H
+#endif //TEMPORAL_DYNAMICS_H

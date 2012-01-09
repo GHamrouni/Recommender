@@ -24,34 +24,30 @@
 * SUCH DAMAGE.
 */
 
-#ifndef LEARNED_FACTORS_H
-#define LEARNED_FACTORS_H
+/*
+* length2:  Return the squared length of a vector
+*
+* Arguments:
+*      vector            A vector (array) of double
+*      size              The size of the vector
+*
+* Returns:
+*      Return the squared length of a vector.
+*
+*/
+double
+length2(double* vector, unsigned int size);
 
-struct learned_factors
-{
-	double**         user_factor_vectors;
-	double**         item_factor_vectors;
-
-	double*          user_bias;
-	double*          item_bias;
-	double           ratings_average;
-
-	unsigned int     dimensionality;
-
-	unsigned int     users_number;
-	unsigned int     items_number;
-};
-
-typedef struct learned_factors learned_factors_t;
-
-
-learned_factors_t* 
-init_learned_factors(struct model_parameters params);
+double
+sum(double* vector, unsigned int size);
 
 /*
- * free_learned_factors:  delete the learned factors from memory
+ * 
+ * Calculate the dot product between the two vectors.
+ *
  */
-void 
-free_learned_factors(learned_factors_t* lfactors);
+double
+dot_product(double* vect1, double* vect2, unsigned int dim);
 
-#endif //LEARNED_FACTORS_H
+//Calculate Pearson correlation coefficient
+double pearson_correlation_coefficient(double* vectX, double* vectY, unsigned int dim);

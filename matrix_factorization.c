@@ -31,7 +31,8 @@
  *
  */
 
-#include "basic_mf.h"
+#include "matrix_factorization.h"
+#include "utils.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,31 +64,6 @@ estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 
     return sum;
 }
-
-
-/*
-* length2:  Return the squared length of a vector
-*
-* Arguments:
-*      vector            A vector (array) of double
-*      size              The size of the vector
-*
-* Returns:
-*      Return the squared length of a vector.
-*
-*/
-double
-length2(double* vector, unsigned int size)
-{
-    double sum = 0;
-    unsigned int i;
-
-    for (i = 0; i < size; i++)
-        sum += vector[i] * vector[i];
-
-    return sum;
-}
-
 
 /*
 * regularized_squared_error:  Return the the regularized squared
