@@ -1,8 +1,11 @@
 Recommender
 =======================
 
-A very simple C library for product recommendations using matrix factorization (MF).
-Computing the product recommendation using a latent factor model
+A C library for product recommendations/suggestions using collaborative filtering (CF).
+
+Recommender analyzes the the feedback of some users (implicit and explicit) and their 
+preferences for some items. It learns patterns and predicts the most suitable products 
+for a particular user.
 
 Keywords
 --------
