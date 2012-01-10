@@ -7,9 +7,13 @@ Recommender analyzes the the feedback of some users (implicit and explicit) and 
 preferences for some items. It learns patterns and predicts the most suitable products 
 for a particular user.
 
+Webpage
+--------
+http://ghamrouni.github.com/Recommender/
+
 Keywords
 --------
-collaborative filtering, recommender system
+Collaborative filtering, recommender system
 
 References
 --------
