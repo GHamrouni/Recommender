@@ -1,0 +1,63 @@
+#logo 
+{
+   font-size:25px;
+   color:rgb(214,73,55);
+   margin:10px auto;
+   text-align:center;
+   font-family: 'Oldenburg', cursive;
+   text-shadow: 1px 1px 2px rgba(205,205,205,0.3);
+}
+
+.title_1 
+{
+   font-size:25px;
+   color:rgb(214,73,55);
+   margin:0px auto;
+   text-align:center;
+   font-family: 'Oldenburg', cursive;
+}
+
+#flexbox { 
+  display: box;
+  box-orient: horizontal;
+}
+
+#content_box {
+  display: block; 
+  color:#514F4C;
+  background:rgb(245, 245, 245);
+  -moz-border-radius: 15px;
+  font-family: 'Oldenburg', cursive;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  border-radius: 15px;
+  padding: 25px;
+  margin:10px auto;
+  width:65%;
+  font-size:22px;
+  -moz-box-shadow: 0 0 3px 1px #999;
+  -webkit-box-shadow: 0 0 3px 1px #999;
+}
+
+#signature_box
+{
+  display: block; 
+  color:#514F4C;
+  background:rgb(235, 235, 235);
+  -moz-border-radius: 15px;
+  font-family: 'Oldenburg', cursive;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  border-radius: 15px;
+  padding: 25px;
+  margin:15px 70%;
+  width:8%;
+  font-size:10px;
+  text-align:center;
+}
+
+body 
+{
+     background:#FFFF;
+	 color:#E2E2F0;
+	 margin-bottom: 15px;
+	 margin:50px 0px; padding:0px;
+}
