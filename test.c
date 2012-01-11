@@ -31,9 +31,6 @@ int main(void) {
 	model.learning_algorithm = learn_mf_bias;
 	model.rating_estimator   = estimate_rating_mf_bias;
 
-// 	model.learning_algorithm = learn_basic_mf;
-// 	model.rating_estimator   = estimate_rating_basic_mf;
-
 	//Learning
 	//Initialize a training set
 	tset = init_training_set(params);
@@ -53,8 +50,6 @@ int main(void) {
 
 	free_learned_factors(learned);
 	free_training_set(tset);
-
-	system("pause");
 
 	return 0;
 }
