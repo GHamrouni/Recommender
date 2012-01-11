@@ -40,6 +40,8 @@ struct rating
 
 typedef struct rating rating_t;
 
+// The training set is obtained from the past users 
+// behavior or from items ratings.
 struct training_set
 {
     rating_t*        ratings;            //Known ratings

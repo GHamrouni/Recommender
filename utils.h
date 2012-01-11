@@ -38,6 +38,9 @@
 double
 length2(double* vector, unsigned int size);
 
+/*
+ * Get the sum of the elements of a vector
+ */
 double
 sum(double* vector, unsigned int size);
 

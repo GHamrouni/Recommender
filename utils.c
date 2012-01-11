@@ -53,6 +53,9 @@ dot_product(double* vect1, double* vect2, unsigned int dim)
     return sum;
 }
 
+/*
+ * Get the sum of the elements of a vector
+ */
 double
 sum(double* vector, unsigned int size)
 {
