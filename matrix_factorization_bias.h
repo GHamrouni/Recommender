@@ -71,6 +71,6 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params);
 *
 */
 double
-estimate_rating_mf_bias(int user_index, int item_index, learned_factors_t* lfactors);
+estimate_rating_mf_bias(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors);
 
 #endif //MATRIX_FACTORIZATION_WITH_BIAS_H

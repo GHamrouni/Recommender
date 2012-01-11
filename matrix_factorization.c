@@ -38,6 +38,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
+#include <assert.h>
 
 /*
 * rate_item:  Return the approximates user’s rating of an item
@@ -170,8 +171,11 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params)
 *                                some learned factors.
 */
 double
-estimate_rating_basic_mf(int user_index, int item_index, learned_factors_t* lfactors)
+estimate_rating_basic_mf(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors)
 {
+	assert(item_index < lfactors->items_number);
+	assert(user_index < lfactors->users_number);
+
     return estimate_item_rating(lfactors->user_factor_vectors[user_index], 
                                 lfactors->item_factor_vectors[item_index], 
                                 lfactors->dimensionality);

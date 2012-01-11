@@ -39,6 +39,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
+#include <assert.h>
 
 
 /*----------------------------------------------------------------------------------------------
@@ -141,7 +142,7 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 *                                some learned factors.
 */
 double
-estimate_rating_mf_bias(int user_index, int item_index, learned_factors_t* lfactors)
+estimate_rating_mf_bias(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors)
 {
 	double sum = 0;
 	unsigned int i;
@@ -149,10 +150,18 @@ estimate_rating_mf_bias(int user_index, int item_index, learned_factors_t* lfact
 	double* item_factors;
 	double* user_factors;
 
-	double item_bias = lfactors->item_bias[item_index];
-	double user_bias = lfactors->user_bias[user_index];
+	double item_bias;
+	double user_bias;
 
-	double bias = lfactors->ratings_average + item_bias + user_bias;
+	double bias;
+
+    assert(item_index < lfactors->items_number);
+    assert(user_index < lfactors->users_number);
+
+	item_bias = lfactors->item_bias[item_index];
+	user_bias = lfactors->user_bias[user_index];
+
+	bias = lfactors->ratings_average + item_bias + user_bias;
 
 	item_factors = lfactors->item_factor_vectors[item_index];
 	user_factors = lfactors->user_factor_vectors[user_index];

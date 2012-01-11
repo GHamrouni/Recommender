@@ -44,6 +44,6 @@
  *      The estimated rating.
  *
  */
-typedef double (*rating_estimator_t)(int user_index, int item_index, struct learned_factors* lfactors);
+typedef double (*rating_estimator_t)(unsigned int user_index, unsigned int item_index, struct learned_factors* lfactors);
 
 #endif //RATING_ESTIMATOR_H
