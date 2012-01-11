@@ -11,6 +11,14 @@ Webpage
 --------
 http://ghamrouni.github.com/Recommender/
 
+Building
+--------
+To compile Recommender:
+
+    make
+
+The compilation will produce libRecommender.a
+
 Keywords
 --------
 Collaborative filtering, recommender system
