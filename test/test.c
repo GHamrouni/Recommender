@@ -1,12 +1,12 @@
-#include "Recommender.h"
+#include "../Recommender.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
 
-#include "matrix_factorization.h"
-#include "matrix_factorization_bias.h"
+#include "../matrix_factorization.h"
+#include "../matrix_factorization_bias.h"
 
 int main(void) {
 
