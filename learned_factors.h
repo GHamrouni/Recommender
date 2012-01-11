@@ -27,6 +27,8 @@
 #ifndef LEARNED_FACTORS_H
 #define LEARNED_FACTORS_H
 
+#include "model_parameters.h"
+
 struct learned_factors
 {
 	double**         user_factor_vectors;
@@ -46,7 +48,7 @@ typedef struct learned_factors learned_factors_t;
 
 
 learned_factors_t* 
-init_learned_factors(struct model_parameters params);
+init_learned_factors(model_parameters_t params);
 
 /*
  * free_learned_factors:  delete the learned factors from memory
