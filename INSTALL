@@ -1,0 +1,5 @@
+To compile Recommender:
+
+    make
+
+The compilation will produce libRecommender.a
