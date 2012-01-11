@@ -32,6 +32,8 @@
 #include <memory.h>
 #include <math.h>
 
+#include <assert.h>
+
 /*----------------------------------------------------------------------------------------------
  *
  *                                     Helper functions
@@ -71,6 +73,9 @@ init_training_set(struct model_parameters params)
 			tset->implicit_feedback[i][j] = 0;
 		}
 	}
+
+	tset->users_number = params.users_number;
+	tset->items_number = params.items_number;
          
     return tset;
 }
@@ -88,11 +93,16 @@ free_training_set(training_set_t* tset)
 /*
  * set_known_rating: fill the training set with a known user/item rating                            
  */
-void set_known_rating(int user_index, int item_index, double _value, training_set_t* tset)
+void set_known_rating(unsigned int user_index, unsigned int item_index, double _value, training_set_t* tset)
 {
+	assert(tset->current_rating_index <= tset->training_set_size);
+
     tset->ratings[tset->current_rating_index].user_index = user_index;
     tset->ratings[tset->current_rating_index].item_index = item_index; 
     tset->ratings[tset->current_rating_index].value = _value;
+
+	assert(user_index < tset->users_number);
+	assert(item_index < tset->items_number);
 
 	tset->ratings_matrix[item_index][user_index] = tset->ratings[tset->current_rating_index];
 

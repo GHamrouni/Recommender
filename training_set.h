@@ -53,6 +53,9 @@ struct training_set
     double**         implicit_feedback;
 
     double           ratings_sum;
+
+	unsigned int     users_number;
+	unsigned int     items_number;
 };
 
 typedef struct training_set training_set_t;
@@ -93,7 +96,7 @@ free_training_set(training_set_t* tset);
  *
  */
 void 
-set_known_rating(int user_index, int item_index, double value, training_set_t* tset);
+set_known_rating(unsigned int user_index, unsigned int item_index, double value, training_set_t* tset);
 
 /*
  * set_known_rating: fill the training set with a known user/item rating
