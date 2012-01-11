@@ -13,7 +13,7 @@ int main(void) {
 	learned_factors_t* learned;
 	training_set_t* tset;
 
-	learning_model_t model;
+	learning_model_t model = {0};
 
 	//Model configuration
 	//Setup model parameters
@@ -35,7 +35,7 @@ int main(void) {
 	//Initialize a training set
 	tset = init_training_set(params);
 
-	set_known_rating(0, 0, 1, tset);
+	set_known_rating(0, 1, 1, tset);
 	set_known_rating(0, 1, 5, tset);
 	set_known_rating(1, 1, 50, tset);
     set_known_rating(1, 0, 2, tset);

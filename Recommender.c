@@ -37,6 +37,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
+#include <assert.h>
 
 /*----------------------------------------------------------------------------------------------
  *
@@ -51,6 +52,8 @@
 struct learned_factors*
 learn(struct training_set* tset, struct model_parameters params, struct learning_model model)
 {
+	assert (model.learning_algorithm && model.rating_estimator);
+
     return model.learning_algorithm(tset, params);
 }
 
