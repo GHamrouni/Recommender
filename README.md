@@ -1,4 +1,4 @@
-Recommender
+Recommender [![Build Status](https://secure.travis-ci.org/GHamrouni/Recommender.png)](http://travis-ci.org/GHamrouni/Recommender)
 =======================
 
 A C library for product recommendations/suggestions using collaborative filtering (CF).
