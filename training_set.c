@@ -72,6 +72,8 @@ compile_training_set(training_set_t* tset)
 {
 	assert(tset->ratings);
 
+	sort_coo_matrix(tset->ratings);
+
 	tset->ratings_matrix = init_sparse_matrix(tset->ratings, tset->items_number, tset->users_number);
 }
 
