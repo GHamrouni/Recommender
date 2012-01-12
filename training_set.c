@@ -53,31 +53,26 @@ init_training_set(struct model_parameters params)
 
 	tset->ratings_sum = 0;
 
-    tset->ratings = malloc(sizeof(rating_t) * params.training_set_size);
+    tset->ratings = init_coo_matrix(params.training_set_size);
 
     tset->current_rating_index = 0;
     tset->training_set_size = params.training_set_size;
     tset->dimensionality = params.dimensionality;
 
-	tset->ratings_matrix = malloc(sizeof(rating_t*) * params.items_number);
-	tset->implicit_feedback = malloc(sizeof(double*) * params.items_number);
-
-	for (i = 0; i < params.items_number; i++)
-	{
-		tset->ratings_matrix[i] =  malloc(sizeof(rating_t) * params.users_number);
-		tset->implicit_feedback[i] =  malloc(sizeof(double) * params.users_number);
-
-		for (j = 0; j < params.users_number; j++)
-		{
-			tset->ratings_matrix[i][j].is_known = 0;
-			tset->implicit_feedback[i][j] = 0;
-		}
-	}
+	tset->ratings_matrix = NULL;
 
 	tset->users_number = params.users_number;
 	tset->items_number = params.items_number;
          
     return tset;
+}
+
+void
+compile_training_set(training_set_t* tset)
+{
+	assert(tset->ratings);
+
+	tset->ratings_matrix = init_sparse_matrix(tset->ratings, tset->items_number, tset->users_number);
 }
 
 /*
@@ -86,7 +81,11 @@ init_training_set(struct model_parameters params)
 void
 free_training_set(training_set_t* tset)
 {
-    free(tset->ratings);
+    free_coo_matrix(tset->ratings);
+
+	if (tset->ratings_matrix)
+		free_sparse_matrix(tset->ratings_matrix);
+
     free(tset);
 }
 
@@ -97,24 +96,14 @@ void set_known_rating(unsigned int user_index, unsigned int item_index, double _
 {
 	assert(tset->current_rating_index <= tset->training_set_size);
 
-    tset->ratings[tset->current_rating_index].user_index = user_index;
-    tset->ratings[tset->current_rating_index].item_index = item_index; 
-    tset->ratings[tset->current_rating_index].value = _value;
+	insert_coo_matrix(_value, item_index, user_index, tset->ratings);
 
 	assert(user_index < tset->users_number);
 	assert(item_index < tset->items_number);
 
-	tset->ratings_matrix[item_index][user_index] = tset->ratings[tset->current_rating_index];
-
 	tset->ratings_sum = tset->ratings_sum + _value;
 
     tset->current_rating_index++;
-}
-
-
-void set_implicit_feedback(int user_index, int item_index, training_set_t* tset)
-{
-	tset->implicit_feedback[item_index][user_index] = 1;
 }
 
 /*
@@ -124,26 +113,9 @@ void set_implicit_feedback(int user_index, int item_index, training_set_t* tset)
 double 
 user_ratings_average(int user_index, training_set_t* tset, struct model_parameters params)
 {
-	unsigned int i = 0;
-	double sum = 0;
-	double N = 0;
+	assert(tset->ratings_matrix);
 
-	for (i = 0; i < params.items_number; i++)
-	{
-		if (tset->ratings_matrix[i][user_index].is_known)
-		{
-			double f = tset->ratings_matrix[i][user_index].value;
-
-			sum += f;
-
-			N++;
-		}
-	}
-
-	if (N == 0)
-		return 0;
-
-	return sum / N;
+	return column_values_average(user_index, tset->ratings_matrix);
 }
 
 /*
@@ -153,54 +125,8 @@ user_ratings_average(int user_index, training_set_t* tset, struct model_paramete
 double 
 item_ratings_average(int item_index, training_set_t* tset, struct model_parameters params)
 {
-	unsigned int i = 0;
-	double sum = 0;
-	double N = 0;
+	assert(tset->ratings_matrix);
 
-	for (i = 0; i < params.users_number; i++)
-	{
-		if (tset->ratings_matrix[item_index][i].is_known)
-		{
-		    double f = tset->ratings_matrix[item_index][i].value;
-
-		    sum += f;
-
-			N++;
-		}
-	}
-
-	if (N == 0)
-		return 0;
-
-	return sum / N;
+	return row_values_average(item_index, tset->ratings_matrix);
 }
 
-double implicit_feedback_magnitude(int user_index, training_set_t* tset, struct model_parameters params)
-{
-	unsigned int i = 0;
-	double sum = 0;
-
-	for (i = 0; i < params.items_number; i++)
-	{
-		double f = tset->implicit_feedback[i][user_index];
-
-		sum += f * f;
-	}
-
-	return sqrtf(sum);
-}
-
-double implicit_feedback_sum(int user_index, training_set_t* tset, struct model_parameters params)
-{
-	unsigned int i = 0;
-	double sum = 0;
-
-	for (i = 0; i < params.items_number; i++)
-	{
-		double f = tset->implicit_feedback[i][user_index];
-
-		sum += f;
-	}
-
-	return sum;
-}

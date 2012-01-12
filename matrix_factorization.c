@@ -143,10 +143,10 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params)
     {
         for (r = 0; r < params.training_set_size; r++)
         {
-             r_iu = tset->ratings[r].value;
+			 r_iu = tset->ratings->entries[r].value;
 
-             i = tset->ratings[r].item_index;
-             u = tset->ratings[r].user_index;
+			 i = tset->ratings->entries[r].row_i;
+			 u = tset->ratings->entries[r].column_j;
 
              item_factors = lfactors->item_factor_vectors[i];
              user_factors = lfactors->user_factor_vectors[u];

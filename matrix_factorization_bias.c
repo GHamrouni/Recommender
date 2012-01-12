@@ -119,10 +119,10 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
     {
         for (r = 0; r < params.training_set_size; r++)
         {
-             r_iu = tset->ratings[r].value;
+             r_iu = tset->ratings->entries[r].value;
 
-             i = tset->ratings[r].item_index;
-             u = tset->ratings[r].user_index;
+             i = tset->ratings->entries[r].row_i;
+             u = tset->ratings->entries[r].column_j;
 
              r_iu_estimated = estimate_rating_mf_bias(u, i, lfactors);
 

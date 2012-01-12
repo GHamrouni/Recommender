@@ -28,6 +28,7 @@
 #define TRAINING_SET_H
 
 #include "model_parameters.h"
+#include "sparse_matrix.h"
 
 //A known user rating
 struct rating
@@ -44,13 +45,12 @@ typedef struct rating rating_t;
 // behavior or from items ratings.
 struct training_set
 {
-    rating_t*        ratings;            //Known ratings
+    coo_matrix_t*    ratings;            //Known ratings
+	sparse_matrix_t* ratings_matrix;
+
     unsigned int     training_set_size;  //The number of known ratings
     unsigned int     dimensionality;     //dimensionality of the joint latent factor space
     unsigned int     current_rating_index;
-
-    rating_t**       ratings_matrix;
-    double**         implicit_feedback;
 
     double           ratings_sum;
 
@@ -78,6 +78,9 @@ typedef struct training_set training_set_t;
 struct training_set* 
 init_training_set(model_parameters_t params);
 
+void
+compile_training_set(training_set_t* tset);
+
 /*
  * free_training_set:  delete the training set from memory
  */
@@ -97,20 +100,6 @@ free_training_set(training_set_t* tset);
  */
 void 
 set_known_rating(unsigned int user_index, unsigned int item_index, double value, training_set_t* tset);
-
-/*
- * set_known_rating: fill the training set with a known user/item rating
- *                               
- *
- * Arguments:
- *      user_index: The index of a user
- *      user_index: The index of an item
- *      value:      The rating of an item
- *      tset:       The training set to be filled
- *
- */
-void
-set_implicit_feedback(int user_index, int item_index, training_set_t* tset);
 
 /*
  * user_ratings_average: get the average of the vector formed by 
@@ -139,33 +128,5 @@ user_ratings_average(int user_index, training_set_t* tset, model_parameters_t pa
  */
 double 
 item_ratings_average(int item_index, training_set_t* tset, model_parameters_t params);
-
-/*
- * implicit_feedback_magnitude: get the magnitude of the vector formed by 
- *                              the implicit preferences of a user
- *                               
- *
- * Arguments:
- *      user_index: The index of a user
- *      tset:       The training set to be filled
- *      params      Parameters of the model
- *
- */
-double 
-implicit_feedback_magnitude(int user_index, training_set_t* tset, model_parameters_t params);
-
-/*
- * implicit_feedback_sum: get the sum of the vector formed by 
- *                        the implicit preferences of a user
- *                               
- *
- * Arguments:
- *      user_index: The index of a user
- *      tset:       The training set to be filled
- *      params      Parameters of the model
- *
- */
-double
-implicit_feedback_sum(int user_index, training_set_t* tset, model_parameters_t params);
 
 #endif //TRAINING_SET_H
