@@ -55,8 +55,6 @@ sort_coo_matrix(coo_matrix_t* matrix)
 sparse_matrix_t* init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int column_nb)
 {
 	unsigned int i = 0;
-	unsigned int j = 0;
-
 	int current_row = -1;
 
 	sparse_matrix_t* matrix = malloc(sizeof(sparse_matrix_t));
