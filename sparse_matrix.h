@@ -34,16 +34,16 @@
 /* Coordinate list (COO) */
 typedef struct coo_entry
 {
-	double value;
-	int row_i;
-	int column_j;
+    double value;
+    int row_i;
+    int column_j;
 } coo_entry_t;
 
 typedef struct coo_matrix
 {
-	coo_entry_t*     entries;
-	unsigned int     current_size;
-	unsigned int     size;
+    coo_entry_t*     entries;
+    unsigned int     current_size;
+    unsigned int     size;
 } coo_matrix_t;
 
 coo_matrix_t*
@@ -61,17 +61,17 @@ sort_coo_matrix(coo_matrix_t* matrix);
 /* Sparse matrix structure */
 typedef struct sparse_matrix
 {
-	unsigned int  column_nb;
+    unsigned int  column_nb;
 
-	unsigned int  row_nb;
+    unsigned int  row_nb;
 
-	unsigned int  nonzero_entries_nb;//NNZ
+    unsigned int  nonzero_entries_nb;//NNZ
 
-	double*       values;//A
+    double*       values;//A
 
-	int*          row_index;//IA
+    int*          row_index;//IA
 
-	int*          column_index;//JA
+    int*          column_index;//JA
 
 } sparse_matrix_t;
 
@@ -81,10 +81,10 @@ init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int col
 
 void
 free_sparse_matrix(sparse_matrix_t* matrix);
-	
+    
 int
 element_exists(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix);
-	
+    
 double 
 get_element(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix);
 
