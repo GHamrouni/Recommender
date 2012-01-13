@@ -73,11 +73,53 @@ compute_factors_bias(
 	lfactors->item_bias[item_index] = lfactors->item_bias[item_index] + 
 		                              step * (predicted_error - lambda * lfactors->item_bias[item_index]);
 
+	assert (!(lfactors->user_bias[user_index] != lfactors->user_bias[user_index]));
+	assert (!(lfactors->item_bias[item_index] != lfactors->item_bias[item_index]));
+
     for (i = 0; i < dimensionality; i++)
     {
         item_factors[i] = item_factors[i] + step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
         user_factors[i] = user_factors[i] + step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
+
+		assert (!(item_factors[i] != item_factors[i]));
+		assert (!(user_factors[i] != user_factors[i]));
     }
+}
+
+void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
+{
+	unsigned int k, i;
+	double average_rating = tset->ratings_sum / ((double) tset->training_set_size);
+
+	double* nb_ratings_per_user = malloc(sizeof(double) * params.users_number);
+	memset(nb_ratings_per_user, 0, sizeof(double) * params.users_number);
+
+	lfactors->ratings_average = average_rating;
+
+	for (i = 0; i < params.items_number; i++)
+	{
+		lfactors->item_bias[i] = item_ratings_average(i, tset, params)- average_rating;
+	}
+
+	for (i = 0; i < tset->ratings_matrix->nonzero_entries_nb; i++)
+	{
+		nb_ratings_per_user[tset->ratings_matrix->column_index[i]] += 1; 
+	}
+
+	for (i = 0; i < tset->ratings_matrix->nonzero_entries_nb; i++)
+	{
+		lfactors->user_bias[tset->ratings_matrix->column_index[i]] += 
+			tset->ratings_matrix->values[i];
+	}
+
+	for (i = 0; i < tset->users_number; i++)
+	{
+		if (nb_ratings_per_user[i] > 0)
+			lfactors->user_bias[i] = 
+			lfactors->user_bias[i]/(nb_ratings_per_user[i]) - average_rating;
+	}
+
+	free(nb_ratings_per_user);
 }
 
 /*
@@ -96,24 +138,13 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
     double e_iu = 0;
 	double step = params.step;
 
-	double average_rating = tset->ratings_sum / ((double) tset->training_set_size);
-	
-	lfactors->ratings_average = average_rating;
 	lfactors->dimensionality = params.dimensionality;
 	lfactors->items_number = params.items_number;
 	lfactors->users_number = params.users_number;
 
     r = k = u = i = 0;
 
-	for (u = 0; u < params.users_number; u++)
-	{
-		lfactors->user_bias[u] = user_ratings_average(u, tset, params) - average_rating;
-	}
-
-	for (i = 0; i < params.items_number; i++)
-	{
-		lfactors->item_bias[i] = item_ratings_average(i, tset, params)- average_rating;
-	}
+	calculate_average_ratings(tset, lfactors, params);
 
     for (k = 0; k < params.iteration_number; k++)
     {
@@ -124,17 +155,51 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
              i = tset->ratings->entries[r].row_i;
              u = tset->ratings->entries[r].column_j;
 
-             r_iu_estimated = estimate_rating_mf_bias(u, i, lfactors);
+             e_iu = estimate_error_mf_bias(r_iu, u, i, lfactors);
 
-             e_iu = r_iu - r_iu_estimated;
+			 assert (!(e_iu != e_iu));
 
              compute_factors_bias(u, i, lfactors, params.lambda, step, e_iu, params.dimensionality);
          }
 
-		//step = step * 0.9;
+// 		if (step > 0.0001)
+// 			step = step * 0.9;
      }
 
     return lfactors;
+}
+
+double
+estimate_error_mf_bias(double r_iu, unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors)
+{
+	double sum = - r_iu;
+	unsigned int i;
+
+	double* item_factors;
+	double* user_factors;
+
+	double item_bias;
+	double user_bias;
+
+	double bias;
+
+	assert(item_index < lfactors->items_number);
+	assert(user_index < lfactors->users_number);
+
+	item_bias = lfactors->item_bias[item_index];
+	user_bias = lfactors->user_bias[user_index];
+
+	bias = lfactors->ratings_average + item_bias + user_bias;
+
+	item_factors = lfactors->item_factor_vectors[item_index];
+	user_factors = lfactors->user_factor_vectors[user_index];
+
+	for (i = 0; i < lfactors->dimensionality; i++)
+		sum += user_factors[i] * item_factors[i];
+
+	assert(!(sum != sum));
+
+	return - (sum + bias);
 }
 
 /*

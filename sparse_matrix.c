@@ -105,6 +105,9 @@ element_exists(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matri
     int r1, r2;
     r1 = r2 = 0; //Range
 
+	assert(row_i < matrix->row_nb);
+	assert(column_j < matrix->column_nb);
+
     if (matrix->row_index[row_i] == -1) return 0;
 
     r1 = matrix->row_index[row_i];
@@ -123,6 +126,9 @@ get_element(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix)
     int i = 0;
     int r1, r2;
     r1 = r2 = 0; //Range
+
+	assert(row_i < matrix->row_nb);
+	assert(column_j < matrix->column_nb);
 
     if (matrix->row_index[row_i] == -1) return 0;
 
