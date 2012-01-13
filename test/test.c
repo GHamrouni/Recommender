@@ -25,8 +25,8 @@ int main(void) {
 	params.items_number = 2;
 	params.users_number = 2;
 	params.lambda = 0.006;
-	params.training_set_size = 3;
-	params.step = 0.05;
+	params.training_set_size = 4;
+	params.step = 0.005;
 	
 	//Use the basic matrix factorization model
 	model.learning_algorithm = learn_mf_bias;

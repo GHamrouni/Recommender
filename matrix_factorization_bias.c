@@ -88,7 +88,7 @@ compute_factors_bias(
 
 void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
 {
-	unsigned int k, i;
+	unsigned int i;
 	double average_rating = tset->ratings_sum / ((double) tset->training_set_size);
 
 	double* nb_ratings_per_user = malloc(sizeof(double) * params.users_number);
@@ -148,6 +148,8 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 
     for (k = 0; k < params.iteration_number; k++)
     {
+		double max_error = 0;
+
         for (r = 0; r < params.training_set_size; r++)
         {
              r_iu = tset->ratings->entries[r].value;
@@ -159,9 +161,15 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 
 			 assert (!(e_iu != e_iu));
 
+			 max_error = max(max_error, fabs(e_iu));
+			// if (fabs(e_iu) < step)
+			//	 break;
+
              compute_factors_bias(u, i, lfactors, params.lambda, step, e_iu, params.dimensionality);
          }
 
+		if (max_error < step)
+			break;
 // 		if (step > 0.0001)
 // 			step = step * 0.9;
      }

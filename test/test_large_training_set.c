@@ -23,7 +23,7 @@ int main(void) {
 	model_parameters_t params;
 
 	params.dimensionality = 1500;
-	params.iteration_number = 35;
+	params.iteration_number = 50;
 	params.items_number = 1600;
 	params.users_number = 800;
 	params.lambda = 0.005;
@@ -41,7 +41,7 @@ int main(void) {
 	for (i = 0; i < 600; i++)
 	{
 		for (j = 0; j < 100; j++)
-			set_known_rating(i, j, 10, tset);
+			set_known_rating(i, j, (i % 100) / 10, tset);
 	}
 
 	compile_training_set(tset);
@@ -49,10 +49,10 @@ int main(void) {
 	learned = learn(tset, params, model);
 
 	//Rating estimation
-	printf("users [0] item [0], rating = %f \n", estimate_rating_from_factors(0, 0, learned, model));
-	printf("users [300] item [1], rating = %f \n", estimate_rating_from_factors(300, 0, learned, model));
-	printf("users [1] item [1], rating = %f \n", estimate_rating_from_factors(1, 1, learned, model));
-	printf("users [1] item [0], rating = %f \n", estimate_rating_from_factors(1, 0, learned, model));
+	printf("users [0] item [0], rating = %f \n", get_element(0, 0, tset->ratings_matrix) - estimate_rating_from_factors(0, 0, learned, model));
+	printf("users [300] item [1], rating = %f \n",  get_element(99, 0, tset->ratings_matrix) - estimate_rating_from_factors(99, 0, learned, model));
+	printf("users [1] item [1], rating = %f \n",  get_element(1, 1, tset->ratings_matrix) - estimate_rating_from_factors(1, 1, learned, model));
+	printf("users [1] item [0], rating = %f \n", get_element(1, 0, tset->ratings_matrix) -  estimate_rating_from_factors(1, 0, learned, model));
 
 	free_learned_factors(learned);
 	free_training_set(tset);
