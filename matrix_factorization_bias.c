@@ -94,6 +94,10 @@ void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfa
 	double average_rating = tset->ratings_sum / ((double) tset->training_set_size);
 
 	double* nb_ratings_per_user = malloc(sizeof(double) * params.users_number);
+
+	if (!nb_ratings_per_user)
+		return;
+
 	memset(nb_ratings_per_user, 0, sizeof(double) * params.users_number);
 
 	lfactors->ratings_average = average_rating;
