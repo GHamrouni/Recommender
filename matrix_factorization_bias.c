@@ -180,18 +180,9 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 {
 	struct learned_factors* lfactors = init_learned_factors(params);
 
-	unsigned int r, k, i, u;
-
-	double r_iu = 0;
-
-	double e_iu = 0;
-	double step = params.step;
-
 	lfactors->dimensionality = params.dimensionality;
 	lfactors->items_number = params.items_number;
 	lfactors->users_number = params.users_number;
-
-	r = k = u = i = 0;
 
 	calculate_average_ratings(tset, lfactors, params);
 
