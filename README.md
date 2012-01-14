@@ -1,6 +1,8 @@
 Recommender [![Build Status](https://secure.travis-ci.org/GHamrouni/Recommender.png)](http://travis-ci.org/GHamrouni/Recommender)
 =======================
 
+![status](http://stillmaintained.com/GHamrouni/Recommender.png)
+
 A C library for product recommendations/suggestions using collaborative filtering (CF).
 
 Recommender analyzes the the feedback of some users (implicit and explicit) and their 
