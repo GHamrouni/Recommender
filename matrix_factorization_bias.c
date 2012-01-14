@@ -41,6 +41,11 @@
 #include <math.h>
 #include <assert.h>
 
+//MSVC doesn't define fmax/fmin in math.h
+#if defined(_WIN32) || defined(_WIN64)
+#define fmax max
+#define fmin min
+#endif
 
 /*----------------------------------------------------------------------------------------------
  *
@@ -133,7 +138,6 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
     unsigned int r, k, i, u;
 
     double r_iu = 0;
-    double r_iu_estimated = 0;
 
     double e_iu = 0;
 	double step = params.step;
@@ -161,9 +165,7 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 
 			 assert (!(e_iu != e_iu));
 
-			 max_error = max(max_error, fabs(e_iu));
-			// if (fabs(e_iu) < step)
-			//	 break;
+			 max_error = fmax(max_error, fabs(e_iu));
 
              compute_factors_bias(u, i, lfactors, params.lambda, step, e_iu, params.dimensionality);
          }

@@ -48,8 +48,6 @@ struct training_set*
 init_training_set(struct model_parameters params)
 {
     struct training_set* tset = malloc(sizeof(struct training_set));
-	unsigned int i = 0;
-	unsigned int j = 0;
 
 	tset->ratings_sum = 0;
 
