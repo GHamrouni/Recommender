@@ -129,6 +129,50 @@ void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfa
 }
 
 /*
+ * Update the learned factors
+ */
+void
+update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training_set* tset, struct model_parameters params)
+{
+	unsigned int r, k, i, u;
+
+	double r_iu = 0;
+
+	double e_iu = 0;
+	double step = params.step;
+
+	lfactors->dimensionality = params.dimensionality;
+	lfactors->items_number = params.items_number;
+	lfactors->users_number = params.users_number;
+
+	r = k = u = i = 0;
+
+	for (k = 0; k < params.iteration_number; k++)
+	{
+		double max_error = 0;
+
+		for (r = 0; r < params.training_set_size; r++)
+		{
+			r_iu = tset->ratings->entries[r].value;
+
+			i = tset->ratings->entries[r].row_i;
+			u = tset->ratings->entries[r].column_j;
+
+			e_iu = estimate_error_mf_bias(r_iu, u, i, lfactors);
+
+			assert (!(e_iu != e_iu));
+
+			max_error = fmax(max_error, fabs(e_iu));
+
+			compute_factors_bias(u, i, lfactors, params.lambda, step, e_iu, params.dimensionality);
+		}
+
+		if (max_error < step)
+			break;
+	}
+}
+
+/*
  * Stochastic gradient descent
  */
 struct learned_factors*
@@ -151,29 +195,7 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 
 	calculate_average_ratings(tset, lfactors, params);
 
-	for (k = 0; k < params.iteration_number; k++)
-	{
-		double max_error = 0;
-
-		for (r = 0; r < params.training_set_size; r++)
-		{
-			 r_iu = tset->ratings->entries[r].value;
-
-			 i = tset->ratings->entries[r].row_i;
-			 u = tset->ratings->entries[r].column_j;
-
-			 e_iu = estimate_error_mf_bias(r_iu, u, i, lfactors);
-
-			 assert (!(e_iu != e_iu));
-
-			 max_error = fmax(max_error, fabs(e_iu));
-
-			 compute_factors_bias(u, i, lfactors, params.lambda, step, e_iu, params.dimensionality);
-		 }
-
-		if (max_error < step)
-			break;
-	 }
+	update_learned_factors_mf_bias(lfactors, tset, params);
 
 	return lfactors;
 }

@@ -58,6 +58,13 @@ struct learned_factors*
 learn_mf_bias(struct training_set* tset, struct model_parameters params);
 
 /*
+ * Update the learned factors
+ */
+void
+update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training_set* tset, struct model_parameters params);
+
+
+/*
  * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
  *                                some learned factors.
  *

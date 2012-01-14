@@ -24,9 +24,9 @@ int main(void) {
 	//Setup model parameters
 	model_parameters_t params;
 
-	params.dimensionality = 10;
-	params.iteration_number = 500;
-	params.items_number = 1600;
+	params.dimensionality = 100;
+	params.iteration_number = 1;
+	params.items_number = 800;
 	params.users_number = 800;
 	params.lambda = 0.005;
 	params.training_set_size = 600 * 100;
@@ -46,16 +46,21 @@ int main(void) {
 		{
 			sum = 0;
 			
-			for (k = 0; k < params.dimensionality; k++)
-				sum += (((i+k/10) % 100) / 250.0) * (((j+k/10) % 100) / 250.0);
+			//for (k = 0; k < params.dimensionality; k++)
+			//	sum += (((i+k/10) % 100) / 250.0) * (((j+k/10) % 100) / 250.0);
 
-			set_known_rating(i, j, sum, tset);
+			set_known_rating(i, j, 0.69102, tset);
 		}
 	}
 
 	compile_training_set(tset);
 
 	learned = learn(tset, params, model);
+
+	for (k = 0; k < 100; k++)
+	{
+		update_learned_factors_mf_bias(learned, tset, params);
+	}
 
 	sum = 0;
 
