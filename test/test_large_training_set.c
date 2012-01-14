@@ -1,4 +1,4 @@
-#include "../Recommender.h"
+#include "../recommender.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,7 +49,7 @@ int main(void) {
 			//for (k = 0; k < params.dimensionality; k++)
 			//	sum += (((i+k/10) % 100) / 250.0) * (((j+k/10) % 100) / 250.0);
 
-			set_known_rating(i, j, 0.69102, tset);
+			set_known_rating(i, j, i / 100.0, tset);
 		}
 	}
 
