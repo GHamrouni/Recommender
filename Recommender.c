@@ -39,12 +39,9 @@
 #include <math.h>
 #include <assert.h>
 
-/*----------------------------------------------------------------------------------------------
- *
- *                                     Learning algorithms
- *
- *----------------------------------------------------------------------------------------------
- */
+/************************************************************************/
+/*                          Learning algorithms                         */
+/************************************************************************/
 
 /*
  * Stochastic gradient descent
@@ -55,15 +52,15 @@ learn(struct training_set* tset, struct model_parameters params, struct learning
 	assert (model.learning_algorithm && model.rating_estimator);
 	assert(tset->ratings_matrix);
 
-    return model.learning_algorithm(tset, params);
+	return model.learning_algorithm(tset, params);
 }
 
 /*
-* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
-*                                some learned factors.
-*/
+ * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+ *                                some learned factors.
+ */
 double
 estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors, struct learning_model model)
 {
-    return model.rating_estimator(user_index, item_index, lfactors);
+	return model.rating_estimator(user_index, item_index, lfactors);
 }

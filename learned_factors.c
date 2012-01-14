@@ -41,43 +41,45 @@
 
 struct learned_factors* init_learned_factors(struct model_parameters params)
 {
-    struct learned_factors* lfactors = malloc(sizeof(struct learned_factors));
-    unsigned int i = 0;
-    unsigned int j = 0;
+	struct learned_factors* lfactors = malloc(sizeof(struct learned_factors));
+	unsigned int i = 0;
+	unsigned int j = 0;
 
-    lfactors->item_factor_vectors = malloc(sizeof(double*) * params.items_number);
-    lfactors->user_factor_vectors = malloc(sizeof(double*) * params.users_number);
+	lfactors->item_factor_vectors = malloc(sizeof(double*) * params.items_number);
+	lfactors->user_factor_vectors = malloc(sizeof(double*) * params.users_number);
 
 	lfactors->item_bias = malloc(sizeof(double) * params.items_number);
 	lfactors->user_bias = malloc(sizeof(double) * params.users_number);
 
 	lfactors->ratings_average = 0;
 
-    for (i = 0; i < params.items_number; i++)
-    {
-        lfactors->item_factor_vectors[i] =  malloc(sizeof(double) * params.dimensionality);
-        
-        for (j = 0; j < params.dimensionality; j++)
-        {
-            lfactors->item_factor_vectors[i][j] = 0.1;
-        }
+	for (i = 0; i < params.items_number; i++)
+	{
+		lfactors->item_factor_vectors[i] =  
+			malloc(sizeof(double) * params.dimensionality);
+		
+		for (j = 0; j < params.dimensionality; j++)
+		{
+			lfactors->item_factor_vectors[i][j] = 0.1;
+		}
 
 		lfactors->item_bias[i] = 0.0;
-    }
+	}
 
-    for (i = 0; i < params.users_number; i++)
-    {
-        lfactors->user_factor_vectors[i] =  malloc(sizeof(double) * params.dimensionality);
+	for (i = 0; i < params.users_number; i++)
+	{
+		lfactors->user_factor_vectors[i] =  
+			malloc(sizeof(double) * params.dimensionality);
 
-        for (j = 0; j < params.dimensionality; j++)
-        {
-            lfactors->user_factor_vectors[i][j] = 0.1;
-        }
+		for (j = 0; j < params.dimensionality; j++)
+		{
+			lfactors->user_factor_vectors[i][j] = 0.1;
+		}
 
 		lfactors->user_bias[i] = 0.0;
-    }
+	}
 
-    return lfactors;
+	return lfactors;
 }
 
 /*
@@ -86,20 +88,21 @@ struct learned_factors* init_learned_factors(struct model_parameters params)
 void 
 free_learned_factors(learned_factors_t* lfactors)
 {
-    unsigned int i = 0;
+	unsigned int i = 0;
 
-    for (i = 0; i < lfactors->items_number; i++)
-        free(lfactors->item_factor_vectors[i]);
+	for (i = 0; i < lfactors->items_number; i++)
+		free(lfactors->item_factor_vectors[i]);
 
-    free(lfactors->item_factor_vectors);
+	free(lfactors->item_factor_vectors);
 
-    for (i = 0; i < lfactors->users_number; i++)
-        free(lfactors->user_factor_vectors[i]);
+	for (i = 0; i < lfactors->users_number; i++)
+		free(lfactors->user_factor_vectors[i]);
 
-    free(lfactors->user_factor_vectors);
+	free(lfactors->user_factor_vectors);
 
 	free(lfactors->item_bias);
 	free(lfactors->user_bias);
 
-    free(lfactors);
+	free(lfactors);
 }
+

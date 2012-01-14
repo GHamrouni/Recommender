@@ -38,8 +38,7 @@
  *
  *                                     Helper functions
  *
- *----------------------------------------------------------------------------------------------
- */
+ *---------------------------------------------------------------------------------------------- */
 
 /*
  * init_training_set:  allocate space for the training set
@@ -47,22 +46,22 @@
 struct training_set* 
 init_training_set(struct model_parameters params)
 {
-    struct training_set* tset = malloc(sizeof(struct training_set));
+	struct training_set* tset = malloc(sizeof(struct training_set));
 
 	tset->ratings_sum = 0;
 
-    tset->ratings = init_coo_matrix(params.training_set_size);
+	tset->ratings = init_coo_matrix(params.training_set_size);
 
-    tset->current_rating_index = 0;
-    tset->training_set_size = params.training_set_size;
-    tset->dimensionality = params.dimensionality;
+	tset->current_rating_index = 0;
+	tset->training_set_size = params.training_set_size;
+	tset->dimensionality = params.dimensionality;
 
 	tset->ratings_matrix = NULL;
 
 	tset->users_number = params.users_number;
 	tset->items_number = params.items_number;
          
-    return tset;
+	return tset;
 }
 
 void
@@ -72,7 +71,10 @@ compile_training_set(training_set_t* tset)
 
 	sort_coo_matrix(tset->ratings);
 
-	tset->ratings_matrix = init_sparse_matrix(tset->ratings, tset->items_number, tset->users_number);
+	tset->ratings_matrix = 
+		init_sparse_matrix(tset->ratings, 
+				tset->items_number, 
+				tset->users_number);
 }
 
 /*
@@ -92,7 +94,8 @@ free_training_set(training_set_t* tset)
 /*
  * set_known_rating: fill the training set with a known user/item rating                            
  */
-void set_known_rating(unsigned int user_index, unsigned int item_index, double _value, training_set_t* tset)
+void 
+set_known_rating(unsigned int user_index, unsigned int item_index, double _value, training_set_t* tset)
 {
 	assert(tset->current_rating_index <= tset->training_set_size);
 
@@ -103,7 +106,7 @@ void set_known_rating(unsigned int user_index, unsigned int item_index, double _
 
 	tset->ratings_sum = tset->ratings_sum + _value;
 
-    tset->current_rating_index++;
+	tset->current_rating_index++;
 }
 
 /*

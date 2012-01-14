@@ -33,7 +33,6 @@
 #define MATRIX_FACTORIZATION_WITH_BIAS_H
 
 
-//includes
 #include "model_parameters.h"
 #include "training_set.h"
 #include "learned_factors.h"
@@ -54,26 +53,31 @@
  *      Return the learned factors.
  *
  */
+
 struct learned_factors*
 learn_mf_bias(struct training_set* tset, struct model_parameters params);
 
 /*
-* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
-*                                some learned factors.
-*
-* Arguments:
-*      user_index: The index of a user
-*      user_index: The index of an item
-*      lfactors  : Learned factors
-*
-* Returns:
-*      The estimated rating.
-*
-*/
+ * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+ *                                some learned factors.
+ *
+ * Arguments:
+ *      user_index: The index of a user
+ *      user_index: The index of an item
+ *      lfactors  : Learned factors
+ *
+ * Returns:
+ *      The estimated rating.
+ *
+ */
 double
 estimate_rating_mf_bias(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors);
 
+/*
+ * Estimate the error between the rating r_ui and the predicted rating
+ */
 double
 estimate_error_mf_bias(double r_iu, unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors);
 
 #endif //MATRIX_FACTORIZATION_WITH_BIAS_H
+

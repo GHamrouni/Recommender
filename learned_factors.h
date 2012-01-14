@@ -44,9 +44,12 @@ struct learned_factors
 	unsigned int     items_number;
 };
 
+
 typedef struct learned_factors learned_factors_t;
 
-
+/*
+ * Create a new factors set
+ */
 learned_factors_t* 
 init_learned_factors(model_parameters_t params);
 
@@ -57,3 +60,4 @@ void
 free_learned_factors(learned_factors_t* lfactors);
 
 #endif //LEARNED_FACTORS_H
+

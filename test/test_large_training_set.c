@@ -16,14 +16,16 @@ int main(void) {
 
 	learning_model_t model = {0};
 
-	unsigned int i, j;
+	unsigned int i, j, k;
+
+	double sum = 0;
 
 	//Model configuration
 	//Setup model parameters
 	model_parameters_t params;
 
-	params.dimensionality = 1500;
-	params.iteration_number = 50;
+	params.dimensionality = 10;
+	params.iteration_number = 500;
 	params.items_number = 1600;
 	params.users_number = 800;
 	params.lambda = 0.005;
@@ -41,18 +43,37 @@ int main(void) {
 	for (i = 0; i < 600; i++)
 	{
 		for (j = 0; j < 100; j++)
-			set_known_rating(i, j, (i % 100) / 10, tset);
+		{
+			sum = 0;
+			
+			for (k = 0; k < params.dimensionality; k++)
+				sum += (((i+k/10) % 100) / 250.0) * (((j+k/10) % 100) / 250.0);
+
+			set_known_rating(i, j, sum, tset);
+		}
 	}
 
 	compile_training_set(tset);
 
 	learned = learn(tset, params, model);
 
+	sum = 0;
+
+	for (i = 0; i < 600; i++)
+	{
+		for (j = 0; j < 100; j++)
+		{
+			sum += fabs(get_element(i, j, tset->ratings_matrix) -  estimate_rating_from_factors(i, j, learned, model));
+		}
+	}
+
+	printf("Total error {%f} \n", sum/60000.0);
+
 	//Rating estimation
-	printf("users [0] item [0], rating = %f \n", get_element(0, 0, tset->ratings_matrix) - estimate_rating_from_factors(0, 0, learned, model));
-	printf("users [300] item [1], rating = %f \n",  get_element(99, 0, tset->ratings_matrix) - estimate_rating_from_factors(99, 0, learned, model));
-	printf("users [1] item [1], rating = %f \n",  get_element(1, 1, tset->ratings_matrix) - estimate_rating_from_factors(1, 1, learned, model));
-	printf("users [1] item [0], rating = %f \n", get_element(1, 0, tset->ratings_matrix) -  estimate_rating_from_factors(1, 0, learned, model));
+	printf("users [32] item [11], rating = %f \n", estimate_rating_from_factors(32, 11, learned, model));
+	printf("users [190] item [3], rating = %f \n", estimate_rating_from_factors(190, 3, learned, model));
+	printf("users [1] item [1], rating = %f \n",  estimate_rating_from_factors(1, 1, learned, model));
+	printf("users [1] item [0], rating = %f \n", estimate_rating_from_factors(1, 0, learned, model));
 
 	free_learned_factors(learned);
 	free_training_set(tset);

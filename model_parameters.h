@@ -29,14 +29,14 @@
 
 struct model_parameters
 {
-    unsigned int     users_number;
-    unsigned int     items_number;
+	unsigned int     users_number;
+	unsigned int     items_number;
 
-    double           lambda;          //The constant lambda controls the extent of regularization
-    double           step;            //step size in stochastic gradient descent algorithm
+	double           lambda;          //The constant lambda controls the extent of regularization
+	double           step;            //step size in stochastic gradient descent algorithm
 
-    unsigned int     dimensionality; //dimensionality of the joint latent factor space
-    unsigned int     iteration_number;
+	unsigned int     dimensionality; //dimensionality of the joint latent factor space
+	unsigned int     iteration_number;
 
 	unsigned int     training_set_size;  //The number of known ratings
 };
@@ -44,3 +44,5 @@ struct model_parameters
 typedef struct model_parameters model_parameters_t;
 
 #endif //MODEL_PARAMETERS_H
+
+

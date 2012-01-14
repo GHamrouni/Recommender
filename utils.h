@@ -24,17 +24,20 @@
 * SUCH DAMAGE.
 */
 
+#ifndef _UTILS_H_
+#define _UTILS_H_
+
 /*
-* length2:  Return the squared length of a vector
-*
-* Arguments:
-*      vector            A vector (array) of double
-*      size              The size of the vector
-*
-* Returns:
-*      Return the squared length of a vector.
-*
-*/
+ * length2:  Return the squared length of a vector
+ *
+ * Arguments:
+ *      vector            A vector (array) of double
+ *      size              The size of the vector
+ *
+ * Returns:
+ *      Return the squared length of a vector.
+ *
+ */
 double
 length2(double* vector, unsigned int size);
 
@@ -45,12 +48,16 @@ double
 sum(double* vector, unsigned int size);
 
 /*
- * 
  * Calculate the dot product between the two vectors.
- *
  */
 double
 dot_product(double* vect1, double* vect2, unsigned int dim);
 
-//Calculate Pearson correlation coefficient
-double pearson_correlation_coefficient(double* vectX, double* vectY, unsigned int dim);
+/*
+ * Calculate Pearson correlation coefficient
+ */
+double
+pearson_correlation_coefficient(double* vectX, double* vectY, unsigned int dim);
+
+#endif
+

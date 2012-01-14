@@ -41,83 +41,80 @@
 #include <assert.h>
 
 /*
-* rate_item:  Return the approximates user’s rating of an item
-*
-* Arguments:
-*      user_vector     The user's vector, measure the extent to which a user
-*                         is interested in a factor
-*      item_vector     The item's vector, measure the extent to which the item
-*                         possesses those factors
-*      dim              The size of the vectors
-*
-* Returns:
-*      The dot product between the two vectors.
-*
-*/
+ * rate_item:  Return the approximates user’s rating of an item
+ *
+ * Arguments:
+ *      user_vector     The user's vector, measure the extent to which a user
+ *                         is interested in a factor
+ *      item_vector     The item's vector, measure the extent to which the item
+ *                         possesses those factors
+ *      dim              The size of the vectors
+ *
+ * Returns:
+ *      The dot product between the two vectors.
+ *
+ */
 double
 estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
 {
-    double sum = 0;
-    unsigned int i;
+	double sum = 0;
+	unsigned int i;
 
-    for (i = 0; i < dim; i++)
-        sum += user_vector[i] * item_vector[i];
+	for (i = 0; i < dim; i++)
+		sum += user_vector[i] * item_vector[i];
 
-    return sum;
+	return sum;
 }
 
 /*
-* regularized_squared_error:  Return the the regularized squared
-*                               error on the set of known ratings
-*
-* Arguments:
-*      user_vector     The user's factor vector to be computed
-*      item_vector     The item's factor vector to be computed
-*      r               The known rating from the training set.
-*      lambda            The constant lambda controls the extent of regularization
-*      size              The size of the vectors
-*
-* Returns:
-*      Return the regularized squared error.
-*
-*/
+ * regularized_squared_error:  Return the the regularized squared
+ *                               error on the set of known ratings
+ *
+ * Arguments:
+ *      user_vector     The user's factor vector to be computed
+ *      item_vector     The item's factor vector to be computed
+ *      r               The known rating from the training set.
+ *      lambda            The constant lambda controls the extent of regularization
+ *      size              The size of the vectors
+ *
+ * Returns:
+ *      Return the regularized squared error.
+ *
+ */
 double
 regularized_squared_error(
-                          double* user_vector,
-                          double* item_vector,
-                          double r,
-                          double lambda,
-                          unsigned int size)
+			  double* user_vector,
+			  double* item_vector,
+			  double r,
+			  double lambda,
+			  unsigned int size)
 {
-    double diff = (r - estimate_item_rating(user_vector, item_vector, size));
+	double diff = (r - estimate_item_rating(user_vector, item_vector, size));
 
-    return diff * diff + lambda * (length2(user_vector, size) + length2(item_vector, size));
+	return diff * diff + lambda * (length2(user_vector, size) + length2(item_vector, size));
 }
 
 
-/*----------------------------------------------------------------------------------------------
- *
- *                                     Learning algorithms
- *
- *----------------------------------------------------------------------------------------------
- */
+/************************************************************************/
+/*                          Learning algorithms                         */
+/************************************************************************/
 
 void 
 compute_factors(
-                    double* item_factors, 
-                    double* user_factors, 
-                    double lambda, 
-                    double step, 
-                    double predicted_error, 
-                    unsigned int dimensionality)
+		double* item_factors, 
+		double* user_factors, 
+		double lambda, 
+		double step, 
+		double predicted_error, 
+		unsigned int dimensionality)
 {
-    unsigned int i = 0;
+	unsigned int i = 0;
 
-    for (i = 0; i < dimensionality; i++)
-    {
-        item_factors[i] = item_factors[i] + step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
-        user_factors[i] = user_factors[i] + step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
-    }
+	for (i = 0; i < dimensionality; i++)
+	{
+		item_factors[i] = item_factors[i] + step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
+		user_factors[i] = user_factors[i] + step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
+	}
 }
 
 /*
@@ -126,57 +123,58 @@ compute_factors(
 struct learned_factors*
 learn_basic_mf(struct training_set* tset, struct model_parameters params)
 {
-    struct learned_factors* lfactors = init_learned_factors(params);
+	struct learned_factors* lfactors = init_learned_factors(params);
 
-    unsigned int r, k, i, u;
+	unsigned int r, k, i, u;
 
-    double r_iu = 0;
-    double r_iu_estimated = 0;
+	double r_iu = 0;
+	double r_iu_estimated = 0;
 
-    double e_iu = 0;
-    double* item_factors;
-    double* user_factors;
+	double e_iu = 0;
+	double* item_factors;
+	double* user_factors;
 
-    r = k = u = i = 0;
+	r = k = u = i = 0;
 
-    for (k = 0; k < params.iteration_number; k++)
-    {
-        for (r = 0; r < params.training_set_size; r++)
-        {
+	for (k = 0; k < params.iteration_number; k++)
+	{
+		for (r = 0; r < params.training_set_size; r++)
+		{
 			 r_iu = tset->ratings->entries[r].value;
 
 			 i = tset->ratings->entries[r].row_i;
 			 u = tset->ratings->entries[r].column_j;
 
-             item_factors = lfactors->item_factor_vectors[i];
-             user_factors = lfactors->user_factor_vectors[u];
+			 item_factors = lfactors->item_factor_vectors[i];
+			 user_factors = lfactors->user_factor_vectors[u];
 
-             r_iu_estimated = estimate_item_rating(item_factors, user_factors, params.dimensionality);
+			 r_iu_estimated = estimate_item_rating(item_factors, user_factors, params.dimensionality);
 
-             e_iu = r_iu - r_iu_estimated;
+			 e_iu = r_iu - r_iu_estimated;
 
-             compute_factors(item_factors, user_factors, params.lambda, params.step, e_iu, params.dimensionality);
-         }
-     }
+			 compute_factors(item_factors, user_factors, params.lambda, params.step, e_iu, params.dimensionality);
+		 }
+	 }
 
-    lfactors->dimensionality = params.dimensionality;
-    lfactors->items_number = params.items_number;
-    lfactors->users_number = params.users_number;
+	lfactors->dimensionality = params.dimensionality;
+	lfactors->items_number = params.items_number;
+	lfactors->users_number = params.users_number;
 
-    return lfactors;
+	return lfactors;
 }
 
 /*
-* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
-*                                some learned factors.
-*/
+ * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+ *                                some learned factors.
+ */
 double
 estimate_rating_basic_mf(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors)
 {
 	assert(item_index < lfactors->items_number);
 	assert(user_index < lfactors->users_number);
 
-    return estimate_item_rating(lfactors->user_factor_vectors[user_index], 
-                                lfactors->item_factor_vectors[item_index], 
-                                lfactors->dimensionality);
+	return estimate_item_rating(lfactors->user_factor_vectors[user_index], 
+								lfactors->item_factor_vectors[item_index], 
+								lfactors->dimensionality);
 }
+

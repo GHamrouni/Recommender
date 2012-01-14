@@ -9,7 +9,7 @@
 #include "../matrix_factorization_bias.h"
 #include "../sparse_matrix.h"
 
-int main(void) {
+int _main(void) {
 
 	learned_factors_t* learned;
 	training_set_t* tset;
@@ -39,7 +39,7 @@ int main(void) {
 	set_known_rating(0, 0, 1, tset);
 	set_known_rating(0, 1, 5, tset);
 	set_known_rating(1, 1, 500, tset);
-    set_known_rating(1, 0, 2, tset);
+	set_known_rating(1, 0, 2, tset);
 
 	compile_training_set(tset);
 

@@ -39,6 +39,7 @@ typedef struct coo_entry
 	int column_j;
 } coo_entry_t;
 
+/* coo_matrix is used to initialize a sparse matrix */
 typedef struct coo_matrix
 {
 	coo_entry_t*     entries;
@@ -46,52 +47,62 @@ typedef struct coo_matrix
 	unsigned int     size;
 } coo_matrix_t;
 
+/* Allocate space for a COO matrix */
 coo_matrix_t*
 init_coo_matrix(unsigned int max_size);
 
+/* delete the COO matrix */ 
 void
 free_coo_matrix(coo_matrix_t* matrix);
 
+/* insert an element into the COO matrix */
 void
 insert_coo_matrix(double val, unsigned int row_i, unsigned int column_j, coo_matrix_t* matrix);
 
+/* sort the COO matrix left-to-right top-to-bottom (row-major) order */
 void
 sort_coo_matrix(coo_matrix_t* matrix);
 
-/* Sparse matrix structure */
+/* Sparse matrix structure (yale format) */
 typedef struct sparse_matrix
 {
 	unsigned int  column_nb;
 
 	unsigned int  row_nb;
 
-	unsigned int  nonzero_entries_nb;//NNZ
+	unsigned int  nonzero_entries_nb; /* NNZ */
 
-	double*       values;//A
+	double*       values;             /* A */
 
-	int*          row_index;//IA
+	int*          row_index;          /* IA */
 
-	int*          column_index;//JA
+	int*          column_index;       /* JA */
 
 } sparse_matrix_t;
 
-
+/* Allocate space for the sparse matrix */
 sparse_matrix_t* 
 init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int column_nb);
 
+/* Delete the sparse matrix */
 void
 free_sparse_matrix(sparse_matrix_t* matrix);
-	
+
+/* Check the matrix contains an element */
 int
 element_exists(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix);
-	
+
+/* Get an element from the matrix */
 double 
 get_element(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix);
 
+/* Get the average of row i (sum of filled values / number of filled values) */
 double
 row_values_average(unsigned int row_i, sparse_matrix_t* matrix);
 
+/* Get the average of column j (sum of filled values / number of filled values) */
 double
 column_values_average(unsigned int column_j, sparse_matrix_t* matrix);
 
 #endif //SPARSE_MATRIX_H
+

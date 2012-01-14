@@ -44,13 +44,13 @@
 double
 dot_product(double* vect1, double* vect2, unsigned int dim)
 {
-    double sum = 0;
-    unsigned int i;
+	double sum = 0;
+	unsigned int i;
 
-    for (i = 0; i < dim; i++)
-        sum += vect1[i] * vect2[i];
+	for (i = 0; i < dim; i++)
+		sum += vect1[i] * vect2[i];
 
-    return sum;
+	return sum;
 }
 
 /*
@@ -82,13 +82,13 @@ sum(double* vector, unsigned int size)
 double
 length2(double* vector, unsigned int size)
 {
-    double sum = 0;
-    unsigned int i;
+	double sum = 0;
+	unsigned int i;
 
-    for (i = 0; i < size; i++)
-        sum += vector[i] * vector[i];
+	for (i = 0; i < size; i++)
+		sum += vector[i] * vector[i];
 
-    return sum;
+	return sum;
 }
 
 //Calculate Pearson correlation coefficient
@@ -107,3 +107,4 @@ double pearson_correlation_coefficient(double* vectX, double* vectY, unsigned in
 
 	return d / f;
 }
+

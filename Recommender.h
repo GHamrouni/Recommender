@@ -33,7 +33,6 @@
 #define RECOMMANDER_H
 
 
-//includes
 #include "model_parameters.h"
 #include "training_set.h"
 #include "learned_factors.h"
