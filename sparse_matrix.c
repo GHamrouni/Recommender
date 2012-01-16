@@ -52,7 +52,8 @@ sort_coo_matrix(coo_matrix_t* matrix)
 	qsort(matrix->entries, matrix->size, sizeof(coo_entry_t), entry_cmp);
 }
 
-sparse_matrix_t* init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int column_nb)
+sparse_matrix_t* 
+init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int column_nb)
 {
 	unsigned int i = 0;
 	int current_row = -1;

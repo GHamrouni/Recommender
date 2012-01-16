@@ -34,6 +34,7 @@
 #include "matrix_factorization_bias.h"
 #include "utils.h"
 #include "training_set.h"
+#include "float_tester.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,6 +67,8 @@ compute_factors_bias(
 	double* item_factors;
 	double* user_factors;
 
+	assert (is_valid(predicted_error));	
+
 	item_factors = lfactors->item_factor_vectors[item_index];
 	user_factors = lfactors->user_factor_vectors[user_index];
 
@@ -75,16 +78,16 @@ compute_factors_bias(
 	lfactors->item_bias[item_index] = lfactors->item_bias[item_index] + 
 	step * (predicted_error - lambda * lfactors->item_bias[item_index]);
 
-	assert (!(lfactors->user_bias[user_index] != lfactors->user_bias[user_index]));
-	assert (!(lfactors->item_bias[item_index] != lfactors->item_bias[item_index]));
+	assert (is_valid(lfactors->user_bias[user_index]));
+	assert (is_valid(lfactors->item_bias[item_index]));
 
 	for (i = 0; i < dimensionality; i++)
 	{
 		item_factors[i] = item_factors[i] + step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
 		user_factors[i] = user_factors[i] + step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
 
-		assert (!(item_factors[i] != item_factors[i]));
-		assert (!(user_factors[i] != user_factors[i]));
+		assert (is_valid(item_factors[i]));
+		assert (is_valid(user_factors[i]));
 	}
 }
 
@@ -160,7 +163,7 @@ update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training
 
 			e_iu = estimate_error_mf_bias(r_iu, u, i, lfactors);
 
-			assert (!(e_iu != e_iu));
+			assert (is_valid(e_iu));
 
 			max_error = fmax(max_error, fabs(e_iu));
 
@@ -194,7 +197,7 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 double
 estimate_error_mf_bias(double r_iu, unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors)
 {
-	double sum = - r_iu;
+	double sum = 0.0;
 	unsigned int i;
 
 	double* item_factors;
@@ -219,9 +222,9 @@ estimate_error_mf_bias(double r_iu, unsigned int user_index, unsigned int item_i
 	for (i = 0; i < lfactors->dimensionality; i++)
 		sum += user_factors[i] * item_factors[i];
 
-	assert(!(sum != sum));
+	assert(is_valid(sum));
 
-	return - (sum + bias);
+	return r_iu - (sum + bias);
 }
 
 /*
