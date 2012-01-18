@@ -57,10 +57,8 @@ compute_factors_bias(
 					int user_index, 
 					int item_index, 
 					learned_factors_t* lfactors,
-					double lambda, 
-					double step, 
-					double predicted_error, 
-					unsigned int dimensionality)
+					double predicted_error,
+					model_parameters_t params)
 {
 	unsigned int i = 0;
 
@@ -73,18 +71,18 @@ compute_factors_bias(
 	user_factors = lfactors->user_factor_vectors[user_index];
 
 	lfactors->user_bias[user_index] = lfactors->user_bias[user_index] + 
-	step * (predicted_error - lambda * lfactors->user_bias[user_index]);
+	params.step_bias * (predicted_error - params.lambda_bias * lfactors->user_bias[user_index]);
 
 	lfactors->item_bias[item_index] = lfactors->item_bias[item_index] + 
-	step * (predicted_error - lambda * lfactors->item_bias[item_index]);
+	params.step_bias * (predicted_error - params.lambda_bias * lfactors->item_bias[item_index]);
 
 	assert (is_valid(lfactors->user_bias[user_index]));
 	assert (is_valid(lfactors->item_bias[item_index]));
 
-	for (i = 0; i < dimensionality; i++)
+	for (i = 0; i < params.dimensionality; i++)
 	{
-		item_factors[i] = item_factors[i] + step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
-		user_factors[i] = user_factors[i] + step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
+		item_factors[i] = item_factors[i] + params.step * (predicted_error * user_factors[i] - params.lambda * item_factors[i]);
+		user_factors[i] = user_factors[i] + params.step * (predicted_error * item_factors[i] - params.lambda * user_factors[i]);
 
 		assert (is_valid(item_factors[i]));
 		assert (is_valid(user_factors[i]));
@@ -167,7 +165,7 @@ update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training
 
 			max_error = fmax(max_error, fabs(e_iu));
 
-			compute_factors_bias(u, i, lfactors, params.lambda, step, e_iu, params.dimensionality);
+			compute_factors_bias(u, i, lfactors, e_iu, params);
 		}
 
 		if (max_error < step)
