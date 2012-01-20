@@ -45,6 +45,9 @@ struct learned_factors* init_learned_factors(struct model_parameters params)
 	unsigned int i = 0;
 	unsigned int j = 0;
 
+	if (!lfactors)
+		return NULL;
+
 	lfactors->item_factor_vectors = malloc(sizeof(double*) * params.items_number);
 	lfactors->user_factor_vectors = malloc(sizeof(double*) * params.users_number);
 
@@ -52,6 +55,14 @@ struct learned_factors* init_learned_factors(struct model_parameters params)
 	lfactors->user_bias = malloc(sizeof(double) * params.users_number);
 
 	lfactors->ratings_average = 0;
+
+	if (!lfactors->item_factor_vectors ||
+		!lfactors->user_factor_vectors ||
+		!lfactors->item_bias ||
+		!lfactors->user_bias)
+	{
+		return lfactors;
+	}
 
 	for (i = 0; i < params.items_number; i++)
 	{

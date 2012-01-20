@@ -34,9 +34,9 @@
 /* Coordinate list (COO) */
 typedef struct coo_entry
 {
-	double value;
-	int row_i;
-	int column_j;
+	double		value;
+	unsigned	int row_i;
+	unsigned	int column_j;
 } coo_entry_t;
 
 /* coo_matrix is used to initialize a sparse matrix */
@@ -74,7 +74,7 @@ typedef struct sparse_matrix
 
 	double*       values;             /* A */
 
-	int*          row_index;          /* IA */
+	unsigned int* row_index;          /* IA */
 
 	int*          column_index;       /* JA */
 

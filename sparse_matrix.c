@@ -9,6 +9,9 @@ init_coo_matrix(unsigned int max_size)
 {
 	coo_matrix_t* matrix = malloc(sizeof(coo_matrix_t));
 
+	if (!matrix)
+		return NULL;
+
 	matrix->current_size = 0;
 	matrix->size = max_size;
 
@@ -60,27 +63,33 @@ init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int col
 
 	sparse_matrix_t* matrix = malloc(sizeof(sparse_matrix_t));
 
+	if (!matrix)
+		return NULL;
+
 	matrix->column_nb = column_nb;
 	matrix->row_nb = row_nb;
 	matrix->nonzero_entries_nb = c_matrix->size;
 
 	matrix->values = malloc(sizeof(double) * c_matrix->size);
-	matrix->row_index = malloc(sizeof(int) * (row_nb + 1));
+	matrix->row_index = malloc(sizeof(unsigned int) * (row_nb + 1));
 	matrix->column_index = malloc(sizeof(int) * c_matrix->size);
 
 	for (i = 0; i < row_nb + 1; i++)
-		matrix->row_index[i] = -1;
+		matrix->row_index[i] = 0;
 
 	for (i = 0; i < c_matrix->size; i++)
 	{
 		if (current_row != c_matrix->entries[i].row_i)
 		{
-			matrix->row_index[c_matrix->entries[i].row_i] = i;
-			current_row = c_matrix->entries[i].row_i;
+			if (c_matrix->entries[i].row_i < row_nb + 1)
+			{
+				matrix->row_index[c_matrix->entries[i].row_i] = i + 1;
+				current_row = c_matrix->entries[i].row_i;
+			}
 		} else if (i == (c_matrix->size - 1))
 		{
 			if (c_matrix->entries[i].row_i == row_nb - 1)
-				matrix->row_index[row_nb] = i + 1;
+				matrix->row_index[row_nb] = i + 2;
 		}
 
 		matrix->values[i] = c_matrix->entries[i].value;
@@ -109,10 +118,10 @@ element_exists(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matri
 	assert(row_i < matrix->row_nb);
 	assert(column_j < matrix->column_nb);
 
-	if (matrix->row_index[row_i] == -1) return 0;
+	if (!matrix->row_index[row_i]) return 0;
 
-	r1 = matrix->row_index[row_i];
-	r2 = matrix->row_index[row_i + 1];
+	r1 = matrix->row_index[row_i] - 1;
+	r2 = matrix->row_index[row_i + 1] - 1;
 
 	for (i = r1; i < r2; i++)
 		if (matrix->column_index[i] == column_j)
@@ -131,10 +140,10 @@ get_element(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix)
 	assert(row_i < matrix->row_nb);
 	assert(column_j < matrix->column_nb);
 
-	if (matrix->row_index[row_i] == -1) return 0;
+	if (!matrix->row_index[row_i]) return 0;
 
-	r1 = matrix->row_index[row_i];
-	r2 = matrix->row_index[row_i + 1];
+	r1 = matrix->row_index[row_i] - 1;
+	r2 = matrix->row_index[row_i + 1] - 1;
 
 	for (i = r1; i < r2; i++)
 		if (matrix->column_index[i] == column_j)
@@ -153,10 +162,10 @@ row_values_average(unsigned int row_i, sparse_matrix_t* matrix)
 
 	r1 = r2 = 0; //Range
 
-	if (matrix->row_index[row_i] == -1) return 0;
+	if (!matrix->row_index[row_i]) return 0;
 
-	r1 = matrix->row_index[row_i];
-	r2 = matrix->row_index[row_i + 1];
+	r1 = matrix->row_index[row_i] - 1;
+	r2 = matrix->row_index[row_i + 1] - 1;
 
 	for (i = r1; i < r2; i++)
 	{

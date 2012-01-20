@@ -48,6 +48,9 @@ init_training_set(struct model_parameters params)
 {
 	struct training_set* tset = malloc(sizeof(struct training_set));
 
+	if (!tset)
+		return NULL;
+
 	tset->ratings_sum = 0;
 
 	tset->ratings = init_coo_matrix(params.training_set_size);
