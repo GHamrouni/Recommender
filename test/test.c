@@ -9,7 +9,7 @@
 #include "../matrix_factorization_bias.h"
 #include "../sparse_matrix.h"
 
-int _main(void) {
+int main(void) {
 
 	learned_factors_t* learned;
 	training_set_t* tset;
@@ -31,6 +31,7 @@ int _main(void) {
 	//Use the basic matrix factorization model
 	model.learning_algorithm = learn_mf_bias;
 	model.rating_estimator   = estimate_rating_mf_bias;
+	model.parameters		 = params;
 
 	//Learning
 	//Initialize a training set
@@ -43,7 +44,7 @@ int _main(void) {
 
 	compile_training_set(tset);
 
-	learned = learn(tset, params, model);
+	learned = learn(tset, model);
 
 	//Rating estimation
 	printf("users [0] item [0], rating = %f \n", estimate_rating_from_factors(0, 0, learned, model));

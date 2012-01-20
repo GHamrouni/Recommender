@@ -35,6 +35,7 @@ int main(void) {
 	//Use the basic matrix factorization model
 	model.learning_algorithm = learn_mf_bias;
 	model.rating_estimator   = estimate_rating_mf_bias;
+	model.parameters		 = params;
 
 	//Learning
 	//Initialize a training set
@@ -55,7 +56,7 @@ int main(void) {
 
 	compile_training_set(tset);
 
-	learned = learn(tset, params, model);
+	learned = learn(tset, model);
 
 	for (k = 0; k < 100; k++)
 	{
