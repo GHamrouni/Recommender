@@ -27,6 +27,11 @@ To compile Recommender:
 
 The compilation will produce libRecommender.a
 
+To compile an example:
+
+    gcc test/test.c libRecommender.a -lm -o test/t1
+
+
 Keywords
 --------
 Collaborative filtering, recommender system
