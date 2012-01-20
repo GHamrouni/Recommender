@@ -55,7 +55,6 @@ init_training_set(struct model_parameters params)
 
 	tset->ratings = init_coo_matrix(params.training_set_size);
 
-	tset->current_rating_index = 0;
 	tset->training_set_size = params.training_set_size;
 	tset->dimensionality = params.dimensionality;
 
@@ -100,16 +99,12 @@ free_training_set(training_set_t* tset)
 void 
 set_known_rating(unsigned int user_index, unsigned int item_index, double _value, training_set_t* tset)
 {
-	assert(tset->current_rating_index <= tset->training_set_size);
-
 	insert_coo_matrix(_value, item_index, user_index, tset->ratings);
 
 	assert(user_index < tset->users_number);
 	assert(item_index < tset->items_number);
 
 	tset->ratings_sum = tset->ratings_sum + _value;
-
-	tset->current_rating_index++;
 }
 
 /*
@@ -117,7 +112,7 @@ set_known_rating(unsigned int user_index, unsigned int item_index, double _value
  *                              the ratings of a user
  */
 double 
-user_ratings_average(int user_index, training_set_t* tset, struct model_parameters params)
+user_ratings_average(int user_index, training_set_t* tset)
 {
 	assert(tset->ratings_matrix);
 
@@ -129,7 +124,7 @@ user_ratings_average(int user_index, training_set_t* tset, struct model_paramete
  *                              the ratings of an item
  */
 double 
-item_ratings_average(int item_index, training_set_t* tset, struct model_parameters params)
+item_ratings_average(int item_index, training_set_t* tset)
 {
 	assert(tset->ratings_matrix);
 

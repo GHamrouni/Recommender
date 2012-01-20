@@ -69,9 +69,12 @@ struct learned_factors* init_learned_factors(struct model_parameters params)
 		lfactors->item_factor_vectors[i] =  
 			malloc(sizeof(double) * params.dimensionality);
 		
-		for (j = 0; j < params.dimensionality; j++)
+		if (lfactors->item_factor_vectors[i])
 		{
-			lfactors->item_factor_vectors[i][j] = 0.1;
+			for (j = 0; j < params.dimensionality; j++)
+			{
+				lfactors->item_factor_vectors[i][j] = 0.1;
+			}
 		}
 
 		lfactors->item_bias[i] = 0.0;
@@ -82,9 +85,12 @@ struct learned_factors* init_learned_factors(struct model_parameters params)
 		lfactors->user_factor_vectors[i] =  
 			malloc(sizeof(double) * params.dimensionality);
 
-		for (j = 0; j < params.dimensionality; j++)
+		if (lfactors->user_factor_vectors[i])
 		{
-			lfactors->user_factor_vectors[i][j] = 0.1;
+			for (j = 0; j < params.dimensionality; j++)
+			{
+				lfactors->user_factor_vectors[i][j] = 0.1;
+			}
 		}
 
 		lfactors->user_bias[i] = 0.0;

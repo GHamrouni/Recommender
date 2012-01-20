@@ -31,17 +31,17 @@
 
 struct learned_factors
 {
-	double**         user_factor_vectors;
-	double**         item_factor_vectors;
+	unsigned int     users_number;
+	unsigned int     items_number;
+	unsigned int     dimensionality;
 
 	double*          user_bias;
 	double*          item_bias;
+
 	double           ratings_average;
 
-	unsigned int     dimensionality;
-
-	unsigned int     users_number;
-	unsigned int     items_number;
+	double**         user_factor_vectors;
+	double**         item_factor_vectors;
 };
 
 

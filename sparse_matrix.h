@@ -66,17 +66,17 @@ sort_coo_matrix(coo_matrix_t* matrix);
 /* Sparse matrix structure (yale format) */
 typedef struct sparse_matrix
 {
-	unsigned int  column_nb;
+	unsigned int	column_nb;
 
-	unsigned int  row_nb;
+	unsigned int	row_nb;
 
-	unsigned int  nonzero_entries_nb; /* NNZ */
+	unsigned int	nonzero_entries_nb; /* NNZ */
 
-	double*       values;             /* A */
+	double*			values;             /* A */
 
-	unsigned int* row_index;          /* IA */
+	unsigned int*	row_index;          /* IA */
 
-	int*          column_index;       /* JA */
+	unsigned int*	column_index;       /* JA */
 
 } sparse_matrix_t;
 

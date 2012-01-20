@@ -105,7 +105,7 @@ void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfa
 
 	for (i = 0; i < params.items_number; i++)
 	{
-		lfactors->item_bias[i] = item_ratings_average(i, tset, params)- average_rating;
+		lfactors->item_bias[i] = item_ratings_average(i, tset)- average_rating;
 	}
 
 	for (i = 0; i < tset->ratings_matrix->nonzero_entries_nb; i++)

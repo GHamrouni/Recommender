@@ -59,7 +59,7 @@ sparse_matrix_t*
 init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int column_nb)
 {
 	unsigned int i = 0;
-	int current_row = -1;
+	unsigned int current_row = 0;
 
 	sparse_matrix_t* matrix = malloc(sizeof(sparse_matrix_t));
 
@@ -72,28 +72,37 @@ init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int col
 
 	matrix->values = malloc(sizeof(double) * c_matrix->size);
 	matrix->row_index = malloc(sizeof(unsigned int) * (row_nb + 1));
-	matrix->column_index = malloc(sizeof(int) * c_matrix->size);
+	matrix->column_index = malloc(sizeof(unsigned int) * c_matrix->size);
 
-	for (i = 0; i < row_nb + 1; i++)
-		matrix->row_index[i] = 0;
+	if (matrix->row_index)
+	{
+		for (i = 0; i < row_nb + 1; i++)
+			matrix->row_index[i] = 0;
+	}
 
 	for (i = 0; i < c_matrix->size; i++)
 	{
-		if (current_row != c_matrix->entries[i].row_i)
+		if (current_row != (c_matrix->entries[i].row_i + 1))
 		{
 			if (c_matrix->entries[i].row_i < row_nb + 1)
 			{
-				matrix->row_index[c_matrix->entries[i].row_i] = i + 1;
-				current_row = c_matrix->entries[i].row_i;
+				if (matrix->row_index)
+					matrix->row_index[c_matrix->entries[i].row_i] = i + 1;
+
+				current_row = c_matrix->entries[i].row_i + 1;
 			}
 		} else if (i == (c_matrix->size - 1))
 		{
 			if (c_matrix->entries[i].row_i == row_nb - 1)
-				matrix->row_index[row_nb] = i + 2;
+				if (matrix->row_index)
+					matrix->row_index[row_nb] = i + 2;
 		}
 
-		matrix->values[i] = c_matrix->entries[i].value;
-		matrix->column_index[i] = c_matrix->entries[i].column_j;
+		if (matrix->values)
+			matrix->values[i] = c_matrix->entries[i].value;
+
+		if (matrix->column_index)
+			matrix->column_index[i] = c_matrix->entries[i].column_j;
 	}
 
 	return matrix;

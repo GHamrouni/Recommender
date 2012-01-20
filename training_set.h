@@ -33,10 +33,12 @@
 //A known user rating
 struct rating
 {
-	double value;
-	int user_index;
-	int item_index;
-	int is_known;
+	unsigned int	user_index;
+	unsigned int	item_index;
+
+	double			value;
+
+	int				is_known;
 };
 
 typedef struct rating rating_t;
@@ -45,17 +47,16 @@ typedef struct rating rating_t;
 // behavior or from items ratings.
 struct training_set
 {
-	coo_matrix_t*    ratings;            //Known ratings
-	sparse_matrix_t* ratings_matrix;
-
 	unsigned int     training_set_size;  //The number of known ratings
 	unsigned int     dimensionality;     //dimensionality of the joint latent factor space
-	unsigned int     current_rating_index;
-
-	double           ratings_sum;
 
 	unsigned int     users_number;
 	unsigned int     items_number;
+
+	double           ratings_sum;
+
+	coo_matrix_t*    ratings;            //Known ratings
+	sparse_matrix_t* ratings_matrix;
 };
 
 typedef struct training_set training_set_t;
@@ -113,7 +114,7 @@ set_known_rating(unsigned int user_index, unsigned int item_index, double value,
  *
  */
 double 
-user_ratings_average(int user_index, training_set_t* tset, model_parameters_t params);
+user_ratings_average(int user_index, training_set_t* tset);
 
 /*
  * item_ratings_average: get the average of the vector formed by 
@@ -127,6 +128,6 @@ user_ratings_average(int user_index, training_set_t* tset, model_parameters_t pa
  *
  */
 double 
-item_ratings_average(int item_index, training_set_t* tset, model_parameters_t params);
+item_ratings_average(int item_index, training_set_t* tset);
 
 #endif //TRAINING_SET_H
