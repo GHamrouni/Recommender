@@ -47,12 +47,12 @@
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn(struct training_set* tset, struct model_parameters params, struct learning_model model)
+learn(struct training_set* tset, struct learning_model model)
 {
 	assert (model.learning_algorithm && model.rating_estimator);
 	assert(tset->ratings_matrix);
 
-	return model.learning_algorithm(tset, params);
+	return model.learning_algorithm(tset, model.parameters);
 }
 
 /*

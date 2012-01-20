@@ -45,8 +45,9 @@
 
 struct learning_model
 {
-	learning_algorithm_t learning_algorithm;
-	rating_estimator_t   rating_estimator;
+	learning_algorithm_t	learning_algorithm;
+	rating_estimator_t		rating_estimator;
+	model_parameters_t		parameters;
 };
 
 typedef struct learning_model learning_model_t;
@@ -57,14 +58,13 @@ typedef struct learning_model learning_model_t;
  *
  * Arguments:
  *      tset        The training set contains the known rating of items
- *      params        Parameters of the model
  *
  * Returns:
  *      Return the learned factors.
  *
  */
 struct learned_factors*
-learn(struct training_set* tset, struct model_parameters params, struct learning_model model);
+learn(struct training_set* tset, struct learning_model model);
 
 /*
 * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
