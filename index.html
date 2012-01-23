@@ -1,64 +1,148 @@
-﻿<!DOCTYPE html>  
-<html lang="en">  
-  <head>  
-    <meta charset="utf-8">  
-    <title>Recommender</title>  
-    <link rel="stylesheet" href="style.css">  
-    <link href='http://fonts.googleapis.com/css?family=Oldenburg' rel='stylesheet' type='text/css'>
-  </head>  
-  <body>  
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Recommender</title>
 	
-	 <div id="logo">
-	<h1>Recommender</h1>
-	</div>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-   </br>
-   </br>
-	
-	<div id="content_box">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-	<a href="https://github.com/GHamrouni/Recommender"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+    <!-- Le styles -->
+    <link href="bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
 
-	<a href="https://github.com/GHamrouni/Recommender">Recommender</a> is a <strong>C</strong> library for product recommendations/suggestions using <strong>collaborative filtering (CF)</strong>
-	
-	<h4>Features</h4>
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  </head>
+
+  <body>
+
+  
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#">Recommender</a>
+          <ul class="nav">
+		    <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#tutorial">Tutorial</a></li>
+            <li><a href="https://github.com/GHamrouni/Recommender">Code</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Recommender</h1>
+        <p>Recommender is a <strong>C</strong> library for product recommendations/suggestions using <strong>collaborative filtering (CF)</strong></p>
+        
+	<p><h4>Features</h4>
 	<ul>
 		<li>Latent factor approach</li>
 		<li>Models taking into consideration users biases</li>
 		<li>Standard C with no external dependencies</li>
-	</ul>
+	</ul></p>
 	
+	<p>
 	<h4>A demo</h4>
-	
 	<ul>
 		<li><a href="https://github.com/GHamrouni/Recommender/blob/master/test/test.c">test.c</a></li>
 	</ul>
-   </div>
-   
-   </br>
-   </br>
-   
-   <div id="content_box">
-
-	<h4>Introducton</h4>
-<p>
-Suppose that Alice wants to buy some items on the Internet. In order to choose an item Alice compares prices, quality, ease-of-use … and a myriad of other factors. The optimum choice is a choice that has the maximum important features (to Alice). 
-Recommender can analyze the feedback of some users and their preferences for some items. Then It learns patterns and predicts the most suitable products for Alice</p>
-
-<p>
-<a href="tutorial.html">tutorial</a>
-</p>
-
-   </div>
-
-   </br>
-   </br>
-     
-   <div id="signature_box">
-   <strong>
-   <a href="https://github.com/GHamrouni"> Ghassen H. </a>
-   </strong>
-   </div>
+	</p>
 	
-  </body>  
-</html>  
+		<p><a class="btn primary large" href="https://github.com/GHamrouni/Recommender">Recommender on GitHub &raquo;</a></p>
+      </div>
+
+ <section id="introduction">
+  <div class="page-header">
+    <h1> Introduction </h1>
+  </div>
+
+  <p>
+  
+  Suppose that Alice wants to buy some items on the Internet. In order to choose an item Alice compares prices, quality, ease-of-use … and a myriad of other factors. The optimum choice is a choice that has the maximum important features (to Alice). 
+  Recommender can analyze the feedback of some users and their preferences for some items. Then It learns patterns and predicts the most suitable products for Alice</p>
+
+  
+  </p>
+  
+</section>
+	  
+	  
+<section id="tutorial">
+  <div class="page-header">
+    <h1> Recommender tutorial </h1>
+  </div>
+
+  <p>
+
+	<h4>Configuring the model</h4>
+
+The first step is to choose a model/algorithm for the learning procedure and set it's parameters.   
+  
+  </p>
+  
+  <p>
+  
+  <script src="https://gist.github.com/1594702.js?file=gistfile1.c"></script>
+  
+  </p>
+  
+  <p>
+  <h4>The training set</h4>
+	
+	Once the model is configured. You can create a training set. The training set is obtained from the past users behavior or from items ratings. 
+	</p>
+	
+	<p>
+	<script src="https://gist.github.com/1594778.js?file=gistfile1.c"></script>
+	</p>
+	
+	<p>
+	<h4>Learning</h4>
+   
+   <p> Use the training set to capture patterns and to identify factors that are important for a user. In the same time measure the extent to which an item possesses some feature. </p>
+   
+   </p>
+   
+   <p>
+   <script src="https://gist.github.com/1594899.js?file=gistfile1.c"></script>
+  </p>
+  
+  <p>
+  	<h4>References</h4>
+	</p>
+	
+	<p>
+	<ul>
+		<li>http://en.wikipedia.org/wiki/Recommendation_system</li>
+		<li>http://public.research.att.com/~volinsky/netflix/kdd08koren.pdf</li>
+		<li>http://research.yahoo.com/files/ieeecomputer.pdf</li>
+	</ul>
+  </p>
+  
+</section>
+
+      <footer>
+		<p><a href="https://github.com/GHamrouni"> Ghassen H. </a></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+	
+  </body>
+</html>
