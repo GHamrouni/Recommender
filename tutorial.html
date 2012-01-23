@@ -98,27 +98,58 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
 	  <div class="content">
 
-	  <div class="page-header">
+<div class="page-header">
+    <h1> Recommender tutorial </h1>
+  </div>
 
-      <p>Recommender is a <strong>C</strong> library for product recommendations/suggestions using <strong>collaborative filtering (CF)</strong></p>
-        
-  	</div>
-		
-	<p><h4>Features</h4>
-	<ul>
-		<li>Latent factor approach</li>
-		<li>Models taking into consideration users biases</li>
-		<li>Standard C with no external dependencies</li>
-	</ul></p>
+  <p>
+
+	<h4>Configuring the model</h4>
+
+The first step is to choose a model/algorithm for the learning procedure and set it's parameters.   
+  
+  </p>
+  
+  <p>
+  
+  <script src="https://gist.github.com/1594702.js?file=gistfile1.c"></script>
+  
+  </p>
+  
+  <p>
+  <h4>The training set</h4>
 	
-	<p>
-	<h4>A demo</h4>
-	<ul>
-		<li><a href="https://github.com/GHamrouni/Recommender/blob/master/test/test.c">test.c</a></li>
-	</ul>
+	Once the model is configured. You can create a training set. The training set is obtained from the past users behavior or from items ratings. 
 	</p>
 	
-		<p><a class="btn primary large" href="https://github.com/GHamrouni/Recommender">Recommender on GitHub &raquo;</a></p>
+	<p>
+	<script src="https://gist.github.com/1594778.js?file=gistfile1.c"></script>
+	</p>
+	
+	<p>
+	<h4>Learning</h4>
+   
+   <p> Use the training set to capture patterns and to identify factors that are important for a user. In the same time measure the extent to which an item possesses some feature. </p>
+   
+   </p>
+   
+   <p>
+   <script src="https://gist.github.com/1594899.js?file=gistfile1.c"></script>
+  </p>
+  
+  <p>
+  	<h4>References</h4>
+	</p>
+	
+	<p>
+	<ul>
+		<li>http://en.wikipedia.org/wiki/Recommendation_system</li>
+		<li>http://public.research.att.com/~volinsky/netflix/kdd08koren.pdf</li>
+		<li>http://research.yahoo.com/files/ieeecomputer.pdf</li>
+	</ul>
+  </p>
+		
+		
       </div>
 
       <footer>
