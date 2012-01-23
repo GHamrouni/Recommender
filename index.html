@@ -57,13 +57,8 @@
         margin: -20px -20px 20px;
       }
 
-      /* Styles you shouldn't keep as they are for displaying this base example only */
-      .content .span10,
-      .content .span4 {
-        min-height: 500px;
-      }
       /* Give a quick and non-cross-browser friendly divider */
-      .content .span4 {
+      .content .span5 {
         margin-left: 0;
         padding-left: 19px;
         border-left: 1px solid #eee;
@@ -110,29 +105,70 @@
         
   	</div>
 		
-	<p><h4>Features</h4>
-	<ul>
-		<li>Latent factor approach</li>
-		<li>Models taking into consideration users biases</li>
-		<li>Standard C with no external dependencies</li>
-	</ul></p>
-	
-	<p>
-	<h4>A demo</h4>
-	<ul>
-		<li><a href="https://github.com/GHamrouni/Recommender/blob/master/test/test.c">test.c</a></li>
-	</ul>
-	</p>
-	
-	<p>
-	<h4> Keywords </h4>
+		  <div class="row">
+          <div class="span9">
+            	
+			<p><h4>Features</h4>
+			<ul>
+				<li>Latent factor approach</li>
+				<li>Models taking into consideration users biases</li>
+				<li>Standard C with no external dependencies</li>
+			</ul></p>
+			
+			<p>
+			<h4>A demo</h4>
+			<ul>
+				<li><a href="https://github.com/GHamrouni/Recommender/blob/master/test/test.c">test.c</a></li>
+			</ul>
+			</p>
+			
+			<p>
+			<h4> Keywords </h4>
 
-	<p>
-    Collaborative filtering, recommender system
-	</p>
-   </p>
+			<p>
+			Collaborative filtering, recommender system
+			</p>
+		   </p>
 	
 		<p><a class="btn primary large" href="https://github.com/GHamrouni/Recommender">Recommender on GitHub &raquo;</a></p>
+		
+		   </div>
+          <div class="span5">
+            
+			<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+			<script>
+			new TWTR.Widget({
+			  version: 2,
+			  type: 'search',
+			  search: 'Recommender github',
+			  interval: 30000,
+			  title: 'Recommender',
+			  subject: 'What\'s new',
+			  width: 230,
+			  height: 300,
+			  theme: {
+				shell: {
+				  background: '#ffffff',
+				  color: '#444444'
+				},
+				tweets: {
+				  background: '#ffffff',
+				  color: '#444444',
+				  links: '#858585'
+				}
+			  },
+			  features: {
+				scrollbar: false,
+				loop: true,
+				live: true,
+				behavior: 'default'
+			  }
+			}).render().start();
+			</script>
+			
+          </div>
+        </div>
+		
       </div>
 
       <footer>
