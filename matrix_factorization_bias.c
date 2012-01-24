@@ -86,7 +86,7 @@ compute_factors_bias(
 void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
 {
 	unsigned int i;
-	double average_rating = tset->ratings_sum / ((double) tset->training_set_size);
+	float average_rating = (float) tset->ratings_sum / ((float) tset->training_set_size);
 
 	double* nb_ratings_per_user = malloc(sizeof(double) * params.users_number);
 

@@ -37,11 +37,11 @@ struct model_parameters
 
 	unsigned int	training_set_size;  //The number of known ratings
 
-	double			lambda;          //The constant lambda controls the extent of regularization
-	double			step;            //step size in stochastic gradient descent algorithm
+	float			lambda;          //The constant lambda controls the extent of regularization
+	float			step;            //step size in stochastic gradient descent algorithm
 
-	double			step_bias;
-	double			lambda_bias;
+	float			step_bias;
+	float			lambda_bias;
 };
 
 typedef struct model_parameters model_parameters_t;

@@ -36,7 +36,7 @@ struct rating
 	unsigned int	user_index;
 	unsigned int	item_index;
 
-	double			value;
+	float			value;
 
 	int				is_known;
 };

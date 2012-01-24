@@ -38,7 +38,7 @@ struct learned_factors
 	double*          user_bias;
 	double*          item_bias;
 
-	double           ratings_average;
+	float            ratings_average;
 
 	double**         user_factor_vectors;
 	double**         item_factor_vectors;
