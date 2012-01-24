@@ -9,6 +9,24 @@
 #include "../matrix_factorization_bias.h"
 #include "../sparse_matrix.h"
 
+void print_recommended_items(rb_node_t* node, int depth)
+{
+	int i = 0;
+
+	if (node == NULL)
+		return;
+
+	for (i = 0; i < depth; i++)
+		printf("->");
+
+	printf("%f \n", ((recommended_item_t*) node->value)->rating);
+
+	depth++;
+
+	print_recommended_items(node->left_node, depth);
+	print_recommended_items(node->right_node, depth);
+}
+
 int main(void) {
 
 	learned_factors_t* learned;
@@ -71,3 +89,4 @@ int main(void) {
 
 	return 0;
 }
+
