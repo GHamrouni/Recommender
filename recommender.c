@@ -72,12 +72,10 @@ estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* 
 recommended_items_t*
 recommend_items(int user_index, int items_number, learned_factors_t* lfactors, training_set_t* tset, learning_model_t model)
 {
-	unsigned int i, j;
+	unsigned int j;
 	recommended_items_t* r_items = init_recommended_items(items_number);
 
 	assert (model.learning_algorithm && model.rating_estimator);
-
-	i = 0;
 
 	for (j = 0; j < tset->items_number; j++)
 	{

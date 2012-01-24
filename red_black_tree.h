@@ -32,11 +32,11 @@
 #ifndef RED_BLACK_TREE_H
 #define RED_BLACK_TREE_H
 
-enum NODE_COLORS	/* Defines red black tree node color */
+enum node_color	/* Defines red black tree node color */
 {
 	RB_RED,
 	RB_BLACK
-} node_color;
+};
 
 
 /*

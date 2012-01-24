@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
+#include <math.h>
 
 #include "utils.h"
 #include "red_black_tree.h"
