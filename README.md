@@ -1,4 +1,4 @@
-Recommender [![Build Status](https://secure.travis-ci.org/GHamrouni/Recommender.png)](http://travis-ci.org/GHamrouni/Recommender)
+﻿Recommender [![Build Status](https://secure.travis-ci.org/GHamrouni/Recommender.png)](http://travis-ci.org/GHamrouni/Recommender)
 =======================
 
 ![status](http://stillmaintained.com/GHamrouni/Recommender.png)
@@ -14,6 +14,8 @@ Features
  * Collaborative Filtering
  * User and Item based recommenders
  * No external dependencies 
+ * Fast running time ~ 81 seconds for 10 million ratings (on MovieLens Data Sets)
+ * Memory footprint under 160 MB for 10 million ratings
 
 Webpage
 --------
