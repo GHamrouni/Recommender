@@ -100,7 +100,7 @@ free_training_set(training_set_t* tset);
  *
  */
 void 
-set_known_rating(unsigned int user_index, unsigned int item_index, double value, training_set_t* tset);
+set_known_rating(unsigned int user_index, unsigned int item_index, float value, training_set_t* tset);
 
 /*
  * user_ratings_average: get the average of the vector formed by 

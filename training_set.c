@@ -97,7 +97,7 @@ free_training_set(training_set_t* tset)
  * set_known_rating: fill the training set with a known user/item rating                            
  */
 void 
-set_known_rating(unsigned int user_index, unsigned int item_index, double _value, training_set_t* tset)
+set_known_rating(unsigned int user_index, unsigned int item_index, float _value, training_set_t* tset)
 {
 	insert_coo_matrix(_value, item_index, user_index, tset->ratings);
 

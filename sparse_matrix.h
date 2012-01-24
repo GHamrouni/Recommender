@@ -34,7 +34,7 @@
 /* Coordinate list (COO) */
 typedef struct coo_entry
 {
-	double		value;
+	float		value;
 	unsigned	int row_i;
 	unsigned	int column_j;
 } coo_entry_t;
@@ -57,7 +57,7 @@ free_coo_matrix(coo_matrix_t* matrix);
 
 /* insert an element into the COO matrix */
 void
-insert_coo_matrix(double val, unsigned int row_i, unsigned int column_j, coo_matrix_t* matrix);
+insert_coo_matrix(float val, unsigned int row_i, unsigned int column_j, coo_matrix_t* matrix);
 
 /* sort the COO matrix left-to-right top-to-bottom (row-major) order */
 void
@@ -72,7 +72,7 @@ typedef struct sparse_matrix
 
 	unsigned int	nonzero_entries_nb; /* NNZ */
 
-	double*			values;             /* A */
+	float*			values;             /* A */
 
 	unsigned int*	row_index;          /* IA */
 
@@ -93,15 +93,15 @@ int
 element_exists(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix);
 
 /* Get an element from the matrix */
-double 
+float 
 get_element(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix);
 
 /* Get the average of row i (sum of filled values / number of filled values) */
-double
+float
 row_values_average(unsigned int row_i, sparse_matrix_t* matrix);
 
 /* Get the average of column j (sum of filled values / number of filled values) */
-double
+float
 column_values_average(unsigned int column_j, sparse_matrix_t* matrix);
 
 #endif //SPARSE_MATRIX_H

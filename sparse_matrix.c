@@ -28,7 +28,7 @@ free_coo_matrix(coo_matrix_t* matrix)
 }
 
 void
-insert_coo_matrix(double val, unsigned int row_i, unsigned int column_j, coo_matrix_t* matrix)
+insert_coo_matrix(float val, unsigned int row_i, unsigned int column_j, coo_matrix_t* matrix)
 {
 	assert(matrix->current_size < matrix->size);
 
@@ -70,7 +70,7 @@ init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int col
 	matrix->row_nb = row_nb;
 	matrix->nonzero_entries_nb = c_matrix->size;
 
-	matrix->values = malloc(sizeof(double) * c_matrix->size);
+	matrix->values = malloc(sizeof(float) * c_matrix->size);
 	matrix->row_index = malloc(sizeof(unsigned int) * (row_nb + 1));
 	matrix->column_index = malloc(sizeof(unsigned int) * c_matrix->size);
 
@@ -139,7 +139,7 @@ element_exists(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matri
 	return 0;
 }
 
-double 
+float 
 get_element(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix)
 {
 	int i = 0;
@@ -161,13 +161,13 @@ get_element(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix)
 	return 0;
 }
 
-double
+float
 row_values_average(unsigned int row_i, sparse_matrix_t* matrix)
 {
 	int i = 0;
 	int r1, r2;
-	double sum = 0;
-	double N = 0;
+	float sum = 0;
+	float N = 0;
 
 	r1 = r2 = 0; //Range
 
@@ -188,13 +188,13 @@ row_values_average(unsigned int row_i, sparse_matrix_t* matrix)
 	return sum / N;
 }
 
-double
+float
 column_values_average(unsigned int column_j, sparse_matrix_t* matrix)
 {
 	unsigned int i = 0;
 
-	double sum = 0;
-	double N = 0;
+	float sum = 0;
+	float N = 0;
 
 	for (i = 0; i < matrix->nonzero_entries_nb; i++)
 	{
