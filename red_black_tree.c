@@ -240,18 +240,21 @@ rb_insert_value(red_black_tree_t* t, void* value)
 void*
 rb_min_value(red_black_tree_t* t)
 {
-	rb_node_t* y = NULL;
-	rb_node_t* x = t->head;
+	rb_node_t* x = NULL;
 
 	if (t)
 	{
-		while (x != NULL)
-		{
-			y = x;
-			x = x->left_node;
-		}
+		x = t->head;
 
-		return y->value;
+		if (x)
+		{
+			while (x->left_node != NULL)
+			{
+				x = x->left_node;
+			}
+
+			return x->value;
+		}
 	}
 
 	return 0;
@@ -260,18 +263,21 @@ rb_min_value(red_black_tree_t* t)
 void*
 rb_max_value(red_black_tree_t* t)
 {
-	rb_node_t* y = NULL;
-	rb_node_t* x = t->head;
+	rb_node_t* x = NULL;
 
 	if (t)
 	{
-		while (x != NULL)
-		{
-			y = x;
-			x = x->right_node;
-		}
+		x = t->head;
 
-		return y->value;
+		if (x)
+		{
+			while (x->right_node != NULL)
+			{
+				x = x->right_node;
+			}
+
+			return x->value;
+		}
 	}
 
 	return 0;
