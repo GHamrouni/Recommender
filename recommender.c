@@ -79,7 +79,7 @@ recommend_items(int user_index, int items_number, learned_factors_t* lfactors, t
 
 	for (j = 0; j < tset->items_number; j++)
 	{
-		insert_recommended_item(j, model.rating_estimator(user_index, j, lfactors), r_items);
+		insert_recommended_item(j, (float) model.rating_estimator(user_index, j, lfactors), r_items);
 	}
 
 	return r_items;

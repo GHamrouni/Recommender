@@ -103,7 +103,7 @@ double pearson_correlation_coefficient(double* vectX, double* vectY, unsigned in
 	double N = dim;
 
 	double d = (dot_product(vectX, vectY, dim) - (sumX * sumY) / N);
-	double f = sqrtf((sumXX - sumX * sumX / N) * (sumYY - sumY * sumY / N));
+	double f = sqrt((sumXX - sumX * sumX / N) * (sumYY - sumY * sumY / N));
 
 	return d / f;
 }

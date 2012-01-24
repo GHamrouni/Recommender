@@ -32,8 +32,8 @@
 
 struct recommended_item
 {
-	int	index;
-	double	rating;
+	int		index;
+	float	rating;
 };
 
 typedef struct recommended_item recommended_item_t;
@@ -44,9 +44,9 @@ struct recommended_items
 
 	unsigned int		filled_items_nb;
 
-	red_black_tree_t*	items;
+	float			raduis;
 
-	double			raduis;
+	red_black_tree_t*	items;
 };
 
 typedef struct recommended_items recommended_items_t;
@@ -65,7 +65,7 @@ free_recommended_items(recommended_items_t* items);
 
 
 void
-insert_recommended_item(int index, double _value, recommended_items_t* items);
+insert_recommended_item(int index, float _value, recommended_items_t* items);
 
 #endif //RECOMMENDED_ITEMS_H
 
