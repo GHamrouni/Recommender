@@ -27,6 +27,12 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
+//MSVC doesn't define fmax/fmin in math.h
+#if defined(_WIN32) || defined(_WIN64)
+#define fmax max
+#define fmin min
+#endif
+
 /*
  * length2:  Return the squared length of a vector
  *

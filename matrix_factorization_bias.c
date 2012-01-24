@@ -42,12 +42,6 @@
 #include <math.h>
 #include <assert.h>
 
-//MSVC doesn't define fmax/fmin in math.h
-#if defined(_WIN32) || defined(_WIN64)
-#define fmax max
-#define fmin min
-#endif
-
 /************************************************************************/
 /*                          Learning algorithms                         */
 /************************************************************************/

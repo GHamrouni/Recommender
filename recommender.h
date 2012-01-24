@@ -38,6 +38,7 @@
 #include "learned_factors.h"
 #include "learning_algorithm.h"
 #include "rating_estimator.h"
+#include "recommended_items.h"
 
 /************************************************************************/
 /*                         Learning algorithms                          */
@@ -58,6 +59,7 @@ typedef struct learning_model learning_model_t;
  *
  * Arguments:
  *      tset        The training set contains the known rating of items
+ *		model		The model (learning algorithm + rating estimator)
  *
  * Returns:
  *      Return the learned factors.
@@ -71,15 +73,35 @@ learn(struct training_set* tset, struct learning_model model);
 *                                some learned factors.
 *
 * Arguments:
-*      user_index: The index of a user
-*      user_index: The index of an item
-*      lfactors  : Learned factors
+*		user_index: The index of a user
+*		user_index: The index of an item
+*		lfactors  : Learned factors
+*		model		The model (learning algorithm + rating estimator)
 *
 * Returns:
-*      The estimated rating.
+*		The estimated rating.
 *
 */
 double
 estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors, struct learning_model model);
+
+
+/*
+* recommend_items:  Return the k item that have the highest estimated rating for 
+*					a particular user
+*
+* Arguments:
+*		user_index:		The index of a user
+*		items_number:	The number of items to recommend
+*		lfactors  :		Learned factors
+*		tset				The training set contains the known rating of items
+*		model		The model (learning algorithm + rating estimator)
+*
+* Returns:
+*      A set of items that matches the most the user's preferences.
+*
+*/
+recommended_items_t*
+recommend_items(int user_index, int items_number, learned_factors_t* lfactors, training_set_t* tset, learning_model_t model);
 
 #endif //RECOMMANDER_H

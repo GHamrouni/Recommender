@@ -64,3 +64,25 @@ estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* 
 {
 	return model.rating_estimator(user_index, item_index, lfactors);
 }
+
+/*
+ * recommend_items:  Return the k item that have the highest estimated rating for 
+ *					a particular user (Nearest neighbor search)
+ */
+recommended_items_t*
+recommend_items(int user_index, int items_number, learned_factors_t* lfactors, training_set_t* tset, learning_model_t model)
+{
+	unsigned int i, j;
+	recommended_items_t* r_items = init_recommended_items(items_number);
+
+	assert (model.learning_algorithm && model.rating_estimator);
+
+	i = 0;
+
+	for (j = 0; j < tset->items_number; j++)
+	{
+		insert_recommended_item(j, model.rating_estimator(user_index, j, lfactors), r_items);
+	}
+
+	return r_items;
+}

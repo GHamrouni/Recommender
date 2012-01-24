@@ -13,20 +13,26 @@ int main(void) {
 
 	learned_factors_t* learned;
 	training_set_t* tset;
+	recommended_items_t* r_items = NULL;
 
 	learning_model_t model = {0};
 
 	//Model configuration
 	//Setup model parameters
-	model_parameters_t params;
+	model_parameters_t params = { 0 };
 	
-	params.dimensionality = 100;
-	params.iteration_number = 3500;
-	params.items_number = 2;
+	params.items_number = 3;
 	params.users_number = 2;
-	params.lambda = 0.006;
-	params.training_set_size = 4;
-	params.step = 0.005;
+	params.training_set_size = 5;
+
+	params.dimensionality = 40;
+	params.iteration_number = 60;
+
+	params.lambda = 0.055;
+	params.step = 0.0095;
+
+	params.lambda_bias = 0.02;
+	params.step_bias = 0.001;
 	
 	//Use the basic matrix factorization model
 	model.learning_algorithm = learn_mf_bias;
@@ -38,8 +44,10 @@ int main(void) {
 	tset = init_training_set(params);
 
 	set_known_rating(0, 0, 1, tset);
-	set_known_rating(0, 1, 5, tset);
-	set_known_rating(1, 1, 500, tset);
+	set_known_rating(0, 1, 0, tset);
+	set_known_rating(0, 2, 6, tset);
+
+	set_known_rating(1, 1, 0, tset);
 	set_known_rating(1, 0, 2, tset);
 
 	compile_training_set(tset);
@@ -49,9 +57,15 @@ int main(void) {
 	//Rating estimation
 	printf("users [0] item [0], rating = %f \n", estimate_rating_from_factors(0, 0, learned, model));
 	printf("users [0] item [1], rating = %f \n", estimate_rating_from_factors(0, 1, learned, model));
+	printf("users [0] item [1], rating = %f \n", estimate_rating_from_factors(0, 2, learned, model));
 	printf("users [1] item [1], rating = %f \n", estimate_rating_from_factors(1, 1, learned, model));
 	printf("users [1] item [0], rating = %f \n", estimate_rating_from_factors(1, 0, learned, model));
 
+	r_items = recommend_items(0, 2, learned, tset, model);
+
+	print_recommended_items(r_items->items->head, 0);
+
+	free_recommended_items(r_items);
 	free_learned_factors(learned);
 	free_training_set(tset);
 

@@ -28,14 +28,26 @@
 #define RECOMMENDED_ITEMS_H
 
 #include "model_parameters.h"
+#include "red_black_tree.h"
+
+struct recommended_item
+{
+	int	index;
+	double	rating;
+};
+
+typedef struct recommended_item recommended_item_t;
 
 struct recommended_items
 {
-	unsigned int    items_number;
+	unsigned int		items_number;
 
-	int*			items;
+	unsigned int		filled_items_nb;
+
+	red_black_tree_t*	items;
+
+	double			raduis;
 };
-
 
 typedef struct recommended_items recommended_items_t;
 
@@ -50,6 +62,10 @@ init_recommended_items(int items_number);
  */
 void 
 free_recommended_items(recommended_items_t* items);
+
+
+void
+insert_recommended_item(int index, double _value, recommended_items_t* items);
 
 #endif //RECOMMENDED_ITEMS_H
 
