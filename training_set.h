@@ -36,16 +36,16 @@
  */
 struct training_set
 {
-	size_t		     training_set_size;  /* The number of known ratings */
-	size_t		     dimensionality;     /* dimensionality of the joint latent factor space */
+	size_t			training_set_size;  /* The number of known ratings */
+	size_t			dimensionality;     /* dimensionality of the joint latent factor space */
 
-	size_t		     users_number;
-	size_t		     items_number;
+	size_t			users_number;
+	size_t			items_number;
 
-	double           ratings_sum;
+	double			ratings_sum;
 
-	coo_matrix_t*    ratings;            /* Known ratings */
-	sparse_matrix_t* ratings_matrix;
+	coo_matrix_t*		ratings;            /* Known ratings */
+	sparse_matrix_t*	ratings_matrix;
 };
 
 typedef struct training_set training_set_t;
@@ -89,7 +89,8 @@ free_training_set(training_set_t* tset);
  *
  */
 void 
-set_known_rating(size_t user_index, size_t item_index, float value, training_set_t* tset);
+set_known_rating(size_t user_index, size_t item_index,
+	       	float value, training_set_t* tset);
 
 /*
  * user_ratings_average: get the average of the vector formed by 

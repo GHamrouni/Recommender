@@ -92,7 +92,8 @@ typedef struct red_black_tree
  * Create a new red black tree having a root value of value
  */
 red_black_tree_t*
-init_red_black_tree(rb_node_value_cmp node_comparer, rb_node_value_destructor dest, rb_node_copy_value copy_fn);
+init_red_black_tree(rb_node_value_cmp node_comparer, 
+		rb_node_value_destructor dest, rb_node_copy_value copy_fn);
 
 /*
  * Delete the entire tree and all it's nodes

@@ -89,9 +89,11 @@ regularized_squared_error(
 			  double lambda,
 			  size_t size)
 {
-	double diff = (r - estimate_item_rating(user_vector, item_vector, size));
+	double diff = 
+		(r - estimate_item_rating(user_vector, item_vector, size));
 
-	return diff * diff + lambda * (length2(user_vector, size) + length2(item_vector, size));
+	return  diff * diff + 
+		lambda * (length2(user_vector, size) + length2(item_vector, size));
 }
 
 
@@ -112,8 +114,11 @@ compute_factors(
 
 	for (i = 0; i < dimensionality; i++)
 	{
-		item_factors[i] = item_factors[i] + step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
-		user_factors[i] = user_factors[i] + step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
+		item_factors[i] = item_factors[i] +
+		       	step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
+
+		user_factors[i] = user_factors[i] +
+		       	step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
 	}
 }
 
@@ -123,7 +128,8 @@ compute_factors(
 struct learned_factors*
 learn_basic_mf(struct training_set* tset, struct model_parameters params)
 {
-	struct learned_factors* lfactors = init_learned_factors(params);
+	struct learned_factors* lfactors = 
+		init_learned_factors(params);
 
 	size_t r, k, i, u;
 
@@ -148,11 +154,17 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params)
 			 item_factors = lfactors->item_factor_vectors[i];
 			 user_factors = lfactors->user_factor_vectors[u];
 
-			 r_iu_estimated = estimate_item_rating(item_factors, user_factors, params.dimensionality);
+			 r_iu_estimated = 
+				 estimate_item_rating(item_factors, user_factors, params.dimensionality);
 
 			 e_iu = r_iu - r_iu_estimated;
 
-			 compute_factors(item_factors, user_factors, params.lambda, params.step, e_iu, params.dimensionality);
+			 compute_factors(item_factors, 
+					 user_factors, 
+					 params.lambda, 
+					 params.step, 
+					 e_iu, 
+					 params.dimensionality);
 		 }
 	 }
 
@@ -174,7 +186,7 @@ estimate_rating_basic_mf(size_t user_index, size_t item_index, learned_factors_t
 	assert(user_index < lfactors->users_number);
 
 	return estimate_item_rating(lfactors->user_factor_vectors[user_index], 
-								lfactors->item_factor_vectors[item_index], 
-								lfactors->dimensionality);
+			lfactors->item_factor_vectors[item_index], 
+			lfactors->dimensionality);
 }
 

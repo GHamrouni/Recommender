@@ -39,20 +39,29 @@
 #include <memory.h>
 #include <math.h>
 
-struct learned_factors* init_learned_factors(struct model_parameters params)
+struct learned_factors* 
+init_learned_factors(struct model_parameters params)
 {
-	struct learned_factors* lfactors = malloc(sizeof(struct learned_factors));
+	struct learned_factors* lfactors = 
+		malloc(sizeof(struct learned_factors));
+
 	size_t i = 0;
 	size_t j = 0;
 
 	if (!lfactors)
 		return NULL;
 
-	lfactors->item_factor_vectors = malloc(sizeof(double*) * params.items_number);
-	lfactors->user_factor_vectors = malloc(sizeof(double*) * params.users_number);
+	lfactors->item_factor_vectors =
+	       	malloc(sizeof(double*) * params.items_number);
 
-	lfactors->item_bias = malloc(sizeof(double) * params.items_number);
-	lfactors->user_bias = malloc(sizeof(double) * params.users_number);
+	lfactors->user_factor_vectors =
+	       	malloc(sizeof(double*) * params.users_number);
+
+	lfactors->item_bias =
+	       	malloc(sizeof(double) * params.items_number);
+
+	lfactors->user_bias =
+	       	malloc(sizeof(double) * params.users_number);
 
 	lfactors->ratings_average = 0;
 

@@ -4,5 +4,7 @@
 int
 is_valid(double number)
 {
-	return (number == number) && (number <= DBL_MAX && number >= -DBL_MAX);
+	return  (number == number) && 
+		(number <= DBL_MAX && 
+		 number >= -DBL_MAX);
 }

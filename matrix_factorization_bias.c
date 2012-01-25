@@ -47,12 +47,11 @@
 /************************************************************************/
 
 void 
-compute_factors_bias(
-					size_t user_index, 
-					size_t item_index, 
-					learned_factors_t* lfactors,
-					double predicted_error,
-					model_parameters_t* params)
+compute_factors_bias(	size_t user_index, 
+			size_t item_index, 
+			learned_factors_t* lfactors,
+			double predicted_error,
+			model_parameters_t* params)
 {
 	size_t i = 0;
 
@@ -75,8 +74,11 @@ compute_factors_bias(
 
 	for (i = 0; i < params->dimensionality; i++)
 	{
-		item_factors[i] = item_factors[i] + params->step * (predicted_error * user_factors[i] - params->lambda * item_factors[i]);
-		user_factors[i] = user_factors[i] + params->step * (predicted_error * item_factors[i] - params->lambda * user_factors[i]);
+		item_factors[i] = item_factors[i] + 
+			params->step * (predicted_error * user_factors[i] - params->lambda * item_factors[i]);
+
+		user_factors[i] = user_factors[i] +
+		       	params->step * (predicted_error * item_factors[i] - params->lambda * user_factors[i]);
 
 		assert (is_valid(item_factors[i]));
 		assert (is_valid(user_factors[i]));

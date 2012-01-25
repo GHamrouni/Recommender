@@ -44,9 +44,9 @@ typedef struct coo_entry
 /* coo_matrix is used to initialize a sparse matrix */
 typedef struct coo_matrix
 {
-	coo_entry_t*     entries;
-	size_t		     current_size;
-	size_t		     size;
+	coo_entry_t*	entries;
+	size_t		current_size;
+	size_t		size;
 } coo_matrix_t;
 
 /* Allocate space for a COO matrix */

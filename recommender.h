@@ -83,7 +83,8 @@ learn(struct training_set* tset, struct learning_model model);
 *
 */
 double
-estimate_rating_from_factors(size_t user_index, size_t item_index, learned_factors_t* lfactors, struct learning_model model);
+estimate_rating_from_factors(size_t user_index, size_t item_index, 
+			     learned_factors_t* lfactors, struct learning_model model);
 
 
 /*
@@ -102,6 +103,7 @@ estimate_rating_from_factors(size_t user_index, size_t item_index, learned_facto
 *
 */
 recommended_items_t*
-recommend_items(size_t user_index, size_t items_number, learned_factors_t* lfactors, training_set_t* tset, learning_model_t model);
+recommend_items(size_t user_index, size_t items_number, learned_factors_t* lfactors,
+	       	training_set_t* tset, learning_model_t model);
 
 #endif /* RECOMMANDER_H */
