@@ -33,10 +33,6 @@ To compile an example:
 
     gcc test/test.c libRecommender.a -lm -o test/t1
 
-Alternatively you can use clang
-
-    clang test/test.c libRecommender.a -lm -o test/t1
-
 
 Keywords
 --------

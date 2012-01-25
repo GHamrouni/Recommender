@@ -492,3 +492,4 @@ rb_delete_min_element(red_black_tree_t* t)
 
 	return NULL;
 }
+

@@ -1,4 +1,4 @@
-CC=gcc
+CC=clang
 CFLAGS=-c -Wall -Wextra -pedantic -Werror
 LDFLAGS=
 LIBS=-lm
