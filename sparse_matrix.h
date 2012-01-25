@@ -31,25 +31,27 @@
 #ifndef SPARSE_MATRIX_H
 #define SPARSE_MATRIX_H
 
+#include <stddef.h>
+
 /* Coordinate list (COO) */
 typedef struct coo_entry
 {
 	float		value;
-	unsigned	int row_i;
-	unsigned	int column_j;
+	size_t		row_i;
+	size_t		column_j;
 } coo_entry_t;
 
 /* coo_matrix is used to initialize a sparse matrix */
 typedef struct coo_matrix
 {
 	coo_entry_t*     entries;
-	unsigned int     current_size;
-	unsigned int     size;
+	size_t		     current_size;
+	size_t		     size;
 } coo_matrix_t;
 
 /* Allocate space for a COO matrix */
 coo_matrix_t*
-init_coo_matrix(unsigned int max_size);
+init_coo_matrix(size_t max_size);
 
 /* delete the COO matrix */ 
 void
@@ -57,7 +59,7 @@ free_coo_matrix(coo_matrix_t* matrix);
 
 /* insert an element into the COO matrix */
 void
-insert_coo_matrix(float val, unsigned int row_i, unsigned int column_j, coo_matrix_t* matrix);
+insert_coo_matrix(float val, size_t row_i, size_t column_j, coo_matrix_t* matrix);
 
 /* sort the COO matrix left-to-right top-to-bottom (row-major) order */
 void
@@ -66,23 +68,23 @@ sort_coo_matrix(coo_matrix_t* matrix);
 /* Sparse matrix structure (yale format) */
 typedef struct sparse_matrix
 {
-	unsigned int	column_nb;
+	size_t			column_nb;
 
-	unsigned int	row_nb;
+	size_t			row_nb;
 
-	unsigned int	nonzero_entries_nb; /* NNZ */
+	size_t			nonzero_entries_nb; /* NNZ */
 
 	float*			values;             /* A */
 
-	unsigned int*	row_index;          /* IA */
+	size_t*			row_index;          /* IA */
 
-	unsigned int*	column_index;       /* JA */
+	size_t*			column_index;       /* JA */
 
 } sparse_matrix_t;
 
 /* Allocate space for the sparse matrix */
 sparse_matrix_t* 
-init_sparse_matrix(coo_matrix_t* c_matrix, unsigned int row_nb, unsigned int column_nb);
+init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb);
 
 /* Delete the sparse matrix */
 void
@@ -90,19 +92,19 @@ free_sparse_matrix(sparse_matrix_t* matrix);
 
 /* Check the matrix contains an element */
 int
-element_exists(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix);
+element_exists(size_t row_i, size_t column_j, sparse_matrix_t* matrix);
 
 /* Get an element from the matrix */
 float 
-get_element(unsigned int row_i, unsigned int column_j, sparse_matrix_t* matrix);
+get_element(size_t row_i, size_t column_j, sparse_matrix_t* matrix);
 
 /* Get the average of row i (sum of filled values / number of filled values) */
 float
-row_values_average(unsigned int row_i, sparse_matrix_t* matrix);
+row_values_average(size_t row_i, sparse_matrix_t* matrix);
 
 /* Get the average of column j (sum of filled values / number of filled values) */
 float
-column_values_average(unsigned int column_j, sparse_matrix_t* matrix);
+column_values_average(size_t column_j, sparse_matrix_t* matrix);
 
 #endif //SPARSE_MATRIX_H
 

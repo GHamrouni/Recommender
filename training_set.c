@@ -97,7 +97,7 @@ free_training_set(training_set_t* tset)
  * set_known_rating: fill the training set with a known user/item rating                            
  */
 void 
-set_known_rating(unsigned int user_index, unsigned int item_index, float _value, training_set_t* tset)
+set_known_rating(size_t user_index, size_t item_index, float _value, training_set_t* tset)
 {
 	insert_coo_matrix(_value, item_index, user_index, tset->ratings);
 
@@ -112,7 +112,7 @@ set_known_rating(unsigned int user_index, unsigned int item_index, float _value,
  *                              the ratings of a user
  */
 double 
-user_ratings_average(int user_index, training_set_t* tset)
+user_ratings_average(size_t user_index, training_set_t* tset)
 {
 	assert(tset->ratings_matrix);
 
@@ -124,7 +124,7 @@ user_ratings_average(int user_index, training_set_t* tset)
  *                              the ratings of an item
  */
 double 
-item_ratings_average(int item_index, training_set_t* tset)
+item_ratings_average(size_t item_index, training_set_t* tset)
 {
 	assert(tset->ratings_matrix);
 

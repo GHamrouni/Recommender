@@ -27,15 +27,17 @@
 #ifndef MODEL_PARAMETERS_H
 #define MODEL_PARAMETERS_H
 
+#include <stddef.h>
+
 struct model_parameters
 {
-	unsigned int	users_number;
-	unsigned int	items_number;
+	size_t			users_number;
+	size_t			items_number;
 
-	unsigned int	dimensionality; //dimensionality of the joint latent factor space
-	unsigned int	iteration_number;
+	size_t			dimensionality; //dimensionality of the joint latent factor space
+	size_t			iteration_number;
 
-	unsigned int	training_set_size;  //The number of known ratings
+	size_t			training_set_size;  //The number of known ratings
 
 	float			lambda;          //The constant lambda controls the extent of regularization
 	float			step;            //step size in stochastic gradient descent algorithm

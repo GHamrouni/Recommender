@@ -78,13 +78,13 @@ update_learned_factors_mf_bias(learned_factors_t* lfactors, training_set_t* tset
  *
  */
 double
-estimate_rating_mf_bias(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors);
+estimate_rating_mf_bias(size_t user_index, size_t item_index, learned_factors_t* lfactors);
 
 /*
  * Estimate the error between the rating r_ui and the predicted rating
  */
 double
-estimate_error_mf_bias(double r_iu, unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors);
+estimate_error_mf_bias(double r_iu, size_t user_index, size_t item_index, learned_factors_t* lfactors);
 
 #endif //MATRIX_FACTORIZATION_WITH_BIAS_H
 

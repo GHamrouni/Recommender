@@ -42,10 +42,10 @@
  * Calculate the dot product
  */
 double
-dot_product(double* vect1, double* vect2, unsigned int dim)
+dot_product(double* vect1, double* vect2, size_t dim)
 {
 	double sum = 0;
-	unsigned int i;
+	size_t i;
 
 	for (i = 0; i < dim; i++)
 		sum += vect1[i] * vect2[i];
@@ -57,10 +57,10 @@ dot_product(double* vect1, double* vect2, unsigned int dim)
  * Get the sum of the elements of a vector
  */
 double
-sum(double* vector, unsigned int size)
+sum(double* vector, size_t size)
 {
 	double sum = 0;
-	unsigned int i;
+	size_t i;
 
 	for (i = 0; i < size; i++)
 		sum += vector[i];
@@ -80,10 +80,10 @@ sum(double* vector, unsigned int size)
 *
 */
 double
-length2(double* vector, unsigned int size)
+length2(double* vector, size_t size)
 {
 	double sum = 0;
-	unsigned int i;
+	size_t i;
 
 	for (i = 0; i < size; i++)
 		sum += vector[i] * vector[i];
@@ -92,7 +92,7 @@ length2(double* vector, unsigned int size)
 }
 
 //Calculate Pearson correlation coefficient
-double pearson_correlation_coefficient(double* vectX, double* vectY, unsigned int dim)
+double pearson_correlation_coefficient(double* vectX, double* vectY, size_t dim)
 {
 	double sumXX = length2(vectX, dim);
 	double sumYY = length2(vectY, dim);
@@ -100,7 +100,7 @@ double pearson_correlation_coefficient(double* vectX, double* vectY, unsigned in
 	double sumX = sum(vectX, dim);
 	double sumY = sum(vectY, dim);
 
-	double N = dim;
+	double N = (double) dim;
 
 	double d = (dot_product(vectX, vectY, dim) - (sumX * sumY) / N);
 	double f = sqrt((sumXX - sumX * sumX / N) * (sumYY - sumY * sumY / N));

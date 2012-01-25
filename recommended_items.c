@@ -56,7 +56,7 @@ cmp_recommended_item(const void* a, const void* b)
  * Recommended item constructor
  */
 recommended_item_t* 
-new_recommended_item(int index, float _value)
+new_recommended_item(size_t index, float _value)
 {
 	recommended_item_t* r_item = malloc(sizeof(recommended_item_t));
 
@@ -102,7 +102,7 @@ get_item_rating_from_node(const void* src)
  * Create a new recommended items set
  */
 recommended_items_t* 
-init_recommended_items(int items_number)
+init_recommended_items(size_t items_number)
 {
 	recommended_items_t* r_items = malloc(sizeof(recommended_items_t));
 
@@ -137,7 +137,7 @@ free_recommended_items(recommended_items_t* items)
 }
 
 void
-insert_recommended_item(int index, float _value, recommended_items_t* items)
+insert_recommended_item(size_t index, float _value, recommended_items_t* items)
 {
 	recommended_item_t* item = NULL;
 	rb_node_t* deleted_item = NULL;

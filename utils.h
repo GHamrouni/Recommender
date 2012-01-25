@@ -27,6 +27,8 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
+#include <stddef.h>
+
 //MSVC doesn't define fmax/fmin in math.h
 #if defined(_WIN32) || defined(_WIN64)
 #define fmax max
@@ -45,25 +47,25 @@
  *
  */
 double
-length2(double* vector, unsigned int size);
+length2(double* vector, size_t size);
 
 /*
  * Get the sum of the elements of a vector
  */
 double
-sum(double* vector, unsigned int size);
+sum(double* vector, size_t size);
 
 /*
  * Calculate the dot product between the two vectors.
  */
 double
-dot_product(double* vect1, double* vect2, unsigned int dim);
+dot_product(double* vect1, double* vect2, size_t dim);
 
 /*
  * Calculate Pearson correlation coefficient
  */
 double
-pearson_correlation_coefficient(double* vectX, double* vectY, unsigned int dim);
+pearson_correlation_coefficient(double* vectX, double* vectY, size_t dim);
 
 #endif
 

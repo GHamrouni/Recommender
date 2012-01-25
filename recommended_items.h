@@ -32,7 +32,7 @@
 
 struct recommended_item
 {
-	int		index;
+	size_t	index;
 	float	rating;
 };
 
@@ -40,9 +40,9 @@ typedef struct recommended_item recommended_item_t;
 
 struct recommended_items
 {
-	unsigned int		items_number;
+	size_t			items_number;
 
-	unsigned int		filled_items_nb;
+	size_t			filled_items_nb;
 
 	float			raduis;
 
@@ -55,7 +55,7 @@ typedef struct recommended_items recommended_items_t;
  * Create a new recommended items set
  */
 recommended_items_t* 
-init_recommended_items(int items_number);
+init_recommended_items(size_t items_number);
 
 /*
  * free_recommended_items:  delete the recommended items from memory
@@ -65,7 +65,7 @@ free_recommended_items(recommended_items_t* items);
 
 
 void
-insert_recommended_item(int index, float _value, recommended_items_t* items);
+insert_recommended_item(size_t index, float _value, recommended_items_t* items);
 
 #endif //RECOMMENDED_ITEMS_H
 

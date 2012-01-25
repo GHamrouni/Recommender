@@ -42,8 +42,8 @@
 struct learned_factors* init_learned_factors(struct model_parameters params)
 {
 	struct learned_factors* lfactors = malloc(sizeof(struct learned_factors));
-	unsigned int i = 0;
-	unsigned int j = 0;
+	size_t i = 0;
+	size_t j = 0;
 
 	if (!lfactors)
 		return NULL;
@@ -105,7 +105,7 @@ struct learned_factors* init_learned_factors(struct model_parameters params)
 void 
 free_learned_factors(learned_factors_t* lfactors)
 {
-	unsigned int i = 0;
+	size_t i = 0;
 
 	for (i = 0; i < lfactors->items_number; i++)
 		free(lfactors->item_factor_vectors[i]);

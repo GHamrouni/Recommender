@@ -60,7 +60,7 @@ learn(struct training_set* tset, struct learning_model model)
  *                                some learned factors.
  */
 double
-estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* lfactors, struct learning_model model)
+estimate_rating_from_factors(size_t user_index, size_t item_index, learned_factors_t* lfactors, struct learning_model model)
 {
 	return model.rating_estimator(user_index, item_index, lfactors);
 }
@@ -70,9 +70,9 @@ estimate_rating_from_factors(int user_index, int item_index, learned_factors_t* 
  *					a particular user (Nearest neighbor search)
  */
 recommended_items_t*
-recommend_items(int user_index, int items_number, learned_factors_t* lfactors, training_set_t* tset, learning_model_t model)
+recommend_items(size_t user_index, size_t items_number, learned_factors_t* lfactors, training_set_t* tset, learning_model_t model)
 {
-	unsigned int j;
+	size_t j;
 	recommended_items_t* r_items = init_recommended_items(items_number);
 
 	assert (model.learning_algorithm && model.rating_estimator);

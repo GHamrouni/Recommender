@@ -48,13 +48,13 @@
 
 void 
 compute_factors_bias(
-					int user_index, 
-					int item_index, 
+					size_t user_index, 
+					size_t item_index, 
 					learned_factors_t* lfactors,
 					double predicted_error,
 					model_parameters_t* params)
 {
-	unsigned int i = 0;
+	size_t i = 0;
 
 	double* item_factors;
 	double* user_factors;
@@ -85,7 +85,7 @@ compute_factors_bias(
 
 void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
 {
-	unsigned int i;
+	size_t i;
 	float average_rating = (float) tset->ratings_sum / ((float) tset->training_set_size);
 	double* nb_ratings_per_user = NULL;
 
@@ -132,7 +132,7 @@ void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfa
 void
 update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training_set* tset, struct model_parameters params)
 {
-	unsigned int r, k, i, u;
+	size_t r, k, i, u;
 
 	double r_iu = 0;
 
@@ -193,10 +193,10 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 }
 
 double
-estimate_error_mf_bias(double r_iu, unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors)
+estimate_error_mf_bias(double r_iu, size_t user_index, size_t item_index, learned_factors_t* lfactors)
 {
 	double sum = 0.0;
-	unsigned int i;
+	size_t i;
 
 	double* item_factors;
 	double* user_factors;
@@ -230,10 +230,10 @@ estimate_error_mf_bias(double r_iu, unsigned int user_index, unsigned int item_i
  *                                some learned factors.
  */
 double
-estimate_rating_mf_bias(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors)
+estimate_rating_mf_bias(size_t user_index, size_t item_index, learned_factors_t* lfactors)
 {
 	double sum = 0;
-	unsigned int i;
+	size_t i;
 
 	double* item_factors;
 	double* user_factors;

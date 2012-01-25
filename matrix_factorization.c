@@ -55,10 +55,10 @@
  *
  */
 double
-estimate_item_rating(double* user_vector, double* item_vector, unsigned int dim)
+estimate_item_rating(double* user_vector, double* item_vector, size_t dim)
 {
 	double sum = 0;
-	unsigned int i;
+	size_t i;
 
 	for (i = 0; i < dim; i++)
 		sum += user_vector[i] * item_vector[i];
@@ -87,7 +87,7 @@ regularized_squared_error(
 			  double* item_vector,
 			  double r,
 			  double lambda,
-			  unsigned int size)
+			  size_t size)
 {
 	double diff = (r - estimate_item_rating(user_vector, item_vector, size));
 
@@ -106,9 +106,9 @@ compute_factors(
 		double lambda, 
 		double step, 
 		double predicted_error, 
-		unsigned int dimensionality)
+		size_t dimensionality)
 {
-	unsigned int i = 0;
+	size_t i = 0;
 
 	for (i = 0; i < dimensionality; i++)
 	{
@@ -125,7 +125,7 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params)
 {
 	struct learned_factors* lfactors = init_learned_factors(params);
 
-	unsigned int r, k, i, u;
+	size_t r, k, i, u;
 
 	double r_iu = 0;
 	double r_iu_estimated = 0;
@@ -168,7 +168,7 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params)
  *                                some learned factors.
  */
 double
-estimate_rating_basic_mf(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors)
+estimate_rating_basic_mf(size_t user_index, size_t item_index, learned_factors_t* lfactors)
 {
 	assert(item_index < lfactors->items_number);
 	assert(user_index < lfactors->users_number);

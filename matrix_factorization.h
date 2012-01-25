@@ -71,6 +71,6 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params);
 *
 */
 double
-estimate_rating_basic_mf(unsigned int user_index, unsigned int item_index, learned_factors_t* lfactors);
+estimate_rating_basic_mf(size_t user_index, size_t item_index, learned_factors_t* lfactors);
 
 #endif //BASIC_MATRIX_FACTORIZATION_H
