@@ -33,7 +33,6 @@
 #define BASIC_MATRIX_FACTORIZATION_H
 
 
-//includes
 #include "model_parameters.h"
 #include "training_set.h"
 #include "learned_factors.h"
@@ -73,4 +72,4 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params);
 double
 estimate_rating_basic_mf(size_t user_index, size_t item_index, learned_factors_t* lfactors);
 
-#endif //BASIC_MATRIX_FACTORIZATION_H
+#endif /* BASIC_MATRIX_FACTORIZATION_H */

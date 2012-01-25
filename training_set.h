@@ -30,32 +30,21 @@
 #include "model_parameters.h"
 #include "sparse_matrix.h"
 
-//A known user rating
-struct rating
-{
-	size_t			user_index;
-	size_t			item_index;
-
-	float			value;
-
-	int				is_known;
-};
-
-typedef struct rating rating_t;
-
-// The training set is obtained from the past users 
-// behavior or from items ratings.
+/*
+ * The training set is obtained from the past users 
+ * behavior or from items ratings.  
+ */
 struct training_set
 {
-	size_t		     training_set_size;  //The number of known ratings
-	size_t		     dimensionality;     //dimensionality of the joint latent factor space
+	size_t		     training_set_size;  /* The number of known ratings */
+	size_t		     dimensionality;     /* dimensionality of the joint latent factor space */
 
 	size_t		     users_number;
 	size_t		     items_number;
 
 	double           ratings_sum;
 
-	coo_matrix_t*    ratings;            //Known ratings
+	coo_matrix_t*    ratings;            /* Known ratings */
 	sparse_matrix_t* ratings_matrix;
 };
 
@@ -130,4 +119,4 @@ user_ratings_average(size_t user_index, training_set_t* tset);
 double 
 item_ratings_average(size_t item_index, training_set_t* tset);
 
-#endif //TRAINING_SET_H
+#endif /* TRAINING_SET_H */

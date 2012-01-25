@@ -46,4 +46,4 @@
  */
 typedef double (*rating_estimator_t)(size_t user_index, size_t item_index, struct learned_factors* lfactors);
 
-#endif //RATING_ESTIMATOR_H
+#endif /* RATING_ESTIMATOR_H */

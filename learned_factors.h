@@ -31,9 +31,9 @@
 
 struct learned_factors
 {
-	size_t			users_number;
-	size_t			items_number;
-	size_t		    dimensionality;
+	size_t		users_number;
+	size_t		items_number;
+	size_t		dimensionality;
 
 	double*         user_bias;
 	double*         item_bias;
@@ -59,5 +59,5 @@ init_learned_factors(model_parameters_t params);
 void 
 free_learned_factors(learned_factors_t* lfactors);
 
-#endif //LEARNED_FACTORS_H
+#endif /* LEARNED_FACTORS_H */
 

@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -Wextra -pedantic -Werror
 LDFLAGS=
 LIBS=-lm
 SOURCES=training_set.c utils.c learned_factors.c matrix_factorization.c matrix_factorization_bias.c sparse_matrix.c recommender.c float_tester.c recommended_items.c red_black_tree.c

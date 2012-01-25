@@ -40,5 +40,5 @@
 int
 is_valid(double number);
 
-#endif //_FLOAT_TESTER_H_
+#endif /* _FLOAT_TESTER_H_ */
 

@@ -86,5 +86,5 @@ estimate_rating_mf_bias(size_t user_index, size_t item_index, learned_factors_t*
 double
 estimate_error_mf_bias(double r_iu, size_t user_index, size_t item_index, learned_factors_t* lfactors);
 
-#endif //MATRIX_FACTORIZATION_WITH_BIAS_H
+#endif /* MATRIX_FACTORIZATION_WITH_BIAS_H */
 

@@ -106,5 +106,5 @@ row_values_average(size_t row_i, sparse_matrix_t* matrix);
 float
 column_values_average(size_t column_j, sparse_matrix_t* matrix);
 
-#endif //SPARSE_MATRIX_H
+#endif /* SPARSE_MATRIX_H */
 

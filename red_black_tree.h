@@ -145,5 +145,5 @@ rb_delete_max_element(red_black_tree_t* t);
 rb_node_t*
 rb_delete_min_element(red_black_tree_t* t);
 
-#endif //RED_BLACK_TREE_H
+#endif /* RED_BLACK_TREE_H */
 

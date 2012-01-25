@@ -34,13 +34,13 @@ struct model_parameters
 	size_t			users_number;
 	size_t			items_number;
 
-	size_t			dimensionality; //dimensionality of the joint latent factor space
+	size_t			dimensionality; /* dimensionality of the joint latent factor space */
 	size_t			iteration_number;
 
-	size_t			training_set_size;  //The number of known ratings
+	size_t			training_set_size;  /* The number of known ratings */
 
-	float			lambda;          //The constant lambda controls the extent of regularization
-	float			step;            //step size in stochastic gradient descent algorithm
+	float			lambda;          /* The constant lambda controls the extent of regularization */
+	float			step;            /* step size in stochastic gradient descent algorithm */
 
 	float			step_bias;
 	float			lambda_bias;
@@ -48,6 +48,6 @@ struct model_parameters
 
 typedef struct model_parameters model_parameters_t;
 
-#endif //MODEL_PARAMETERS_H
+#endif /* MODEL_PARAMETERS_H */
 
 

@@ -91,7 +91,7 @@ length2(double* vector, size_t size)
 	return sum;
 }
 
-//Calculate Pearson correlation coefficient
+/* Calculate Pearson correlation coefficient */
 double pearson_correlation_coefficient(double* vectX, double* vectY, size_t dim)
 {
 	double sumXX = length2(vectX, dim);

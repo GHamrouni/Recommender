@@ -67,5 +67,5 @@ free_recommended_items(recommended_items_t* items);
 void
 insert_recommended_item(size_t index, float _value, recommended_items_t* items);
 
-#endif //RECOMMENDED_ITEMS_H
+#endif /* RECOMMENDED_ITEMS_H */
 

@@ -130,7 +130,7 @@ element_exists(size_t row_i, size_t column_j, sparse_matrix_t* matrix)
 {
 	size_t i = 0;
 	size_t r1, r2;
-	r1 = r2 = 0; //Range
+	r1 = r2 = 0; /* Range */
 
 	assert(row_i < matrix->row_nb);
 	assert(column_j < matrix->column_nb);
@@ -152,7 +152,7 @@ get_element(size_t row_i, size_t column_j, sparse_matrix_t* matrix)
 {
 	size_t i = 0;
 	size_t r1, r2;
-	r1 = r2 = 0; //Range
+	r1 = r2 = 0; /* Range */
 
 	assert(row_i < matrix->row_nb);
 	assert(column_j < matrix->column_nb);
@@ -178,7 +178,7 @@ row_values_average(size_t row_i, sparse_matrix_t* matrix)
 	float sum = 0;
 	size_t N = 0;
 
-	r1 = r2 = 0; //Range
+	r1 = r2 = 0; /* Range */
 
 	if (!matrix->row_index[row_i]) return 0;
 
