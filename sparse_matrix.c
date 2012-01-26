@@ -42,16 +42,19 @@ insert_coo_matrix(float val, size_t row_i, size_t column_j, coo_matrix_t* matrix
 
 int entry_cmp(const void *e1, const void *e2)
 {
-	if (((coo_entry_t*) e1)->row_i > ((coo_entry_t*) e2)->row_i)
+	coo_entry_t* entry1 = (coo_entry_t*) e1;
+	coo_entry_t* entry2 = (coo_entry_t*) e2;
+
+	if (entry1->row_i > entry2->row_i)
 		return 1;
 
-	if (((coo_entry_t*) e1)->row_i < ((coo_entry_t*) e2)->row_i)
+	if (entry1->row_i < entry2->row_i)
 		return -1;
 
-	if (((coo_entry_t*) e1)->column_j > ((coo_entry_t*) e2)->column_j)
+	if (entry1->column_j > entry2->column_j)
 		return 1;
 
-	if (((coo_entry_t*) e1)->column_j < ((coo_entry_t*) e2)->column_j)
+	if (entry1->column_j < entry2->column_j)
 		return -1;
 
 	return 0;
