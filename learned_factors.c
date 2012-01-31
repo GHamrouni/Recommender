@@ -38,6 +38,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
+#include <assert.h>
 
 struct learned_factors* 
 init_learned_factors(struct model_parameters params)
@@ -114,7 +115,10 @@ init_learned_factors(struct model_parameters params)
 void 
 free_learned_factors(learned_factors_t* lfactors)
 {
-	size_t i = 0;
+	size_t i;
+
+	if (!lfactors)
+		return;
 
 	for (i = 0; i < lfactors->items_number; i++)
 		free(lfactors->item_factor_vectors[i]);

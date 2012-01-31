@@ -169,17 +169,19 @@ insert_recommended_item(size_t index, float _value, recommended_items_t* items)
 
 		/* Recycle deleted element */
 		if (deleted_item)
+		{
 			item = (recommended_item_t*) deleted_item->value;
 
-		if (item)
-		{
-			item->index = index;
-			item->rating = _value;
+			if (item)
+			{
+				item->index = index;
+				item->rating = _value;
+			}
+
+			rb_insert(items->items, deleted_item);
+
+			items->raduis = get_item_rating_from_node(rb_max_value(items->items));
 		}
-
-		rb_insert(items->items, deleted_item);
-
-		items->raduis = get_item_rating_from_node(rb_max_value(items->items));
 	}
 }
 

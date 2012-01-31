@@ -24,6 +24,9 @@ init_coo_matrix(size_t max_size)
 void
 free_coo_matrix(coo_matrix_t* matrix)
 {
+	if (!matrix)
+		return;
+
 	free(matrix->entries);
 	free(matrix);
 }
@@ -31,6 +34,9 @@ free_coo_matrix(coo_matrix_t* matrix)
 void
 insert_coo_matrix(float val, size_t row_i, size_t column_j, coo_matrix_t* matrix)
 {
+	if (!matrix)
+		return;
+
 	assert(matrix->current_size < matrix->size);
 
 	matrix->entries[matrix->current_size].row_i = row_i;
@@ -44,6 +50,11 @@ int entry_cmp(const void *e1, const void *e2)
 {
 	coo_entry_t* entry1 = (coo_entry_t*) e1;
 	coo_entry_t* entry2 = (coo_entry_t*) e2;
+
+	assert(entry1 && entry2);
+
+	if (!entry1 || !entry2) //just to make the static analyzer happy !
+		return 0;
 
 	if (entry1->row_i > entry2->row_i)
 		return 1;
@@ -63,16 +74,19 @@ int entry_cmp(const void *e1, const void *e2)
 void
 sort_coo_matrix(coo_matrix_t* matrix)
 {
-	qsort(matrix->entries, matrix->size, sizeof(coo_entry_t), entry_cmp);
+	if (matrix)
+		qsort(matrix->entries, matrix->size, sizeof(coo_entry_t), entry_cmp);
 }
 
 sparse_matrix_t* 
 init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb)
 {
-	size_t i = 0;
+	size_t i;
 	size_t current_row = 0;
 
 	sparse_matrix_t* matrix = malloc(sizeof(sparse_matrix_t));
+
+	assert(row_nb > 0 && column_nb > 0);
 
 	if (!matrix)
 		return NULL;
@@ -154,8 +168,7 @@ float
 get_element(size_t row_i, size_t column_j, sparse_matrix_t* matrix)
 {
 	size_t i = 0;
-	size_t r1, r2;
-	r1 = r2 = 0; /* Range */
+	size_t r1, r2; /* Range */
 
 	assert(row_i < matrix->row_nb);
 	assert(column_j < matrix->column_nb);
@@ -176,12 +189,10 @@ float
 row_values_average(size_t row_i, sparse_matrix_t* matrix)
 {
 	ptrdiff_t i = 0;
-	ptrdiff_t r1, r2;
+	ptrdiff_t r1, r2; /* Range */
 
 	float sum = 0;
 	size_t N = 0;
-
-	r1 = r2 = 0; /* Range */
 
 	if (!matrix->row_index[row_i]) return 0;
 

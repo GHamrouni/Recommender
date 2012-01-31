@@ -221,10 +221,12 @@ rb_insert(red_black_tree_t* t, rb_node_t* z)
 void
 rb_insert_value(red_black_tree_t* t, void* value)
 {
-	rb_node_t* node = malloc(sizeof(rb_node_t));
+	rb_node_t* node = NULL;
 
 	if (!t)
 		return;
+
+	node = malloc(sizeof(rb_node_t));
 
 	if (node)
 	{
@@ -232,9 +234,9 @@ rb_insert_value(red_black_tree_t* t, void* value)
 		node->left_node = NULL;
 		node->right_node = NULL;
 		node->value = value;
+	
+		rb_insert(t, node);
 	}
-
-	rb_insert(t, node);
 }
 
 void*
