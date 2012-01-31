@@ -142,6 +142,9 @@ insert_recommended_item(size_t index, float _value, recommended_items_t* items)
 	recommended_item_t* item = NULL;
 	rb_node_t* deleted_item = NULL;
 
+	if (!items)
+		return;
+
 	if (!items->filled_items_nb)
 		items->raduis = _value;
 
@@ -165,7 +168,8 @@ insert_recommended_item(size_t index, float _value, recommended_items_t* items)
 		deleted_item = rb_delete_min_element(items->items);
 
 		/* Recycle deleted element */
-		item = (recommended_item_t*) deleted_item->value;
+		if (deleted_item)
+			item = (recommended_item_t*) deleted_item->value;
 
 		if (item)
 		{

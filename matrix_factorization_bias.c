@@ -180,6 +180,9 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 {
 	struct learned_factors* lfactors = init_learned_factors(params);
 
+	if (!lfactors)
+		return NULL;
+
 	lfactors->dimensionality = params.dimensionality;
 	lfactors->items_number = params.items_number;
 	lfactors->users_number = params.users_number;

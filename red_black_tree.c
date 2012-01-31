@@ -433,10 +433,16 @@ rb_delete_node_from_tree(red_black_tree_t* t, rb_node_t* z)
 	rb_node_t* x = NULL;
 	rb_node_t* x_parent = NULL;
 
+	if (!z)
+		return NULL;
+
 	if (z->left_node == NULL || z->right_node == NULL)
 		y = z;
 	else
 		y = rb_tree_succ(z);
+
+	if (!y)
+		return NULL;
 
 	if (y->left_node != NULL)
 		x = y->left_node;

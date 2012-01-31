@@ -142,6 +142,9 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params)
 
 	r = k = u = i = 0;
 
+	if (!lfactors)
+		return NULL;
+
 	for (k = 0; k < params.iteration_number; k++)
 	{
 		for (r = 0; r < params.training_set_size; r++)
