@@ -2,7 +2,7 @@ language: node_js
 
 script:
   - "make"
-  - "./test_suite/test_all"
+  - "./test_suite.sh"
 
 
 notifications:
