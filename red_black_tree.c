@@ -401,16 +401,20 @@ rb_delete_node_from_tree_fixup(red_black_tree_t* t, rb_node_t* x, rb_node_t* x_p
 				w->color = RB_RED;
 				x = x_parent;
 			} else {
-				if (rb_get_node_color(w->left_node) == RB_BLACK) {
-					w->right_node->color = RB_BLACK;
-					w->color = RB_RED;
 
-					left_rotate_rb_node(t, w);
-					w = x_parent->left_node;
+				if (w)
+				{
+					if (rb_get_node_color(w->left_node) == RB_BLACK) {
+						w->right_node->color = RB_BLACK;
+						w->color = RB_RED;
+
+						left_rotate_rb_node(t, w);
+						w = x_parent->left_node;
+					}
+
+					w->color = rb_get_node_color(x_parent);
+					w->left_node->color  = RB_BLACK;
 				}
-
-				w->color = rb_get_node_color(x_parent);
-				w->left_node->color  = RB_BLACK;
 
 				x_parent->color = RB_BLACK;
 
