@@ -53,7 +53,7 @@ int entry_cmp(const void *e1, const void *e2)
 
 	assert(entry1 && entry2);
 
-	if (!entry1 || !entry2) //just to make the static analyzer happy !
+	if (!entry1 || !entry2) /* just to make the static analyzer happy ! */
 		return 0;
 
 	if (entry1->row_i > entry2->row_i)

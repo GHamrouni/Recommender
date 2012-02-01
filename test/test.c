@@ -9,7 +9,8 @@
 #include "../matrix_factorization_bias.h"
 #include "../sparse_matrix.h"
 
-void print_recommended_items(rb_node_t* node, int depth)
+void 
+print_recommended_items(rb_node_t* node, int depth)
 {
 	int i = 0;
 
@@ -27,7 +28,8 @@ void print_recommended_items(rb_node_t* node, int depth)
 	print_recommended_items(node->right_node, depth);
 }
 
-int main(void) {
+int 
+main(void) {
 
 	learned_factors_t* learned;
 	training_set_t* tset;
@@ -55,7 +57,7 @@ int main(void) {
 	//Use the basic matrix factorization model
 	model.learning_algorithm = learn_mf_bias;
 	model.rating_estimator   = estimate_rating_mf_bias;
-	model.parameters		 = params;
+	model.parameters	 = params;
 
 	//Learning
 	//Initialize a training set
@@ -73,13 +75,22 @@ int main(void) {
 	learned = learn(tset, model);
 
 	//Rating estimation
-	printf("users [0] item [0], rating = %f \n", estimate_rating_from_factors(0, 0, learned, model));
-	printf("users [0] item [1], rating = %f \n", estimate_rating_from_factors(0, 1, learned, model));
-	printf("users [0] item [1], rating = %f \n", estimate_rating_from_factors(0, 2, learned, model));
-	printf("users [1] item [1], rating = %f \n", estimate_rating_from_factors(1, 1, learned, model));
-	printf("users [1] item [0], rating = %f \n", estimate_rating_from_factors(1, 0, learned, model));
+	printf(	"users [0] item [0], rating = %f \n",
+		 estimate_rating_from_factors(0, 0, learned, model));
 
-	r_items = recommend_items(0, 2, learned, tset, model);
+	printf(	"users [0] item [1], rating = %f \n",
+		 estimate_rating_from_factors(0, 1, learned, model));
+
+	printf(	"users [0] item [1], rating = %f \n", 
+		estimate_rating_from_factors(0, 2, learned, model));
+
+	printf(	"users [1] item [1], rating = %f \n", 
+		estimate_rating_from_factors(1, 1, learned, model));
+
+	printf(	"users [1] item [0], rating = %f \n",
+		 estimate_rating_from_factors(1, 0, learned, model));
+
+	r_items = recommend_items(0, 3, learned, tset, model);
 
 	print_recommended_items(r_items->items->head, 0);
 
