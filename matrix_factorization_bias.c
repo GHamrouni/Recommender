@@ -42,6 +42,8 @@
 #include <math.h>
 #include <assert.h>
 
+#include "jemalloc/jemalloc.h"
+
 /************************************************************************/
 /*                          Learning algorithms                         */
 /************************************************************************/
@@ -93,7 +95,7 @@ void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfa
 
 	if (!tset->ratings_matrix) return;
 
-	nb_ratings_per_user = malloc(sizeof(double) * params.users_number);
+	nb_ratings_per_user = je_malloc(sizeof(double) * params.users_number);
 
 	if (!nb_ratings_per_user)
 		return;
@@ -125,7 +127,7 @@ void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfa
 			lfactors->user_bias[i]/(nb_ratings_per_user[i]) - average_rating;
 	}
 
-	free(nb_ratings_per_user);
+	je_free(nb_ratings_per_user);
 }
 
 /*

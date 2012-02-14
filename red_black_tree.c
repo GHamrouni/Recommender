@@ -1,8 +1,9 @@
 #include "red_black_tree.h"
 
 #include <stdlib.h>
-#include <memory.h>
 #include <assert.h>
+
+#include "jemalloc/jemalloc.h"
 
 /*
  * Create a new red black tree having a root value of value
@@ -10,7 +11,7 @@
 red_black_tree_t*
 init_red_black_tree(rb_node_value_cmp node_comparer, rb_node_value_destructor dest, rb_node_copy_value copy_fn)
 {
-	red_black_tree_t* tree = malloc(sizeof(red_black_tree_t));
+	red_black_tree_t* tree = je_malloc(sizeof(red_black_tree_t));
 
 	if (!tree)
 		return NULL;
@@ -39,7 +40,7 @@ rb_delete_node(red_black_tree_t* t, rb_node_t* node)
 
 		t->value_destructor(node->value);
 
-		free(node);
+		je_free(node);
 		node = NULL;
 	}
 }
@@ -58,7 +59,7 @@ rb_delete_tree(red_black_tree_t* t)
 		rb_delete_node(t, t->head);
 	}
 
-	free(t);
+	je_free(t);
 	t = NULL;
 }
 
@@ -226,7 +227,7 @@ rb_insert_value(red_black_tree_t* t, void* value)
 	if (!t)
 		return;
 
-	node = malloc(sizeof(rb_node_t));
+	node = je_malloc(sizeof(rb_node_t));
 
 	if (node)
 	{

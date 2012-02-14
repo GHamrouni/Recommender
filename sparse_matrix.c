@@ -1,14 +1,15 @@
 #include "sparse_matrix.h"
 
 #include <stdlib.h>
-#include <memory.h>
 #include <math.h>
 #include <assert.h>
+
+#include "jemalloc/jemalloc.h"
 
 coo_matrix_t*
 init_coo_matrix(size_t max_size)
 {
-	coo_matrix_t* matrix = malloc(sizeof(coo_matrix_t));
+	coo_matrix_t* matrix = je_malloc(sizeof(coo_matrix_t));
 
 	if (!matrix)
 		return NULL;
@@ -16,7 +17,7 @@ init_coo_matrix(size_t max_size)
 	matrix->current_size = 0;
 	matrix->size = max_size;
 
-	matrix->entries = malloc(sizeof(coo_entry_t) * max_size);
+	matrix->entries = je_malloc(sizeof(coo_entry_t) * max_size);
 
 	return matrix;
 }
@@ -27,8 +28,8 @@ free_coo_matrix(coo_matrix_t* matrix)
 	if (!matrix)
 		return;
 
-	free(matrix->entries);
-	free(matrix);
+	je_free(matrix->entries);
+	je_free(matrix);
 }
 
 void
@@ -53,7 +54,7 @@ int entry_cmp(const void *e1, const void *e2)
 
 	assert(entry1 && entry2);
 
-	if (!entry1 || !entry2) /* just to make the static analyzer happy ! */
+	if (!entry1 || !entry2) //just to make the static analyzer happy !
 		return 0;
 
 	if (entry1->row_i > entry2->row_i)
@@ -84,7 +85,7 @@ init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb)
 	size_t i;
 	size_t current_row = 0;
 
-	sparse_matrix_t* matrix = malloc(sizeof(sparse_matrix_t));
+	sparse_matrix_t* matrix = je_malloc(sizeof(sparse_matrix_t));
 
 	assert(row_nb > 0 && column_nb > 0);
 
@@ -95,9 +96,9 @@ init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb)
 	matrix->row_nb = row_nb;
 	matrix->nonzero_entries_nb = c_matrix->size;
 
-	matrix->values = malloc(sizeof(float) * c_matrix->size);
-	matrix->row_index = malloc(sizeof(size_t) * (row_nb + 1));
-	matrix->column_index = malloc(sizeof(size_t) * c_matrix->size);
+	matrix->values = je_malloc(sizeof(float) * c_matrix->size);
+	matrix->row_index = je_malloc(sizeof(size_t) * (row_nb + 1));
+	matrix->column_index = je_malloc(sizeof(size_t) * c_matrix->size);
 
 	if (matrix->row_index)
 	{
@@ -136,10 +137,10 @@ init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb)
 void
 free_sparse_matrix(sparse_matrix_t* matrix)
 {
-	free(matrix->column_index);
-	free(matrix->row_index);
-	free(matrix->values);
-	free(matrix);
+	je_free(matrix->column_index);
+	je_free(matrix->row_index);
+	je_free(matrix->values);
+	je_free(matrix);
 }
 
 int

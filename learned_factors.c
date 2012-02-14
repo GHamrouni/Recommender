@@ -40,11 +40,13 @@
 #include <math.h>
 #include <assert.h>
 
+#include "jemalloc/jemalloc.h"
+
 struct learned_factors* 
 init_learned_factors(struct model_parameters params)
 {
 	struct learned_factors* lfactors = 
-		malloc(sizeof(struct learned_factors));
+		je_malloc(sizeof(struct learned_factors));
 
 	size_t i = 0;
 	size_t j = 0;
@@ -53,16 +55,16 @@ init_learned_factors(struct model_parameters params)
 		return NULL;
 
 	lfactors->item_factor_vectors =
-	       	malloc(sizeof(double*) * params.items_number);
+	       	je_malloc(sizeof(double*) * params.items_number);
 
 	lfactors->user_factor_vectors =
-	       	malloc(sizeof(double*) * params.users_number);
+	       	je_malloc(sizeof(double*) * params.users_number);
 
 	lfactors->item_bias =
-	       	malloc(sizeof(double) * params.items_number);
+	       	je_malloc(sizeof(double) * params.items_number);
 
 	lfactors->user_bias =
-	       	malloc(sizeof(double) * params.users_number);
+	       	je_malloc(sizeof(double) * params.users_number);
 
 	lfactors->ratings_average = 0;
 
@@ -77,7 +79,7 @@ init_learned_factors(struct model_parameters params)
 	for (i = 0; i < params.items_number; i++)
 	{
 		lfactors->item_factor_vectors[i] =  
-			malloc(sizeof(double) * params.dimensionality);
+			je_malloc(sizeof(double) * params.dimensionality);
 		
 		if (lfactors->item_factor_vectors[i])
 		{
@@ -93,7 +95,7 @@ init_learned_factors(struct model_parameters params)
 	for (i = 0; i < params.users_number; i++)
 	{
 		lfactors->user_factor_vectors[i] =  
-			malloc(sizeof(double) * params.dimensionality);
+			je_malloc(sizeof(double) * params.dimensionality);
 
 		if (lfactors->user_factor_vectors[i])
 		{
@@ -121,18 +123,18 @@ free_learned_factors(learned_factors_t* lfactors)
 		return;
 
 	for (i = 0; i < lfactors->items_number; i++)
-		free(lfactors->item_factor_vectors[i]);
+		je_free(lfactors->item_factor_vectors[i]);
 
-	free(lfactors->item_factor_vectors);
+	je_free(lfactors->item_factor_vectors);
 
 	for (i = 0; i < lfactors->users_number; i++)
-		free(lfactors->user_factor_vectors[i]);
+		je_free(lfactors->user_factor_vectors[i]);
 
-	free(lfactors->user_factor_vectors);
+	je_free(lfactors->user_factor_vectors);
 
-	free(lfactors->item_bias);
-	free(lfactors->user_bias);
+	je_free(lfactors->item_bias);
+	je_free(lfactors->user_bias);
 
-	free(lfactors);
+	je_free(lfactors);
 }
 

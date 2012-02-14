@@ -12,6 +12,8 @@
 #include "../sparse_matrix.h"
 #include "../red_black_tree.h"
 
+#include "../jemalloc/jemalloc.h"
+
 #include "test_red_black_tree_1.h"
 
 struct rb_node_value
@@ -46,7 +48,7 @@ rb_node_value_t*
 new_rb_node_value(int _value)
 {
 	rb_node_value_t* r_item = 
-		malloc(sizeof(rb_node_value_t));
+		je_malloc(sizeof(rb_node_value_t));
 
 	if (!r_item)
 		return NULL;
@@ -63,7 +65,7 @@ void
 destruct_rb_node_value(void* v)
 {
 	rb_node_value_t* _v =(rb_node_value_t*) v;
-	free(_v);
+	je_free(_v);
 }
 
 /*
@@ -118,8 +120,8 @@ int test_red_black_tree_1(void)
 
 	void* node = NULL;
 
-	int* sorted_values = malloc(MAX_TREE_VALUES * sizeof(int));
-	int* values = malloc(MAX_TREE_VALUES * sizeof(int));
+	int* sorted_values = je_malloc(MAX_TREE_VALUES * sizeof(int));
+	int* values = je_malloc(MAX_TREE_VALUES * sizeof(int));
 
 	printf("Test red black tree ... \n");
 
@@ -191,8 +193,8 @@ int test_red_black_tree_1(void)
 	rb_delete_tree(tree_1);
 	rb_delete_tree(tree_2);
 
-	free(values);
-	free(sorted_values);
+	je_free(values);
+	je_free(sorted_values);
 
 	printf("Test red black tree [OK] \n");
 

@@ -12,6 +12,8 @@
 #include "../matrix_factorization_bias.h"
 #include "../sparse_matrix.h"
 
+#include "../jemalloc/jemalloc.h"
+
 #include "test_sparse_matrix_1.h"
 
 #define ROW_MATRIX_TEST_SIZE		10000
@@ -31,7 +33,7 @@ int test_sparse_matrix_1(void)
 
 	printf("Test sparse matrix ... \n");
 
-	used_ = malloc(ROW_MATRIX_TEST_SIZE * COLUMN_MATRIX_TEST_SIZE * sizeof(unsigned char));
+	used_ = je_malloc(ROW_MATRIX_TEST_SIZE * COLUMN_MATRIX_TEST_SIZE * sizeof(unsigned char));
 
 	if (!used_)
 		return 1;

@@ -34,6 +34,8 @@
 #include "utils.h"
 #include "red_black_tree.h"
 
+#include "jemalloc/jemalloc.h"
+
 /*
  * Define a weak strict order between items.
  */
@@ -58,7 +60,7 @@ cmp_recommended_item(const void* a, const void* b)
 recommended_item_t* 
 new_recommended_item(size_t index, float _value)
 {
-	recommended_item_t* r_item = malloc(sizeof(recommended_item_t));
+	recommended_item_t* r_item = je_malloc(sizeof(recommended_item_t));
 
 	if (!r_item)
 		return NULL;
@@ -76,7 +78,7 @@ void
 destruct_recommended_item(void* v)
 {
 	recommended_item_t* _v =(recommended_item_t*) v;
-	free(_v);
+	je_free(_v);
 }
 
 /*
@@ -104,7 +106,7 @@ get_item_rating_from_node(const void* src)
 recommended_items_t* 
 init_recommended_items(size_t items_number)
 {
-	recommended_items_t* r_items = malloc(sizeof(recommended_items_t));
+	recommended_items_t* r_items = je_malloc(sizeof(recommended_items_t));
 
 	if (!r_items)
 		return NULL;
@@ -132,7 +134,7 @@ free_recommended_items(recommended_items_t* items)
 		if (items->items)
 			rb_delete_tree(items->items);
 
-		free(items);
+		je_free(items);
 	}
 }
 
@@ -153,7 +155,7 @@ insert_recommended_item(size_t index, float _value, recommended_items_t* items)
 		items->filled_items_nb++;
 		items->raduis = fmax(items->raduis, _value);
 
-		item = malloc(sizeof(recommended_item_t));
+		item = je_malloc(sizeof(recommended_item_t));
 
 		if (item)
 		{

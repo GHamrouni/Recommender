@@ -34,6 +34,8 @@
 
 #include <assert.h>
 
+#include "jemalloc/jemalloc.h"
+
 /*----------------------------------------------------------------------------------------------
  *
  *                                     Helper functions
@@ -90,7 +92,7 @@ free_training_set(training_set_t* tset)
 	if (tset->ratings_matrix)
 		free_sparse_matrix(tset->ratings_matrix);
 
-    free(tset);
+    je_free(tset);
 }
 
 /*
