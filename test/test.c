@@ -81,7 +81,7 @@ main(void) {
 	printf(	"users [0] item [1], rating = %f \n",
 		 estimate_rating_from_factors(0, 1, learned, model));
 
-	printf(	"users [0] item [1], rating = %f \n", 
+	printf(	"users [0] item [2], rating = %f \n", 
 		estimate_rating_from_factors(0, 2, learned, model));
 
 	printf(	"users [1] item [1], rating = %f \n", 
