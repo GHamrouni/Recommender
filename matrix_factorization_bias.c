@@ -46,7 +46,7 @@
 /*                          Learning algorithms                         */
 /************************************************************************/
 
-void 
+static void 
 compute_factors_bias(	size_t user_index, 
 			size_t item_index, 
 			learned_factors_t* lfactors,
@@ -85,7 +85,8 @@ compute_factors_bias(	size_t user_index,
 	}
 }
 
-void calculate_average_ratings(struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
+static void 
+calculate_average_ratings(struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
 {
 	size_t i;
 	float average_rating = (float) tset->ratings_sum / ((float) tset->training_set_size);
