@@ -5,9 +5,13 @@
 *.a
 *.exe
 *.lib
+*.obj
+*.pdb
+*.idb
 *.opensdf
 *.orig
 *.sdf
 *.suo
+*.user
 *.sln
 ipch
