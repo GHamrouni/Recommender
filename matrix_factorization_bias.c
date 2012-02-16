@@ -51,7 +51,7 @@ compute_factors_bias(	size_t user_index,
 			size_t item_index, 
 			learned_factors_t* lfactors,
 			double predicted_error,
-			model_parameters_t* params)
+			const model_parameters_t* params)
 {
 	size_t i = 0;
 
@@ -188,10 +188,13 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 	lfactors->items_number = params.items_number;
 	lfactors->users_number = params.users_number;
 
-	calculate_average_ratings(tset, lfactors, params);
+	if (tset->ratings_matrix)
+	{
+		calculate_average_ratings(tset, lfactors, params);
 
-	free_sparse_matrix(tset->ratings_matrix);
-	tset->ratings_matrix = NULL;
+		free_sparse_matrix(tset->ratings_matrix);
+		tset->ratings_matrix = NULL;
+	}
 
 	update_learned_factors_mf_bias(lfactors, tset, params);
 
