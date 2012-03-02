@@ -23,10 +23,14 @@
     <ClCompile Include="..\..\learned_factors.c" />
     <ClCompile Include="..\..\matrix_factorization.c" />
     <ClCompile Include="..\..\matrix_factorization_bias.c" />
+    <ClCompile Include="..\..\projection.c" />
+    <ClCompile Include="..\..\projection_family.c" />
     <ClCompile Include="..\..\recommended_items.c" />
     <ClCompile Include="..\..\recommender.c" />
     <ClCompile Include="..\..\red_black_tree.c" />
     <ClCompile Include="..\..\sparse_matrix.c" />
+    <ClCompile Include="..\..\sparse_matrix_hash.c" />
+    <ClCompile Include="..\..\standard_normal.c" />
     <ClCompile Include="..\..\training_set.c" />
     <ClCompile Include="..\..\utils.c" />
   </ItemGroup>
@@ -37,11 +41,15 @@
     <ClInclude Include="..\..\matrix_factorization.h" />
     <ClInclude Include="..\..\matrix_factorization_bias.h" />
     <ClInclude Include="..\..\model_parameters.h" />
+    <ClInclude Include="..\..\projection.h" />
+    <ClInclude Include="..\..\projection_family.h" />
     <ClInclude Include="..\..\rating_estimator.h" />
     <ClInclude Include="..\..\recommended_items.h" />
     <ClInclude Include="..\..\recommender.h" />
     <ClInclude Include="..\..\red_black_tree.h" />
     <ClInclude Include="..\..\sparse_matrix.h" />
+    <ClInclude Include="..\..\sparse_matrix_hash.h" />
+    <ClInclude Include="..\..\standard_normal.h" />
     <ClInclude Include="..\..\training_set.h" />
     <ClInclude Include="..\..\utils.h" />
   </ItemGroup>
