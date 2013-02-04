@@ -27,6 +27,6 @@ int main(void)
 
 	end_c = clock();
 	printf("Time : %f s \n", (double)(end_c - start_c)/ CLOCKS_PER_SEC);
-
+	getchar();
 	return 0;
 }
