@@ -1,9 +1,9 @@
-﻿Build started 2/4/2013 2:42:25 PM.
+﻿Build started 2/4/2013 3:24:50 PM.
      1>Project "C:\Users\abr\Recommender\Recommender\msvc\Tests\Tests.vcxproj" on node 2 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\Tests.lastbuildstate".
        InitializeBuildStatus:
-         Touching "Debug\Tests.unsuccessfulbuild".
+         Creating "Debug\Tests.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\test_suite\test_all.c ..\..\test_suite\test_red_black_tree_1.c ..\..\test_suite\test_sparse_matrix_1.c ..\..\test_suite\test_training_set_1.c
          test_training_set_1.c
@@ -26,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.87
+Time Elapsed 00:00:01.35

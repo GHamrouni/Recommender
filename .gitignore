@@ -14,3 +14,7 @@
 *.suo
 *.user
 ipch
+msvc/Debug
+msvc/ipch
+msvc/LibRecommender/Debug
+msvc/Tests/Debug
