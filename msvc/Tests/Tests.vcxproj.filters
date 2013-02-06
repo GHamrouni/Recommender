@@ -27,6 +27,18 @@
     <ClCompile Include="..\..\test_suite\test_training_set_1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test_suite\test_movielens_db.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test_suite\ratings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test_suite\test_lens.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test_suite\test_kfold.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\test_suite\test_red_black_tree_1.h">
@@ -36,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\test_suite\test_training_set_1.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\test_suite\ratings.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

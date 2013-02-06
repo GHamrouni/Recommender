@@ -109,7 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\README.md">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>

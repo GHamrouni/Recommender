@@ -41,6 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,15 +65,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\test_suite\test_kfold.c" />
+    <ClCompile Include="..\..\test_suite\ratings.c" />
     <ClCompile Include="..\..\test_suite\test_all.c" />
+    <ClCompile Include="..\..\test_suite\test_lens.c" />
+    <ClCompile Include="..\..\test_suite\test_movielens_db.c" />
     <ClCompile Include="..\..\test_suite\test_red_black_tree_1.c" />
     <ClCompile Include="..\..\test_suite\test_sparse_matrix_1.c" />
     <ClCompile Include="..\..\test_suite\test_training_set_1.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\test_suite\ratings.h" />
     <ClInclude Include="..\..\test_suite\test_red_black_tree_1.h" />
     <ClInclude Include="..\..\test_suite\test_sparse_matrix_1.h" />
     <ClInclude Include="..\..\test_suite\test_training_set_1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

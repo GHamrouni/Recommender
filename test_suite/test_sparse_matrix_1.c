@@ -31,7 +31,7 @@ int test_sparse_matrix_1(void)
 
 	printf("Test sparse matrix ... \n");
 
-	used_ = malloc(ROW_MATRIX_TEST_SIZE * COLUMN_MATRIX_TEST_SIZE * sizeof(unsigned char));
+	used_ =(unsigned char*) malloc(ROW_MATRIX_TEST_SIZE * COLUMN_MATRIX_TEST_SIZE * sizeof(unsigned char));
 
 	if (!used_)
 		return 1;
