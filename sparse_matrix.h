@@ -80,6 +80,10 @@ typedef struct sparse_matrix
 
 	size_t*			column_index;       /* JA */
 
+	size_t			row_capacity;
+
+	size_t			nonzero_entries_capacity;
+
 } sparse_matrix_t;
 
 /* Allocate space for the sparse matrix */
@@ -105,6 +109,22 @@ row_values_average(size_t row_i, sparse_matrix_t* matrix);
 /* Get the average of column j (sum of filled values / number of filled values) */
 float
 column_values_average(size_t column_j, sparse_matrix_t* matrix);
+
+
+void add_row(sparse_matrix_t* input_matrix);
+
+
+void add_column(sparse_matrix_t* input_matrix);
+
+
+
+void insert(sparse_matrix_t* input_matrix,size_t row,size_t col,float val);
+
+
+void add_rows (sparse_matrix_t* input_matrix , size_t number);
+
+void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix);
+
 
 #endif /* SPARSE_MATRIX_H */
 

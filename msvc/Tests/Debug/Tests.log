@@ -1,27 +1,15 @@
-﻿Build started 2/6/2013 3:04:51 PM.
+﻿Build started 2/21/2013 4:55:32 PM.
      1>Project "C:\Users\abr\Recommender\Recommender\msvc\Tests\Tests.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\Tests.unsuccessfulbuild".
+         Creating "Debug\Tests.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\test_suite\test_kfold.c
-         test_kfold.c
-     1>..\..\test_suite\test_kfold.c(49): warning C4018: '<' : signed/unsigned mismatch
-     1>..\..\test_suite\test_kfold.c(54): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>..\..\test_suite\test_kfold.c(22): warning C4101: 'file_test' : unreferenced local variable
-     1>..\..\test_suite\test_kfold.c(19): warning C4101: 'k' : unreferenced local variable
-     1>..\..\test_suite\test_kfold.c(18): warning C4101: 'l' : unreferenced local variable
-     1>..\..\test_suite\test_kfold.c(18): warning C4101: 'j' : unreferenced local variable
-     1>..\..\test_suite\test_kfold.c(129): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
-     1>..\..\test_suite\test_kfold.c(139): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(253) : see declaration of 'fscanf'
-     1>c:\users\abr\recommender\recommender\test_suite\test_kfold.c(63): warning C4716: 'RMSE' : must return a value
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W4 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\test_suite\test_red_black_tree_1.c ..\..\test_suite\test_sparse_matrix_1.c ..\..\test_suite\test_training_set_1.c
+         test_training_set_1.c
+         test_sparse_matrix_1.c
+         test_red_black_tree_1.c
+         Generating Code...
        Link:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.exe" /NOLOGO /LIBPATH:C:\Users\abr\Recommender\Recommender\msvc\Debug\ LibRecommender.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Tests.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.lib" /MACHINE:X86 Debug\test_kfold.obj
-         Debug\ratings.obj
-         Debug\test_all.obj
-         Debug\test_lens.obj
-         Debug\test_movielens_db.obj
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.exe" /NOLOGO /LIBPATH:C:\Users\abr\Recommender\Recommender\msvc\Debug\ LibRecommender.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Tests.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.lib" /MACHINE:X86 Debug\test_all.obj
          Debug\test_red_black_tree_1.obj
          Debug\test_sparse_matrix_1.obj
          Debug\test_training_set_1.obj
@@ -36,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.07
+Time Elapsed 00:00:01.27

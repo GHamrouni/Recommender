@@ -6,27 +6,27 @@
 #include <stdio.h>
 #include <time.h>
 
-/*int main(void)
+int main(void)
 {
 	int return_value;
 	clock_t start_c, end_c;
 
 	start_c = clock();
 
-	/*return_value = test_red_black_tree_1();
+	//return_value = test_red_black_tree_1();
 
-	assert(!return_value);
+	//assert(!return_value);
 
 	return_value = test_sparse_matrix_1();
 
 	assert(!return_value);
-	*/
-	/*return_value = test_training_set_1();
+	
+	//return_value = test_training_set_1();
 
-	assert(!return_value);
+	//assert(!return_value);
 
 	end_c = clock();
 	printf("Time : %f s \n", (double)(end_c - start_c)/ CLOCKS_PER_SEC);
 	getchar();
 	return 0;
-}*/
+}

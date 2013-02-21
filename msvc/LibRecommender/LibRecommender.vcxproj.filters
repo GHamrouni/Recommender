@@ -58,12 +58,6 @@
     <ClInclude Include="..\..\float_tester.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\learned_factors.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\learning_algorithm.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\matrix_factorization.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -88,9 +82,6 @@
     <ClInclude Include="..\..\sparse_matrix.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\training_set.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\utils.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -104,6 +95,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\standard_normal.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\learned_factors.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\training_set.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

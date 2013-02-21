@@ -95,9 +95,13 @@ init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb)
 	matrix->row_nb = row_nb;
 	matrix->nonzero_entries_nb = c_matrix->size;
 
-	matrix->values = malloc(sizeof(float) * c_matrix->size);
-	matrix->row_index = malloc(sizeof(size_t) * (row_nb + 1));
-	matrix->column_index = malloc(sizeof(size_t) * c_matrix->size);
+	
+	matrix->row_capacity = row_nb * 2;
+	matrix->nonzero_entries_capacity = c_matrix->size * 2;
+
+	matrix->values = malloc(sizeof(float) * c_matrix->size * 2);
+	matrix->row_index = malloc(sizeof(size_t) * (row_nb + 1) * 2);
+	matrix->column_index = malloc(sizeof(size_t) * c_matrix->size * 2);
 
 	if (matrix->row_index)
 	{
@@ -233,4 +237,128 @@ column_values_average(size_t column_j, sparse_matrix_t* matrix)
 		return 0.0f;
 
 	return sum / ((float) N);
+}
+
+void
+add_row ( sparse_matrix_t* input_matrix )
+{
+
+	if ( input_matrix->row_nb >= input_matrix->row_capacity )
+	{
+		input_matrix->row_capacity *= 2;
+		input_matrix->row_index = realloc ( input_matrix->row_index,
+		                                    sizeof ( size_t ) * input_matrix ->nonzero_entries_capacity );
+	}
+	//input_matrix->row_index = (size_t*) realloc(input_matrix->row_index,
+	//	(input_matrix->row_nb_max + 2) * sizeof(size_t));
+	input_matrix->row_nb ++;
+	input_matrix->row_index[input_matrix->row_nb] = input_matrix->row_index[input_matrix->row_nb - 1];
+}
+
+
+void insert (sparse_matrix_t* input_matrix, size_t row, size_t col, float val )
+{
+	size_t i;
+	size_t pos = input_matrix->row_index[row + 1] - 1;
+	if ( input_matrix->nonzero_entries_nb >= input_matrix->nonzero_entries_capacity )
+	{
+		input_matrix->nonzero_entries_capacity = input_matrix->nonzero_entries_capacity * 2;
+		input_matrix->values = realloc ( input_matrix->values,
+		                                 sizeof ( float ) * ( input_matrix->nonzero_entries_capacity ) );
+		input_matrix->column_index = realloc ( input_matrix->column_index ,
+		                                       sizeof ( size_t ) * ( input_matrix->nonzero_entries_capacity ) );
+	}
+
+	//Shift the array input_matrix->values to the right after pos
+	memcpy ( &input_matrix->values[pos + 1] , &input_matrix->values[pos] ,
+	         sizeof ( float ) * ( input_matrix->nonzero_entries_nb - ( pos ) ) );
+	input_matrix->values[pos] = val;
+
+	//Shift the array input_matrix->column_index to the right after pos
+	memcpy ( &input_matrix->column_index[pos + 1], &input_matrix->column_index[pos] ,
+	         sizeof ( size_t ) * ( input_matrix->nonzero_entries_nb - pos ) );
+	input_matrix->column_index[pos] = col;
+
+	if ( input_matrix->row_index[row] > pos )
+	{
+		input_matrix->row_index[row] = pos;
+	}
+	for ( i = row + 1 ; i < input_matrix->row_nb + 1 ; i++ )
+	{
+		input_matrix->row_index[i]++;
+	}
+
+	input_matrix->nonzero_entries_nb++;
+}
+
+
+void add_rows (sparse_matrix_t* input_matrix , size_t number)
+{
+	size_t i;
+	if ( (input_matrix->row_nb + number) >= input_matrix->row_capacity )
+	{
+		input_matrix->row_capacity += number;
+		input_matrix->row_index = realloc ( input_matrix->row_index,
+		                                    sizeof ( size_t ) * input_matrix ->nonzero_entries_capacity);
+	}
+	//input_matrix->row_index = (size_t*) realloc(input_matrix->row_index,
+	//	(input_matrix->row_nb_max + 2) * sizeof(size_t));
+	for (i = input_matrix->row_nb + 1; i < input_matrix->row_nb + number + 1; i++)
+	{
+		input_matrix->row_index[i] = input_matrix->row_index[i - 1];
+	}
+
+	input_matrix->row_nb += number;
+}
+
+
+void
+add_columns (sparse_matrix_t* input_matrix, size_t number )
+{
+	input_matrix->column_nb += number;
+}
+
+
+
+void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix)
+{
+
+	size_t i, j;
+	size_t pos;
+
+	if ( input_matrix->nonzero_entries_nb + c_matrix->size >= input_matrix->nonzero_entries_capacity )
+	{
+
+		input_matrix->nonzero_entries_capacity *= 2;
+		input_matrix->values = realloc ( input_matrix->values,
+		                                 sizeof ( float ) * ( input_matrix->nonzero_entries_capacity) );
+		input_matrix->column_index = realloc ( input_matrix->column_index ,
+		                                       sizeof ( size_t ) * ( input_matrix->nonzero_entries_capacity) );
+	}
+	for (j = 0; j < c_matrix->size; j++)
+	{
+		pos = input_matrix->row_index[c_matrix->entries[j].row_i + 1] - 1;
+
+		//Shift the array input_matrix->values to the right after pos
+		memcpy ( &input_matrix->values[pos + 1] , &input_matrix->values[pos] ,
+		         sizeof ( float ) * ( input_matrix->nonzero_entries_nb - ( pos ) ) );
+
+
+		input_matrix->values[pos] = c_matrix->entries[j].value;
+
+		//Shift the array input_matrix->column_index to the right after pos
+		memcpy ( &input_matrix->column_index[pos + 1], &input_matrix->column_index[pos] ,
+		         sizeof ( size_t ) * ( input_matrix->nonzero_entries_nb - pos ) );
+		input_matrix->column_index[pos] = c_matrix->entries[j].column_j;
+
+		if ( input_matrix->row_index[c_matrix->entries[j].row_i] > pos )
+		{
+			input_matrix->row_index[c_matrix->entries[j].row_i] = pos;
+		}
+		for ( i = c_matrix->entries[j].row_i + 1 ; i < input_matrix->row_nb + 1 ; i++ )
+		{
+			input_matrix->row_index[i]++;
+		}
+		input_matrix->nonzero_entries_nb++;
+	}
 }
