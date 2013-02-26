@@ -1,30 +1,14 @@
-﻿Build started 2/26/2013 9:49:24 AM.
-     1>Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" on node 2 (rebuild target(s)).
-     1>_PrepareForClean:
-         Deleting file "Debug\LibRecommender.lastbuildstate".
-       InitializeBuildStatus:
+﻿Build started 2/26/2013 2:12:19 PM.
+     1>Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
          Creating "Debug\LibRecommender.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /Wall /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\float_tester.c ..\..\learned_factors.c ..\..\matrix_factorization.c ..\..\matrix_factorization_bias.c ..\..\projection.c ..\..\projection_family.c ..\..\recommended_items.c ..\..\recommender.c ..\..\red_black_tree.c ..\..\sparse_matrix.c ..\..\sparse_matrix_hash.c ..\..\standard_normal.c ..\..\training_set.c ..\..\utils.c
-         utils.c
-         training_set.c
-         standard_normal.c
-         sparse_matrix_hash.c
-         sparse_matrix.c
-         red_black_tree.c
-         recommender.c
-         recommended_items.c
-         projection_family.c
-         projection.c
-         matrix_factorization_bias.c
-         matrix_factorization.c
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /Wall /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\learned_factors.c
          learned_factors.c
      1>c:\users\abr\recommender\recommender\learned_factors.c(145): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-     1>c:\users\abr\recommender\recommender\learned_factors.c(177): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>c:\users\abr\recommender\recommender\learned_factors.c(178): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-         float_tester.c
-         Generating Code...
        Lib:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\LibRecommender.lib" /NOLOGO Debug\float_tester.obj
          Debug\learned_factors.obj
@@ -44,8 +28,8 @@
        FinalizeBuildStatus:
          Deleting file "Debug\LibRecommender.unsuccessfulbuild".
          Touching "Debug\LibRecommender.lastbuildstate".
-     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.02
+Time Elapsed 00:00:00.93
