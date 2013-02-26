@@ -18,5 +18,9 @@ msvc/Debug
 msvc/ipch
 msvc/LibRecommender/Debug
 msvc/Tests/Debug
-*.data
+msvc/Shuffle/Debug
+msvc/kfold/Debug
+*.DAT
+*.DATA
 *.dat
+*.data
