@@ -18,3 +18,5 @@ msvc/Debug
 msvc/ipch
 msvc/LibRecommender/Debug
 msvc/Tests/Debug
+*.data
+*.dat
