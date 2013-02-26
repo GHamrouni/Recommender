@@ -120,4 +120,43 @@ user_ratings_average(size_t user_index, training_set_t* tset);
 double 
 item_ratings_average(size_t item_index, training_set_t* tset);
 
+
+/*
+ * add_rating: add a new known rating to the training set
+ *                              
+ *                               
+ * Arguments:
+ *      item_index: The index of an item
+ *      user_index: The index of a user
+ *      value:     The rating of an item
+ *      tset:       The training set to be filled
+ *
+ */
+void
+add_rating(size_t user_index,size_t item_index,float _value,training_set_t* tset);
+
+
+/*
+ * add_user : add a new user
+ *                              
+ *                               
+ * Arguments:
+ *      tset:       The training set to be filled
+ *
+ */
+void
+add_user(training_set_t* tset);
+
+/*
+ * add_user : add a new user
+ *                              
+ *                               
+ * Arguments:
+ *      tset:       The training set to be filled
+ *
+ */
+void
+add_item(training_set_t* tset);
+
+
 #endif /* TRAINING_SET_H */

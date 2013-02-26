@@ -67,17 +67,18 @@ int test_sparse_matrix_1(void)
 		ROW_MATRIX_TEST_SIZE, 
 		COLUMN_MATRIX_TEST_SIZE);
 
-	add_rows(s_matrix,2);
+	//add_rows(s_matrix,2);
 	add_row(s_matrix);
-	add_row(s_matrix);
+	/*add_row(s_matrix);
 	add_row(s_matrix);
 	add_row(s_matrix);
 	add_row(s_matrix);
 	add_row(s_matrix);
 
-	add_row(s_matrix);
-//	s_matrix = 	add_column(s_matrix);
+	add_row(s_matrix);*/
+	add_column(s_matrix);
 
+	insert_value(s_matrix,4,4,1);
 /*
 	s_matrix=insert(s_matrix,4,4,2);
 	s_matrix=insert(s_matrix,3,0,3);
@@ -96,7 +97,7 @@ int test_sparse_matrix_1(void)
 	s_matrix=insert(s_matrix,6,3,3);
 	s_matrix=insert(s_matrix,6,4,3);*/
 
-	c_matrix = init_coo_matrix(COO_MATRIX_TEST_SIZE+1);
+	/*c_matrix = init_coo_matrix(COO_MATRIX_TEST_SIZE+1);
 	insert_coo_matrix(2, 4, 4, c_matrix);
 	insert_coo_matrix(3, 0, 3, c_matrix);
 	insert_coo_matrix(3, 4, 0, c_matrix);
@@ -112,7 +113,7 @@ int test_sparse_matrix_1(void)
 	insert_coo_matrix(3, 5, 2, c_matrix);
 	insert_coo_matrix(3, 5, 3, c_matrix);
 
-	insert_coo_matrix(3, 6, 0, c_matrix);
+	insert_coo_matrix(3, 6, 0, c_matrix);*/
 	//insert_coo_matrix(3, 6, 1, c_matrix);
 	//insert_coo_matrix(3, 6, 2, c_matrix);
 	//insert_coo_matrix(3, 6, 3, c_matrix);

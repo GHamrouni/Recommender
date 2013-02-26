@@ -1,13 +1,9 @@
-﻿Build started 2/21/2013 4:55:32 PM.
+﻿Build started 2/25/2013 4:21:15 PM.
      1>Project "C:\Users\abr\Recommender\Recommender\msvc\Tests\Tests.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\Tests.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W4 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\test_suite\test_red_black_tree_1.c ..\..\test_suite\test_sparse_matrix_1.c ..\..\test_suite\test_training_set_1.c
-         test_training_set_1.c
-         test_sparse_matrix_1.c
-         test_red_black_tree_1.c
-         Generating Code...
+         All outputs are up-to-date.
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.exe" /NOLOGO /LIBPATH:C:\Users\abr\Recommender\Recommender\msvc\Debug\ LibRecommender.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Tests.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Tests.lib" /MACHINE:X86 Debug\test_all.obj
          Debug\test_red_black_tree_1.obj
@@ -24,4 +20,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.27
+Time Elapsed 00:00:01.10

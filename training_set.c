@@ -131,3 +131,24 @@ item_ratings_average(size_t item_index, training_set_t* tset)
 	return row_values_average(item_index, tset->ratings_matrix);
 }
 
+
+void
+add_user (training_set_t* tset)
+{
+	add_column (tset->ratings_matrix);
+	tset->items_number++;
+}
+
+void
+add_item (training_set_t* tset)
+{
+	add_row (tset->ratings_matrix);
+	tset->users_number++;
+}
+
+void add_rating (size_t user_index, size_t item_index, float _value, training_set_t* tset)
+{
+	insert_value (tset->ratings_matrix,  user_index, item_index , _value);
+	tset->training_set_size++;
+	tset->ratings_sum += _value;
+}

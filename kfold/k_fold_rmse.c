@@ -4,8 +4,19 @@
 #include<math.h>
 #include<stdlib.h>
 #include<stdio.h>
+#include <stdarg.h>
 
-double RMSE_mean(k_fold_parameters_t k_fold_params)
+void RRLog(const char *format, ...)
+{
+	va_list arglist;
+
+	va_start( arglist, format );
+	vprintf( format, arglist );
+	va_end( arglist );
+}
+
+
+double RMSE_mean (k_fold_parameters_t k_fold_params)
 {
 	double RMSE_sum;
 	int index;
@@ -46,6 +57,6 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 		            estimate_rating_from_factors (u, i, learned, _k_fold_params.model), 2) / (_k_fold_params.ratings_number / _k_fold_params.K);
 	}
 
-	printf ("RMSE = %f \n", sqrtf (sum) );
+	RRLog ("RMSE = %f \n", sqrtf (sum) );
 	return (sqrtf (sum) );
 }

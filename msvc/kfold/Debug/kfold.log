@@ -1,9 +1,14 @@
-﻿Build started 2/21/2013 5:37:50 PM.
-     1>Project "C:\Users\abr\Recommender\Recommender\msvc\kfold\kfold.vcxproj" on node 3 (build target(s)).
+﻿Build started 2/26/2013 9:50:16 AM.
+     1>Project "C:\Users\abr\Recommender\Recommender\msvc\kfold\kfold.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\kfold.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /Wall /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\kfold\data_set.c ..\..\kfold\find_minimum_tsearch.c ..\..\kfold\k_fold_rmse.c ..\..\kfold\k_fold_test.c
+         k_fold_test.c
+         k_fold_rmse.c
+         find_minimum_tsearch.c
+         data_set.c
+         Generating Code...
        ManifestResourceCompile:
          All outputs are up-to-date.
        Link:
@@ -26,4 +31,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.02
+Time Elapsed 00:00:01.03

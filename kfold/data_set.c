@@ -16,7 +16,7 @@ int extract_data(struct k_fold_parameters _k_fold_params, training_set_t** _t_se
 		*_t_set = init_training_set(_k_fold_params.params);
 		_k_fold_params.params.training_set_size = (size_t) (_k_fold_params.ratings_number/_k_fold_params.K);
 		*_validation_set=init_training_set(_k_fold_params.params);
-		file = fopen(_k_fold_params.file_path, "r"); 
+		file = fopen(_k_fold_params.file_path, "r");
 
 		assert(file);
 

@@ -3,7 +3,7 @@
 #include "../training_set.h"
 #include "k_fold_parameters.h"
 
-//double find_parameters_float(float* param_to_find,double min,double max,double precision, k_fold_parameters_t *k_fold_params);
+
 
 
 

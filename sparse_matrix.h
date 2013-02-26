@@ -125,6 +125,7 @@ void add_rows (sparse_matrix_t* input_matrix , size_t number);
 
 void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix);
 
+void insert_value (sparse_matrix_t* input_matrix, size_t row, size_t col, float val );
 
 #endif /* SPARSE_MATRIX_H */
 

@@ -255,9 +255,16 @@ add_row ( sparse_matrix_t* input_matrix )
 	input_matrix->row_index[input_matrix->row_nb] = input_matrix->row_index[input_matrix->row_nb - 1];
 }
 
-
-void insert (sparse_matrix_t* input_matrix, size_t row, size_t col, float val )
+void
+add_column (sparse_matrix_t* input_matrix)
 {
+	input_matrix->column_nb ++;
+}
+
+void insert_value (sparse_matrix_t* input_matrix, size_t row, size_t col, float val )
+{
+	//assert(row < input_matrix->row_nb);
+	//assert(col < input_matrix->column_nb);
 	size_t i;
 	size_t pos = input_matrix->row_index[row + 1] - 1;
 	if ( input_matrix->nonzero_entries_nb >= input_matrix->nonzero_entries_capacity )
@@ -270,7 +277,7 @@ void insert (sparse_matrix_t* input_matrix, size_t row, size_t col, float val )
 	}
 
 	//Shift the array input_matrix->values to the right after pos
-	memcpy ( &input_matrix->values[pos + 1] , &input_matrix->values[pos] ,
+	memcpy ( &(input_matrix->values[pos + 1]) , &(input_matrix->values[pos]) ,
 	         sizeof ( float ) * ( input_matrix->nonzero_entries_nb - ( pos ) ) );
 	input_matrix->values[pos] = val;
 
@@ -279,9 +286,9 @@ void insert (sparse_matrix_t* input_matrix, size_t row, size_t col, float val )
 	         sizeof ( size_t ) * ( input_matrix->nonzero_entries_nb - pos ) );
 	input_matrix->column_index[pos] = col;
 
-	if ( input_matrix->row_index[row] > pos )
+	if ( input_matrix->row_index[row] > pos + 1 )
 	{
-		input_matrix->row_index[row] = pos;
+		input_matrix->row_index[row] = pos + 1;
 	}
 	for ( i = row + 1 ; i < input_matrix->row_nb + 1 ; i++ )
 	{
@@ -351,7 +358,7 @@ void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix)
 		         sizeof ( size_t ) * ( input_matrix->nonzero_entries_nb - pos ) );
 		input_matrix->column_index[pos] = c_matrix->entries[j].column_j;
 
-		if ( input_matrix->row_index[c_matrix->entries[j].row_i] > pos )
+		if ( input_matrix->row_index[c_matrix->entries[j].row_i] > pos + 1)
 		{
 			input_matrix->row_index[c_matrix->entries[j].row_i] = pos;
 		}
