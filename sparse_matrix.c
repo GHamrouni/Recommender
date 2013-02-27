@@ -276,10 +276,9 @@ void insert_value (sparse_matrix_t* input_matrix, size_t row, size_t col, float 
 	size_t* new_column_index = NULL;
 	float* new_values = NULL;
 
-	assert( (row < input_matrix->row_nb) && (col < input_matrix->column_nb) );
-
 	size_t pos = input_matrix->row_index[row + 1] - 1;
-
+	assert( (row < input_matrix->row_nb) && (col < input_matrix->column_nb) );
+	
 	if ( input_matrix->nonzero_entries_nb >= input_matrix->nonzero_entries_capacity )
 	{
 		input_matrix->nonzero_entries_capacity = input_matrix->nonzero_entries_capacity * 2;
