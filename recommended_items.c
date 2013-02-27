@@ -110,13 +110,9 @@ init_recommended_items(size_t items_number)
 		return NULL;
 
 	r_items->items_number = items_number;
-	r_items->raduis = 0;
 	r_items->filled_items_nb = 0;
-
-	r_items->items = 
-		init_red_black_tree(cmp_recommended_item, 
-			destruct_recommended_item, 
-			copy_recommended_item);
+	r_items->items = malloc(sizeof(recommended_item_t) * items_number);
+	r_items->bheap = init_binary_heap(items_number, cmp_recommended_item);
 
 	return r_items;
 }
@@ -129,8 +125,11 @@ free_recommended_items(recommended_items_t* items)
 {
 	if (items)
 	{
+		if (items->bheap)
+			free_binary_heap(items->bheap);
+
 		if (items->items)
-			rb_delete_tree(items->items);
+			free(items->items); 
 
 		free(items);
 	}
@@ -145,43 +144,14 @@ insert_recommended_item(size_t index, float _value, recommended_items_t* items)
 	if (!items)
 		return;
 
-	if (!items->filled_items_nb)
-		items->raduis = _value;
+	item = malloc(sizeof(recommended_item_t));
 
-	if (items->filled_items_nb < items->items_number)
+	if (item)
 	{
-		items->filled_items_nb++;
-		items->raduis = fmax(items->raduis, _value);
-
-		item = malloc(sizeof(recommended_item_t));
-
-		if (item)
-		{
-			item->index = index;
-			item->rating = _value;
-		}
-
-		rb_insert_value(items->items, item);
-
-	} else if (_value > items->raduis) {
-
-		deleted_item = rb_delete_min_element(items->items);
-
-		/* Recycle deleted element */
-		if (deleted_item)
-		{
-			item = (recommended_item_t*) deleted_item->value;
-
-			if (item)
-			{
-				item->index = index;
-				item->rating = _value;
-			}
-
-			rb_insert(items->items, deleted_item);
-
-			items->raduis = get_item_rating_from_node(rb_max_value(items->items));
-		}
+		item->index = index;
+		item->rating = _value;
 	}
+
+	insert_binary_heap(item, items->bheap);
 }
 

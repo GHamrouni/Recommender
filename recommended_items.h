@@ -28,7 +28,7 @@
 #define RECOMMENDED_ITEMS_H
 
 #include "model_parameters.h"
-#include "red_black_tree.h"
+#include "binary_heap.h"
 
 struct recommended_item
 {
@@ -40,13 +40,13 @@ typedef struct recommended_item recommended_item_t;
 
 struct recommended_items
 {
-	size_t			items_number;
+	size_t				items_number;
 
-	size_t			filled_items_nb;
+	size_t				filled_items_nb;
 
-	float			raduis;
+	recommended_item_t*	items;
 
-	red_black_tree_t*	items;
+	binary_heap_t*		bheap;
 };
 
 typedef struct recommended_items recommended_items_t;
