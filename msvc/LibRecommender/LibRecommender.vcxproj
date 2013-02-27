@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\binary_heap.c" />
     <ClCompile Include="..\..\float_tester.c" />
     <ClCompile Include="..\..\learned_factors.c" />
     <ClCompile Include="..\..\matrix_factorization.c" />
@@ -35,6 +36,7 @@
     <ClCompile Include="..\..\utils.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\binary_heap.h" />
     <ClInclude Include="..\..\float_tester.h" />
     <ClInclude Include="..\..\learned_factors.h" />
     <ClInclude Include="..\..\matrix_factorization.h" />

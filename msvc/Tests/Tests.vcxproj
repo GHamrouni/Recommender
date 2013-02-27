@@ -67,11 +67,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\test_suite\test_all.c" />
+    <ClCompile Include="..\..\test_suite\test_bheap_1.c" />
     <ClCompile Include="..\..\test_suite\test_red_black_tree_1.c" />
     <ClCompile Include="..\..\test_suite\test_sparse_matrix_1.c" />
     <ClCompile Include="..\..\test_suite\test_training_set_1.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\test_suite\test_bheap_1.h" />
     <ClInclude Include="..\..\test_suite\test_red_black_tree_1.h" />
     <ClInclude Include="..\..\test_suite\test_sparse_matrix_1.h" />
     <ClInclude Include="..\..\test_suite\test_training_set_1.h" />
