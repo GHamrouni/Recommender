@@ -32,7 +32,6 @@
 #include <math.h>
 
 #include "utils.h"
-#include "red_black_tree.h"
 
 /*
  * Define a weak strict order between items.
@@ -139,7 +138,6 @@ void
 insert_recommended_item(size_t index, float _value, recommended_items_t* items)
 {
 	recommended_item_t* item = NULL;
-	rb_node_t* deleted_item = NULL;
 
 	if (!items)
 		return;
