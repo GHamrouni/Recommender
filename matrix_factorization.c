@@ -119,8 +119,6 @@ compute_factors(
 
 		user_factors[ii] = user_factors[ii] +
 		       	step * (predicted_error * item_factors[ii] - lambda * user_factors[ii]);
-		//item_factors[ii] = item_factors[ii]+2* step* user_factors[ii] *predicted_error;
-		//user_factors[ii] = user_factors[ii]+2* step* item_factors[ii] *predicted_error;
 	}
 }
 
