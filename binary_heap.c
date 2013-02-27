@@ -35,18 +35,18 @@
 binary_heap_t* 
 init_binary_heap (
 	size_t max_size,
-	enum heap_type type
+	bh_value_cmp value_comparer
 	)
 {
 	binary_heap_t* bheap = 
-		malloc(sizeof(binary_heap_t) - 1 + sizeof(int) * max_size);
+		malloc(sizeof(binary_heap_t) - 1 + sizeof(void*) * max_size);
 
 	if (!bheap)
 		return NULL;
 
 	bheap->filled_elements = 0;
 	bheap->max_size = max_size;
-	bheap->type = type;
+	bheap->value_comparer = value_comparer;
 	
 	return bheap;
 }
@@ -77,13 +77,9 @@ balance_heap(binary_heap_t* bheap)
 
 	while (getParentIndex(i) >= 0 
 		   && 
-		   ((bheap->type == MIN_HEAP && 
-		   (bheap->buffer[i] > bheap->buffer[getParentIndex(i)])) ||
-		   ((bheap->type == MAX_HEAP && 
-		   bheap->buffer[i] < bheap->buffer[getParentIndex(i)])))
-		   )
+		   bheap->value_comparer(bheap->buffer[i], bheap->buffer[getParentIndex(i)]) < 0)
 	{
-		int value = bheap->buffer[i];
+		void* value = bheap->buffer[i];
 
 		index = getParentIndex(i);
 		bheap->buffer[i] = bheap->buffer[index];
@@ -106,18 +102,16 @@ balance_children(size_t i, binary_heap_t* bheap)
 
 	if (rc < bheap->filled_elements)
 	{
-		if ((bheap->type == MIN_HEAP && bheap->buffer[rc] > bheap->buffer[lc]) ||
-			(bheap->type == MAX_HEAP && bheap->buffer[rc] < bheap->buffer[lc]))
+		if (bheap->value_comparer(bheap->buffer[rc], bheap->buffer[lc]) < 0)
 			mc = rc;
 		else
 			mc = lc;
 	} else
 		mc = lc;
 
-	if ((bheap->type == MIN_HEAP && bheap->buffer[mc] > bheap->buffer[i]) ||
-		(bheap->type == MAX_HEAP && bheap->buffer[mc] < bheap->buffer[i]))
+	if (bheap->value_comparer(bheap->buffer[mc], bheap->buffer[i]) < 0)
 	{
-		int value = bheap->buffer[mc];
+		void* value = bheap->buffer[mc];
 		bheap->buffer[mc] = bheap->buffer[i];
 		bheap->buffer[i] = value;
 
@@ -138,7 +132,7 @@ pop_binary_heap(binary_heap_t* bheap)
 }
 
 void
-insert_binary_heap(int value, binary_heap_t* bheap)
+insert_binary_heap(void* value, binary_heap_t* bheap)
 {
 	if (bheap->filled_elements == 0)
 	{
@@ -158,8 +152,7 @@ insert_binary_heap(int value, binary_heap_t* bheap)
 		return;
 	}
 
-	if ((bheap->type == MIN_HEAP && bheap->buffer[0] > value) ||
-		(bheap->type == MAX_HEAP && bheap->buffer[0] < value))
+	if (bheap->value_comparer(bheap->buffer[0], value) < 0)
 	{
 		bheap->buffer[0] = value;
 		balance_children(0, bheap);

@@ -31,14 +31,9 @@
 #include <stddef.h>
 
 /*
- *	Heaps with a >= comparison are called max-heaps
- *	Heaps with a <= comparison are called min-heaps. 
+ * Define a weak strict order between nodes.
  */
-enum heap_type
-{
-	MIN_HEAP,
-	MAX_HEAP
-};
+typedef int (*bh_value_cmp)(const void *, const void *);
 
 /*
  * binary_heap:  The heap is tree based data structure                           
@@ -54,8 +49,8 @@ typedef struct binary_heap
 {
 	size_t          max_size;
 	size_t          filled_elements;
-	enum heap_type	type;
-	int             buffer[1];
+	bh_value_cmp	value_comparer;
+	void*           buffer[1];
 } binary_heap_t;
 
 /*
@@ -70,7 +65,7 @@ typedef struct binary_heap
  *
  */
 binary_heap_t* 
-init_binary_heap(size_t max_size, enum heap_type type);
+init_binary_heap(size_t max_size, bh_value_cmp value_comparer);
 
 /*
  * free_binary_heap:  Remove the entire binary heap
@@ -101,7 +96,7 @@ free_binary_heap(binary_heap_t* bheap);
  *
  */
 void
-insert_binary_heap(int value, binary_heap_t* bheap);
+insert_binary_heap(void* value, binary_heap_t* bheap);
 
 /*
  * remove_binary_heap:  Remove the max element from the binary heap

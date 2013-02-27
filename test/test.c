@@ -45,14 +45,14 @@ main(void) {
 	params.users_number = 2;
 	params.training_set_size = 5;
 
-	params.dimensionality = 40;
-	params.iteration_number = 60;
+	params.dimensionality = 100;
+	params.iteration_number = 600;
 
-	params.lambda = 0.055;
-	params.step = 0.0095;
+	params.lambda = 0.055f;
+	params.step = 0.0095f;
 
-	params.lambda_bias = 0.02;
-	params.step_bias = 0.001;
+	params.lambda_bias = 0.02f;
+	params.step_bias = 0.001f;
 	
 	//Use the basic matrix factorization model
 	model.learning_algorithm = learn_mf_bias;
@@ -91,6 +91,10 @@ main(void) {
 		 estimate_rating_from_factors(1, 0, learned, model));
 
 	r_items = recommend_items(0, 3, learned, tset, model);
+
+// 	1.016966
+// 	->0.013566
+// 	->5.906270
 
 	print_recommended_items(r_items->items->head, 0);
 
