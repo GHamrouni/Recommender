@@ -54,9 +54,15 @@ int test_bheap_1(void)
 	i = 0;
 	while (bheap_max->filled_elements)
 	{
-		heapsorted_data_array_max[i] = *((int*) bheap_max->buffer[0]);
+		int *v = NULL;
+		v = pop_binary_heap(bheap_max);
 
-		pop_binary_heap(bheap_max);
+		if (v != NULL)
+		{
+			heapsorted_data_array_max[i] = *(v);
+			free(v);
+		}
+
 		i++;
 	}
 

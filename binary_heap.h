@@ -31,9 +31,14 @@
 #include <stddef.h>
 
 /*
- * Define a weak strict order between nodes.
+ * Define a weak strict order between values.
  */
 typedef int (*bh_value_cmp)(const void *, const void *);
+
+/*
+ * Define value destructor/it will be called when releasing a value.
+ */
+typedef void (*bh_value_destructor)(void *);
 
 /*
  * binary_heap:  The heap is tree based data structure                           
@@ -110,7 +115,7 @@ insert_binary_heap(void* value, binary_heap_t* bheap);
  *
  *
  */
-void
+void*
 pop_binary_heap(binary_heap_t* bheap);
 
 #endif

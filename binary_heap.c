@@ -119,16 +119,22 @@ balance_children(size_t i, binary_heap_t* bheap)
 	}
 }
 
-void
+void*
 pop_binary_heap(binary_heap_t* bheap)
 {
+	void* value = NULL;
+
 	if (bheap->filled_elements <= 0)
-		return;
+		return NULL;
+
+	value = bheap->buffer[0];
 
 	bheap->buffer[0] = bheap->buffer[bheap->filled_elements - 1];
 	bheap->filled_elements--;
 
 	balance_children(0, bheap);
+
+	return value;
 }
 
 void
