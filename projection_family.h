@@ -44,7 +44,7 @@ typedef struct projection_family
 
 projection_family_t*
 init_random_projections(unsigned int dim, unsigned int seed, 
-	                    unsigned int bin_width, unsigned int projNb);
+	                    unsigned int bin_width, size_t projNb);
 
 void
 free_projection_family(projection_family_t* proj_family);
