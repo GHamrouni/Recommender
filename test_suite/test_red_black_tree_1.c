@@ -46,7 +46,7 @@ rb_node_value_t*
 new_rb_node_value(int _value)
 {
 	rb_node_value_t* r_item = 
-		malloc(sizeof(rb_node_value_t));
+		(rb_node_value_t*) malloc(sizeof(rb_node_value_t));
 
 	if (!r_item)
 		return NULL;
@@ -118,8 +118,8 @@ int test_red_black_tree_1(void)
 
 	void* node = NULL;
 
-	int* sorted_values = malloc(MAX_TREE_VALUES * sizeof(int));
-	int* values = malloc(MAX_TREE_VALUES * sizeof(int));
+	int* sorted_values = (int*) malloc(MAX_TREE_VALUES * sizeof(int));
+	int* values = (int*) (MAX_TREE_VALUES * sizeof(int));
 
 	printf("Test red black tree ... \n");
 

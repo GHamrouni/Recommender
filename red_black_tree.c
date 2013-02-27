@@ -10,7 +10,7 @@
 red_black_tree_t*
 init_red_black_tree(rb_node_value_cmp node_comparer, rb_node_value_destructor dest, rb_node_copy_value copy_fn)
 {
-	red_black_tree_t* tree = malloc(sizeof(red_black_tree_t));
+	red_black_tree_t* tree = (red_black_tree_t*)malloc(sizeof(red_black_tree_t));
 
 	if (!tree)
 		return NULL;
