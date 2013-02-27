@@ -24,3 +24,4 @@ msvc/kfold/Debug
 *.DATA
 *.dat
 *.data
+*.test

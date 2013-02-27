@@ -1,16 +1,9 @@
-﻿Build started 2/21/2013 2:48:57 PM.
-     1>Project "C:\Users\abr\Recommender\Recommender\msvc\Shuffle\Shuffle.vcxproj" on node 3 (build target(s)).
-     1>InitializeBuildStatus:
-         Touching "Debug\Shuffle.unsuccessfulbuild".
-       ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt rating.c shuffle.c
-         shuffle.c
-     1>c1 : fatal error C1083: Cannot open source file: 'shuffle.c': No such file or directory
-         rating.c
-     1>c1 : fatal error C1083: Cannot open source file: 'rating.c': No such file or directory
-         Generating Code...
-     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\Shuffle\Shuffle.vcxproj" (build target(s)) -- FAILED.
+﻿Build started 2/27/2013 10:07:17 AM.
+     1>Project "C:\Users\abr\Recommender\Recommender\msvc\Shuffle\Shuffle.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\Shuffle.lastbuildstate".
+     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\Shuffle\Shuffle.vcxproj" (clean target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.21
+Time Elapsed 00:00:00.03

@@ -16,8 +16,8 @@
 #include "k_fold_rmse.h"
 #include "find_minimum_tsearch.h"
 #include "data_set.h"
-#pragma warning(disable: 4996)
 
+#pragma warning(disable: 4996)
 
 int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, void ** param_to_find, int* is_float)
 {

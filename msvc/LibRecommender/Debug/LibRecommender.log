@@ -1,35 +1,9 @@
-﻿Build started 2/26/2013 2:12:19 PM.
-     1>Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" on node 2 (build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Debug\LibRecommender.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /Wall /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\learned_factors.c
-         learned_factors.c
-     1>c:\users\abr\recommender\recommender\learned_factors.c(145): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-     1>c:\users\abr\recommender\recommender\learned_factors.c(178): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
-       Lib:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\LibRecommender.lib" /NOLOGO Debug\float_tester.obj
-         Debug\learned_factors.obj
-         Debug\matrix_factorization.obj
-         Debug\matrix_factorization_bias.obj
-         Debug\projection.obj
-         Debug\projection_family.obj
-         Debug\recommended_items.obj
-         Debug\recommender.obj
-         Debug\red_black_tree.obj
-         Debug\sparse_matrix.obj
-         Debug\sparse_matrix_hash.obj
-         Debug\standard_normal.obj
-         Debug\training_set.obj
-         Debug\utils.obj
-         LibRecommender.vcxproj -> C:\Users\abr\Recommender\Recommender\msvc\Debug\LibRecommender.lib
-       FinalizeBuildStatus:
-         Deleting file "Debug\LibRecommender.unsuccessfulbuild".
-         Touching "Debug\LibRecommender.lastbuildstate".
-     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" (build target(s)).
+﻿Build started 2/27/2013 10:07:18 AM.
+     1>Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\LibRecommender.lastbuildstate".
+     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" (clean target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.93
+Time Elapsed 00:00:00.02
