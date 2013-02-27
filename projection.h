@@ -49,10 +49,10 @@ struct projection
 typedef struct projection projection_t;
 
 projection_t*
-init_random_projection(unsigned int dim, unsigned int seed, unsigned int bin_width);
+init_random_projection(size_t dim, unsigned int seed, unsigned int bin_width);
 
 projection_t*
-init_random_projection_rng(unsigned int dim, unsigned int seed, unsigned int bin_width, normal_generator_t* gen);
+init_random_projection_rng(size_t dim, unsigned int seed, unsigned int bin_width, normal_generator_t* gen);
 
 void
 free_projection(projection_t* proj);
