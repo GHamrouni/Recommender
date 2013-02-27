@@ -1,9 +1,24 @@
-﻿Build started 2/27/2013 10:07:18 AM.
-     1>Project "C:\Users\abr\Recommender\Recommender\msvc\Tests\Tests.vcxproj" on node 3 (clean target(s)).
-     1>_PrepareForClean:
-         Deleting file "Debug\Tests.lastbuildstate".
-     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\Tests\Tests.vcxproj" (clean target(s)).
+﻿Build started 27/02/2013 11:42:13.
+     1>Project "C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Tests\Tests.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\Tests.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W4 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\test_suite\test_red_black_tree_1.c
+         test_red_black_tree_1.c
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Debug\Tests.exe" /NOLOGO /LIBPATH:C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Debug\ LibRecommender.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Tests.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Debug\Tests.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Debug\Tests.lib" /MACHINE:X86 Debug\test_all.obj
+         Debug\test_red_black_tree_1.obj
+         Debug\test_sparse_matrix_1.obj
+         Debug\test_training_set_1.obj
+         LINK : C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Debug\Tests.exe not found or not built by the last incremental link; performing full link
+         Tests.vcxproj -> C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Debug\Tests.exe
+       Manifest:
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Debug\Tests.exe;#1" /manifest Debug\Tests.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\Tests.unsuccessfulbuild".
+         Touching "Debug\Tests.lastbuildstate".
+     1>Done Building Project "C:\Users\gha\Dropbox\github\ST\Recommender\msvc\Tests\Tests.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.04
+Time Elapsed 00:00:00.84

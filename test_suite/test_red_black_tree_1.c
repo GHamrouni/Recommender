@@ -118,8 +118,8 @@ int test_red_black_tree_1(void)
 
 	void* node = NULL;
 
-	int* sorted_values = (int*) malloc(MAX_TREE_VALUES * sizeof(int));
-	int* values = (int*) (MAX_TREE_VALUES * sizeof(int));
+	int* sorted_values = malloc(MAX_TREE_VALUES * sizeof(int));
+	int* values = malloc(MAX_TREE_VALUES * sizeof(int));
 
 	printf("Test red black tree ... \n");
 
