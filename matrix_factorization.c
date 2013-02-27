@@ -110,15 +110,17 @@ compute_factors(
 		double predicted_error, 
 		size_t dimensionality)
 {
-	size_t i = 0;
+	size_t ii = 0;
 
-	for (i = 0; i < dimensionality; i++)
+	for (ii = 0; ii < dimensionality; ii++)
 	{
-		item_factors[i] = item_factors[i] +
-		       	step * (predicted_error * user_factors[i] - lambda * item_factors[i]);
+		item_factors[ii] = item_factors[ii] +
+		       	step * (predicted_error * user_factors[ii] - lambda * item_factors[ii]);
 
-		user_factors[i] = user_factors[i] +
-		       	step * (predicted_error * item_factors[i] - lambda * user_factors[i]);
+		user_factors[ii] = user_factors[ii] +
+		       	step * (predicted_error * item_factors[ii] - lambda * user_factors[ii]);
+		//item_factors[ii] = item_factors[ii]+2* step* user_factors[ii] *predicted_error;
+		//user_factors[ii] = user_factors[ii]+2* step* item_factors[ii] *predicted_error;
 	}
 }
 

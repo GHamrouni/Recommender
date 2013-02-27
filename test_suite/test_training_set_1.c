@@ -13,16 +13,17 @@
 
 #include "test_training_set_1.h"
 
-#define USER_NUMBER_TEST_SIZE		1000
+#define USER_NUMBER_TEST_SIZE		4
 
-#define ITEM_NUMBER_TEST_SIZE		1000
+#define ITEM_NUMBER_TEST_SIZE		4
 
-#define TRAINING_SET_TEST_SIZE		(1000 * 1000)
+#define TRAINING_SET_TEST_SIZE		(4 * 4)
 
 int test_training_set_1(void)
 {
 	training_set_t* tset;
-	size_t u, k, i;
+	size_t u,  i;
+	float val;
 
 	/* Model configuration */
 	/* Setup model parameters */
@@ -39,9 +40,9 @@ int test_training_set_1(void)
 
 	srand ( 47 );
 
-	for (u = 0; u < USER_NUMBER_TEST_SIZE; u++)
+	for (u = 0; u < tset->users_number; u++)
 	{
-		for (i = 0; i < ITEM_NUMBER_TEST_SIZE; i++)
+		for (i = 0; i < tset->items_number; i++)
 		{
 			set_known_rating(u, i, (float) (rand() % 10), tset);
 		}
@@ -49,7 +50,14 @@ int test_training_set_1(void)
 
 	compile_training_set(tset);
 
-	for (i = 0; i < TRAINING_SET_TEST_SIZE; i++)
+	add_user(tset);
+	add_item(tset);
+	add_rating(4,4,1,tset);
+	add_rating(3,4,2,tset);
+	val=get_element(3,4,tset->ratings_matrix);
+	i=tset->ratings_matrix->nonzero_entries_nb;
+
+	/*for (i = 0; i < TRAINING_SET_TEST_SIZE; i++)
 	{
 		float val;
 
@@ -61,6 +69,16 @@ int test_training_set_1(void)
 		val = get_element(u, k, tset->ratings_matrix);
 
 		assert(val == tset->ratings->entries[i].value);
+	}*/
+
+	for(u=0;u < tset->users_number; u++)
+	{
+		for(i=0 ;i < tset->items_number;i++)
+		{
+			val = get_element(u, i, tset->ratings_matrix);
+			printf("%f ",val);
+		}
+			printf("\n");
 	}
 
 	free_training_set(tset);
