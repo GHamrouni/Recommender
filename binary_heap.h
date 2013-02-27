@@ -34,7 +34,7 @@
  *	Heaps with a >= comparison are called max-heaps
  *	Heaps with a <= comparison are called min-heaps. 
  */
-enum heap_type	/* Defines red black tree node color */
+enum heap_type
 {
 	MIN_HEAP,
 	MAX_HEAP
