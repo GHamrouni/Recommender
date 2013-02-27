@@ -1,6 +1,7 @@
 /*-
 * Copyright (c) 2012 Hamrouni Ghassen.
-* All rights reserved.
+*
+*  2013-02  Modified for dynamic resizing by Ahmed Ben Romdhane
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions
