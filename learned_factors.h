@@ -59,16 +59,5 @@ init_learned_factors(model_parameters_t params);
 void 
 free_learned_factors(learned_factors_t* lfactors);
 
-/*
- * save the learned factors on a file
-*/
-void 
-save_learned_factors(learned_factors_t* lfactors,char * file_path);
-
-
-learned_factors_t* 
-load_learned_factors(char * file_path);
-
-
 #endif /* LEARNED_FACTORS_H */
 
