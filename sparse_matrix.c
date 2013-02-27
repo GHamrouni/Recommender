@@ -300,12 +300,12 @@ void insert_value (sparse_matrix_t* input_matrix, size_t row, size_t col, float 
 		}
 	}
 
-	//Shift the array input_matrix->values to the right after pos
+	/* Shift the array input_matrix->values to the right after pos */
 	memcpy ( &(input_matrix->values[pos + 1]) , &(input_matrix->values[pos]) ,
 	         sizeof ( float ) * ( input_matrix->nonzero_entries_nb - ( pos ) ) );
 	input_matrix->values[pos] = val;
 
-	//Shift the array input_matrix->column_index to the right after pos
+	/* Shift the array input_matrix->column_index to the right after pos */
 	memcpy ( &input_matrix->column_index[pos + 1], &input_matrix->column_index[pos] ,
 	         sizeof ( size_t ) * ( input_matrix->nonzero_entries_nb - pos ) );
 	input_matrix->column_index[pos] = col;
@@ -355,8 +355,6 @@ add_columns (sparse_matrix_t* input_matrix, size_t number )
 	input_matrix->column_nb += number;
 }
 
-
-
 void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix)
 {
 	size_t i, j;
@@ -388,13 +386,13 @@ void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix)
 	{
 		pos = input_matrix->row_index[c_matrix->entries[j].row_i + 1] - 1;
 
-		//Shift the array input_matrix->values to the right after pos
+		/* Shift the array input_matrix->values to the right after pos */
 		memcpy ( &input_matrix->values[pos + 1] , &input_matrix->values[pos] ,
 		         sizeof ( float ) * ( input_matrix->nonzero_entries_nb - ( pos ) ) );
 
 		input_matrix->values[pos] = c_matrix->entries[j].value;
 
-		//Shift the array input_matrix->column_index to the right after pos
+		/* Shift the array input_matrix->column_index to the right after pos */
 		memcpy ( &input_matrix->column_index[pos + 1], &input_matrix->column_index[pos] ,
 		         sizeof ( size_t ) * ( input_matrix->nonzero_entries_nb - pos ) );
 		input_matrix->column_index[pos] = c_matrix->entries[j].column_j;
