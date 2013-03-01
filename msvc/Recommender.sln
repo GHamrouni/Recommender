@@ -12,6 +12,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kfold", "kfold\kfold.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shuffle", "Shuffle\Shuffle.vcxproj", "{12DB9080-9FBA-4469-9330-3509D5DD06C0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hiredis", "..\hiredis-win32\win32\hiredis.vcxproj", "{62FE2454-AB35-4A57-9FA3-51892029221E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example", "example\example.vcxproj", "{9715AC8D-EA96-4943-92D5-858F65D07EDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -46,6 +50,18 @@ Global
 		{12DB9080-9FBA-4469-9330-3509D5DD06C0}.Release|Win32.ActiveCfg = Release|Win32
 		{12DB9080-9FBA-4469-9330-3509D5DD06C0}.Release|Win32.Build.0 = Release|Win32
 		{12DB9080-9FBA-4469-9330-3509D5DD06C0}.Release|x64.ActiveCfg = Release|Win32
+		{62FE2454-AB35-4A57-9FA3-51892029221E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62FE2454-AB35-4A57-9FA3-51892029221E}.Debug|Win32.Build.0 = Debug|Win32
+		{62FE2454-AB35-4A57-9FA3-51892029221E}.Debug|x64.ActiveCfg = Debug|Win32
+		{62FE2454-AB35-4A57-9FA3-51892029221E}.Release|Win32.ActiveCfg = Release|Win32
+		{62FE2454-AB35-4A57-9FA3-51892029221E}.Release|Win32.Build.0 = Release|Win32
+		{62FE2454-AB35-4A57-9FA3-51892029221E}.Release|x64.ActiveCfg = Release|Win32
+		{9715AC8D-EA96-4943-92D5-858F65D07EDB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9715AC8D-EA96-4943-92D5-858F65D07EDB}.Debug|Win32.Build.0 = Debug|Win32
+		{9715AC8D-EA96-4943-92D5-858F65D07EDB}.Debug|x64.ActiveCfg = Debug|Win32
+		{9715AC8D-EA96-4943-92D5-858F65D07EDB}.Release|Win32.ActiveCfg = Release|Win32
+		{9715AC8D-EA96-4943-92D5-858F65D07EDB}.Release|Win32.Build.0 = Release|Win32
+		{9715AC8D-EA96-4943-92D5-858F65D07EDB}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

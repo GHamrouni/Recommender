@@ -1,0 +1,20 @@
+﻿Build started 2/27/2013 5:29:31 PM.
+     1>Project "C:\Users\abr\Recommender\Recommender\msvc\serialization\serialization.vcxproj" on node 2 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\serialization.lastbuildstate".
+       InitializeBuildStatus:
+         Creating "Debug\serialization.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /Zp1 /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\Serialization\example.c
+         example.c
+       Lib:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\serialization.lib" /NOLOGO Debug\example.obj
+         serialization.vcxproj -> C:\Users\abr\Recommender\Recommender\msvc\Debug\serialization.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\serialization.unsuccessfulbuild".
+         Touching "Debug\serialization.lastbuildstate".
+     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\serialization\serialization.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.82

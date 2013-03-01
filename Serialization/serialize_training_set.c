@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../hiredis-win32/hiredis.h"
+#include "serialize_training_set.h"
+#include "Serialize_sparse_matrix.h"
+
+
+int save_training_set(training_set_t* tset)
+{
+
+	unsigned int j;
+	redisContext *c;
+	redisReply *reply;
+
+	struct timeval timeout = { 1, 500000 }; // 1.5 seconds
+	c = redisConnectWithTimeout ( (char*) "127.0.0.1", 6379, timeout);
+	if (c->err)
+	{
+		printf ("Connection error: %s\n", c->errstr);
+		return (1);
+	}
+	reply = redisCommand (c, "SET %s %d", "dimensionality", tset->dimensionality);
+	freeReplyObject (reply);
+	reply = redisCommand (c, "SET %s %d", "items_number", tset->items_number);
+	freeReplyObject (reply);
+	reply = redisCommand (c, "SET %s %d", "users_number", tset->users_number);
+	freeReplyObject (reply);
+	reply = redisCommand (c, "SET %s %d", "training_set_size", tset->training_set_size);
+	freeReplyObject (reply);
+	reply = redisCommand (c, "SET %s %f", "rating_sum", tset->ratings_sum);
+	freeReplyObject (reply);
+	return (save_sparse_matrix(tset->ratings_matrix) && save_coo_matrix(tset->ratings));
+}
+
+training_set_t* load_training_set()
+{
+	unsigned int j;
+	redisContext *c;
+	redisReply *reply;
+	training_set_t* tset;
+	struct timeval timeout = { 1, 500000 }; // 1.5 seconds
+	c = redisConnectWithTimeout ( (char*) "127.0.0.1", 6379, timeout);
+	if (c->err)
+	{
+		printf ("Connection error: %s\n", c->errstr);
+		return NULL;
+	}
+	tset=malloc(sizeof(training_set_t));
+	reply = redisCommand (c, "GET dimensionality");
+	tset->dimensionality=atoi(reply->str);
+	freeReplyObject (reply);
+	reply = redisCommand (c, "GET items_number");
+	tset->items_number= atoi(reply->str);
+	freeReplyObject (reply);
+	reply = redisCommand (c, "GET users_number");
+	tset->users_number = atoi(reply->str);
+	freeReplyObject (reply);
+	reply = redisCommand (c, "GET training_set_size");
+	tset->training_set_size = atoi(reply->str);
+	freeReplyObject (reply);
+	reply = redisCommand (c, "GET rating_sum");
+	tset->ratings_sum = atof(reply->str);
+	freeReplyObject (reply);
+	tset->ratings = load_coo_matrix();
+	tset->ratings_matrix = load_sparse_matrix();
+	return tset;
+}

@@ -16,7 +16,7 @@
 #include "k_fold_rmse.h"
 #include "find_minimum_tsearch.h"
 #include "data_set.h"
-
+#include "../serialization/serialize_factors.h"
 #pragma warning(disable: 4996)
 
 int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, void ** param_to_find, int* is_float)
@@ -175,12 +175,13 @@ int main (int argc, char** argv)
 	int is_float;// 1 if param_to_find is float
 
 	char* file_path = NULL;
-
+	
 
 	//Model configuration
 	//Setup model parameters
 	clock_t start = clock();
 	clock_t end;
+	
 	A = 0.1;
 	B = 0.15;
 

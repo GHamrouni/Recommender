@@ -1,0 +1,34 @@
+﻿Build started 3/1/2013 6:07:24 PM.
+     1>Project "C:\Users\abr\Recommender\Recommender\msvc\example\example.vcxproj" on node 3 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\Serialization.lastbuildstate".
+       InitializeBuildStatus:
+         Creating "Debug\Serialization.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /Zp1 /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\Serialization\Serialize_sparse_matrix.c ..\..\Serialization\serialize_factors.c ..\..\Serialization\serialize_training_set.c
+         serialize_training_set.c
+     1>c:\users\abr\recommender\recommender\serialization\serialize_training_set.c(12): warning C4101: 'j' : unreferenced local variable
+     1>c:\users\abr\recommender\recommender\serialization\serialize_training_set.c(38): warning C4101: 'j' : unreferenced local variable
+         serialize_factors.c
+     1>c:\users\abr\recommender\recommender\serialization\serialize_factors.c(58): warning C4013: 'snprintf' undefined; assuming extern returning int
+     1>c:\users\abr\recommender\recommender\serialization\serialize_factors.c(166): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Serialize_sparse_matrix.c
+     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(88): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(157): warning C4244: '=' : conversion from 'double' to 'size_t', possible loss of data
+     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(160): warning C4244: '=' : conversion from 'double' to 'size_t', possible loss of data
+     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(183): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(141): warning C4715: 'save_coo_matrix' : not all control paths return a value
+       Lib:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Serialization.lib" ws2_32.lib /NOLOGO Debug\Serialize_sparse_matrix.obj
+         Debug\serialize_factors.obj
+         Debug\serialize_training_set.obj
+         example.vcxproj -> C:\Users\abr\Recommender\Recommender\msvc\Debug\Serialization.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\Serialization.unsuccessfulbuild".
+         Touching "Debug\Serialization.lastbuildstate".
+     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\example\example.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.45

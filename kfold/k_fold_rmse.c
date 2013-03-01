@@ -5,7 +5,10 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include <stdarg.h>
-
+#include <memory.h>
+#include "../Serialization/Serialize_sparse_matrix.h"
+#include "../Serialization/serialize_training_set.h"
+#include "../sparse_matrix.h"
 void RRLog(const char *format, ...)
 {
 	va_list arglist;
@@ -20,17 +23,29 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 {
 	double RMSE_sum;
 	int index;
+	int i;
 	learned_factors_t *learned;
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
+	training_set_t* vs = NULL;
+	coo_matrix_t* t;
 	k_fold_params.model.parameters = k_fold_params.params;
+	
 	RMSE_sum = 0;
 	for (index = 0; index < k_fold_params.K; index++)
 	{
 		extract_data (k_fold_params, &tset, &validation_set, index);
 		compile_training_set (validation_set);
 		compile_training_set (tset);
+		
+		//memcmp(t->entries,tset->ratings->entries,sizeof(size_t)*t->size);
+		save_training_set(validation_set);
+		
+		vs=load_training_set();
+		
 		learned = learn (tset, k_fold_params.model);
+		
+		//l=load_learned_factors();
 		RMSE_sum += RMSE (learned, validation_set, k_fold_params);
 	}
 	free (tset);
@@ -40,7 +55,7 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 
 
 
-double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
+double RMSE (learned_factors_t* learnedf, training_set_t * _validation_set,
              k_fold_parameters_t _k_fold_params)
 {
 	unsigned int i;
@@ -54,9 +69,9 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 		u = _validation_set->ratings->entries[s].column_j;
 
 		sum += pow (_validation_set->ratings->entries[s].value -
-		            estimate_rating_from_factors (u, i, learned, _k_fold_params.model), 2) / (_k_fold_params.ratings_number / _k_fold_params.K);
+		            estimate_rating_from_factors (u, i, learnedf, _k_fold_params.model), 2) / (_k_fold_params.ratings_number / _k_fold_params.K);
 	}
 
-	RRLog ("RMSE = %f \n", sqrtf (sum) );
+	RRLog ("RMSE = %f \n", sqrt (sum) );
 	return (sqrtf (sum) );
 }

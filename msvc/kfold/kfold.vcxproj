@@ -24,6 +24,11 @@
     <ClInclude Include="..\..\kfold\k_fold_parameters.h" />
     <ClInclude Include="..\..\kfold\Simulated_annealing.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\example\example.vcxproj">
+      <Project>{9715ac8d-ea96-4943-92d5-858f65d07edb}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1B9539D3-9A37-4944-A70B-8D8C366901D3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -69,8 +74,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>LibRecommender.lib;hiredis.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\abr\Recommender\Recommender\msvc\Debug;$(SolutionDir)$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>LibRecommender.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
