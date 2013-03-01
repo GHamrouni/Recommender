@@ -31,7 +31,7 @@
 int 
 main(void) {
 
-	int i =0;
+	size_t i =0;
 	learned_factors_t* learned;
 	training_set_t* tset;
 	recommended_items_t* r_items = NULL;
