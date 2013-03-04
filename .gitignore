@@ -25,3 +25,4 @@ msvc/kfold/Debug
 *.dat
 *.data
 *.test
+hiredis-win32/
