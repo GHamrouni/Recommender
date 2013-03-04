@@ -1,4 +1,4 @@
-﻿Build started 3/4/2013 10:40:09 AM.
+﻿Build started 3/4/2013 11:42:49 AM.
      1>Project "C:\Users\abr\Recommender\Recommender\msvc\example\example.vcxproj" on node 3 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\Serialization.lastbuildstate".
@@ -25,4 +25,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.44
+Time Elapsed 00:00:01.68

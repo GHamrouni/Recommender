@@ -56,6 +56,9 @@
     <ClCompile Include="..\..\rlog.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\binary_heap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\float_tester.h">
@@ -106,7 +109,12 @@
     <ClInclude Include="..\..\training_set.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\rlog.h" />
+    <ClInclude Include="..\..\rlog.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\binary_heap.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\README.md">
