@@ -89,5 +89,20 @@ recommend_items(size_t user_index,
 		insert_recommended_item(j, (float) model.rating_estimator(user_index, j, lfactors), r_items);
 	}
 
+	j = 0;
+	while (r_items->bheap->filled_elements)
+	{
+		recommended_item_t *v = NULL;
+		v = pop_binary_heap(r_items->bheap);
+
+		if (v != NULL)
+		{
+			r_items->items[j] = *(v);
+			free(v);
+		}
+
+		j++;
+	}
+
 	return r_items;
 }

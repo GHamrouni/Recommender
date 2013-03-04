@@ -13,6 +13,7 @@
 *.sdf
 *.suo
 *.user
+*.log
 ipch
 msvc/Debug
 msvc/ipch

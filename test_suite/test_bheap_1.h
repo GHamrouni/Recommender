@@ -1,7 +1,6 @@
 /*-
-* Copyright (c) 2012 Hamrouni Ghassen.
-*
-*  2013-02  Modified for dynamic resizing by Ahmed Ben Romdhane
+* Copyright (c) 2012, 2013 Hamrouni Ghassen.
+* All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions
@@ -25,40 +24,9 @@
 * SUCH DAMAGE.
 */
 
-#ifndef LEARNED_FACTORS_H
-#define LEARNED_FACTORS_H
+#ifndef TEST_B_HEAP_1_H
+#define TEST_B_HEAP_1_H
 
-#include "model_parameters.h"
+int test_bheap_1(void);
 
-struct learned_factors
-{
-	size_t		users_number;
-	size_t		items_number;
-	size_t		dimensionality;
-
-	double*         user_bias;
-	double*         item_bias;
-
-	float           ratings_average;
-
-	double**        user_factor_vectors;
-	double**        item_factor_vectors;
-};
-
-
-typedef struct learned_factors learned_factors_t;
-
-/*
- * Create a new factors set
- */
-learned_factors_t* 
-init_learned_factors(model_parameters_t params);
-
-/*
- * free_learned_factors:  delete the learned factors from memory
- */
-void 
-free_learned_factors(learned_factors_t* lfactors);
-
-#endif /* LEARNED_FACTORS_H */
-
+#endif  /* TEST_TRAINING_SET_1_H */

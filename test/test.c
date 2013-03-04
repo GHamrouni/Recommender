@@ -9,28 +9,29 @@
 #include "../matrix_factorization_bias.h"
 #include "../sparse_matrix.h"
 
-void 
-print_recommended_items(rb_node_t* node, int depth)
-{
-	int i = 0;
-
-	if (node == NULL)
-		return;
-
-	for (i = 0; i < depth; i++)
-		printf("->");
-
-	printf("%f \n", ((recommended_item_t*) node->value)->rating);
-
-	depth++;
-
-	print_recommended_items(node->left_node, depth);
-	print_recommended_items(node->right_node, depth);
-}
+// void 
+// print_recommended_items(rb_node_t* node, int depth)
+// {
+// 	int i = 0;
+// 
+// 	if (node == NULL)
+// 		return;
+// 
+// 	for (i = 0; i < depth; i++)
+// 		printf("->");
+// 
+// 	printf("%f \n", ((recommended_item_t*) node->value)->rating);
+// 
+// 	depth++;
+// 
+// 	print_recommended_items(node->left_node, depth);
+// 	print_recommended_items(node->right_node, depth);
+// }
 
 int 
 main(void) {
 
+	size_t i =0;
 	learned_factors_t* learned;
 	training_set_t* tset;
 	recommended_items_t* r_items = NULL;
@@ -45,14 +46,14 @@ main(void) {
 	params.users_number = 2;
 	params.training_set_size = 5;
 
-	params.dimensionality = 40;
-	params.iteration_number = 60;
+	params.dimensionality = 100;
+	params.iteration_number = 600;
 
-	params.lambda = 0.055;
-	params.step = 0.0095;
+	params.lambda = 0.055f;
+	params.step = 0.0095f;
 
-	params.lambda_bias = 0.02;
-	params.step_bias = 0.001;
+	params.lambda_bias = 0.02f;
+	params.step_bias = 0.001f;
 	
 	//Use the basic matrix factorization model
 	model.learning_algorithm = learn_mf_bias;
@@ -92,7 +93,10 @@ main(void) {
 
 	r_items = recommend_items(0, 3, learned, tset, model);
 
-	print_recommended_items(r_items->items->head, 0);
+	for (i = 0; i < r_items->items_number; i++)
+	{
+		printf("%f \n", r_items->items[i].rating);
+	}
 
 	free_recommended_items(r_items);
 	free_learned_factors(learned);

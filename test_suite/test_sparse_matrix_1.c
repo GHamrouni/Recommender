@@ -23,7 +23,6 @@
 int test_sparse_matrix_1(void)
 {
 	size_t i, u, v;
-	float val;
 	unsigned char* used_;
 
 	coo_matrix_t* c_matrix = init_coo_matrix(COO_MATRIX_TEST_SIZE);
@@ -131,15 +130,15 @@ int test_sparse_matrix_1(void)
 	}*/
 
 //	val = get_element(4, 4, s_matrix);
-	for(v=0;v < s_matrix->column_nb; v++)
-	{
-		for(u=0 ;u < s_matrix->row_nb;u++)
-		{
-			val = get_element(u, v, s_matrix);
-			printf("%f ",val);
-		}
-			printf("\n");
-	}
+// 	for(v=0;v < s_matrix->column_nb; v++)
+// 	{
+// 		for(u=0 ;u < s_matrix->row_nb;u++)
+// 		{
+// 			val = get_element(u, v, s_matrix);
+// 			printf("%f ",val);
+// 		}
+// 			printf("\n");
+// 	}
 
 
 	free_coo_matrix(c_matrix);
