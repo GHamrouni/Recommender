@@ -53,10 +53,7 @@ int test_redis (void)
 	freeReplyObject (reply);
 	for (j = 0; j < 10; j++)
 	{
-		char buf[64];
-
-		snprintf (buf, 64, "%d", j);
-		reply = redisCommand (c, "LPUSH mylist element-%s", buf);
+		reply = redisCommand (c, "LPUSH mylist element-%d", j);
 		freeReplyObject (reply);
 	}
 
@@ -70,6 +67,7 @@ int test_redis (void)
 		}
 	}
 	freeReplyObject (reply);
+	redisFree(c);
 	system ("pause");
 	return 0;
 }
@@ -80,8 +78,7 @@ int save_learned_factors (learned_factors_t * factors)
 	redisContext *c;
 	redisReply *reply;
 	size_t i, j;
-	struct timeval timeout = { 1, 500000 };
-	c = redisConnectWithTimeout ( (char*) "127.0.0.1", 6379, timeout);
+	c = redisConnect ( (char*) "127.0.0.1", 6379);
 	if (c->err)
 	{
 		printf ("Connection error: %s\n", c->errstr);
