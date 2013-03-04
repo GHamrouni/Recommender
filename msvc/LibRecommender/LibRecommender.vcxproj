@@ -28,6 +28,7 @@
     <ClCompile Include="..\..\recommended_items.c" />
     <ClCompile Include="..\..\recommender.c" />
     <ClCompile Include="..\..\red_black_tree.c" />
+    <ClCompile Include="..\..\rlog.c" />
     <ClCompile Include="..\..\sparse_matrix.c" />
     <ClCompile Include="..\..\sparse_matrix_hash.c" />
     <ClCompile Include="..\..\standard_normal.c" />
@@ -46,6 +47,7 @@
     <ClInclude Include="..\..\recommended_items.h" />
     <ClInclude Include="..\..\recommender.h" />
     <ClInclude Include="..\..\red_black_tree.h" />
+    <ClInclude Include="..\..\rlog.h" />
     <ClInclude Include="..\..\sparse_matrix.h" />
     <ClInclude Include="..\..\sparse_matrix_hash.h" />
     <ClInclude Include="..\..\standard_normal.h" />

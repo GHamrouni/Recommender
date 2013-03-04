@@ -3,6 +3,6 @@
 #include "../training_set.h"
 
 int save_training_set(training_set_t* tset);
-training_set_t* load_training_set();
+training_set_t* load_training_set(void);
 
 #endif

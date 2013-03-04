@@ -1,16 +1,18 @@
-﻿Build started 3/1/2013 6:07:22 PM.
+﻿Build started 3/4/2013 10:40:07 AM.
      1>Project "C:\Users\abr\Recommender\Recommender\msvc\LibRecommender\LibRecommender.vcxproj" on node 3 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\LibRecommender.lastbuildstate".
        InitializeBuildStatus:
          Creating "Debug\LibRecommender.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /Wall /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\float_tester.c ..\..\learned_factors.c ..\..\matrix_factorization.c ..\..\matrix_factorization_bias.c ..\..\projection.c ..\..\projection_family.c ..\..\recommended_items.c ..\..\recommender.c ..\..\red_black_tree.c ..\..\sparse_matrix.c ..\..\sparse_matrix_hash.c ..\..\standard_normal.c ..\..\training_set.c ..\..\utils.c
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /Wall /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\float_tester.c ..\..\learned_factors.c ..\..\matrix_factorization.c ..\..\matrix_factorization_bias.c ..\..\projection.c ..\..\projection_family.c ..\..\recommended_items.c ..\..\recommender.c ..\..\red_black_tree.c ..\..\rlog.c ..\..\sparse_matrix.c ..\..\sparse_matrix_hash.c ..\..\standard_normal.c ..\..\training_set.c ..\..\utils.c
          utils.c
          training_set.c
          standard_normal.c
          sparse_matrix_hash.c
          sparse_matrix.c
+         rlog.c
+     1>c:\users\abr\recommender\recommender\rlog.c(9): warning C4668: 'DEBUG' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
          red_black_tree.c
          recommender.c
          recommended_items.c
@@ -35,6 +37,7 @@
          Debug\recommended_items.obj
          Debug\recommender.obj
          Debug\red_black_tree.obj
+         Debug\rlog.obj
          Debug\sparse_matrix.obj
          Debug\sparse_matrix_hash.obj
          Debug\standard_normal.obj
@@ -48,4 +51,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.38
+Time Elapsed 00:00:01.68

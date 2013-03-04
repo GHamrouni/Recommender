@@ -2,18 +2,9 @@
 #include "data_set.h"
 #include "k_fold_rmse.h"
 #include <stdio.h>
-
+#include "../rlog.h"
 #define ABS(a) ((a)<0 ? -(a) : (a))
-#include <stdarg.h>
 
-void RLog(const char *format, ...)
-{
-	va_list arglist;
-
-	va_start( arglist, format );
-	vprintf( format, arglist );
-	va_end( arglist );
-}
 
 
 

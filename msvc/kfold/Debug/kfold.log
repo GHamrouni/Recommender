@@ -1,11 +1,81 @@
-﻿Build started 3/1/2013 6:09:21 PM.
-     1>Project "C:\Users\abr\Recommender\Recommender\msvc\kfold\kfold.vcxproj" on node 2 (build target(s)).
-     1>InitializeBuildStatus:
+﻿Build started 3/4/2013 10:40:10 AM.
+     1>Project "C:\Users\abr\Recommender\Recommender\msvc\kfold\kfold.vcxproj" on node 2 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\kfold.lastbuildstate".
+       InitializeBuildStatus:
          Creating "Debug\kfold.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /Wall /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\kfold\data_set.c ..\..\kfold\find_minimum_tsearch.c ..\..\kfold\k_fold_rmse.c ..\..\kfold\k_fold_test.c ..\..\kfold\Simulated_annealing.c
+         Simulated_annealing.c
+         k_fold_test.c
+         k_fold_rmse.c
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\basetsd.h(114): warning C4668: '__midl' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winnt.h(13017): warning C4668: '_DBG_MEMCPY_INLINE_' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\windef.h(230): warning C4255: 'FARPROC' : no function prototype given: converting '()' to '(void)'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\windef.h(231): warning C4255: 'NEARPROC' : no function prototype given: converting '()' to '(void)'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\windef.h(232): warning C4255: 'PROC' : no function prototype given: converting '()' to '(void)'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(9770): warning C4668: '_WIN32_WCE' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(9877): warning C4668: '_WIN32_WCE' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winuser.h(10015): warning C4668: '_WIN32_WCE' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\rpcdce.h(1358): warning C4668: 'WINXP' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\rpcdce.h(1624): warning C4668: 'WINXP' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\rpcdcep.h(418): warning C4668: 'WINXP' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\rpcdcep.h(705): warning C4668: 'WINXP' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\rpcdcep.h(1072): warning C4255: 'I_RpcMgmtEnableDedicatedThreadPool' : no function prototype given: converting '()' to '(void)'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\rpcasync.h(659): warning C4668: 'NTDDI_WXP' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\shellapi.h(1133): warning C4668: 'NTDDI_XPSP2' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winperf.h(653): warning C4668: '_WIN32_WINDOWS' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(74): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(146): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(192): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(226): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(292): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(329): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(352): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(549): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(593): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(959): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1012): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1040): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1086): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1352): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1382): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1432): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1440): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1470): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1520): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1528): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1550): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1572): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1598): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1624): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1652): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1680): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1710): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1760): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1768): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1798): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(1848): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(13731): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(14276): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(17173): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\wincrypt.h(19216): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\rpcndr.h(1080): warning C4255: 'SERVER_ROUTINE' : no function prototype given: converting '()' to '(void)'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winioctl.h(1619): warning C4668: 'NTDDI_WIN2003' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winioctl.h(1719): warning C4668: 'NTDDK_VERSION' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winioctl.h(2232): warning C4668: 'NTDDI_WIN2003' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\objidl.h(609): warning C4668: 'NTDDI_WINLH' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\objbase.h(522): warning C4668: '_NT_TARGET_VERSION_WIN7' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\objbase.h(528): warning C4668: 'DBG' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
+     1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\ws2tcpip.h(395): warning C4574: 'INCL_WINSOCK_API_TYPEDEFS' is defined to be '0': did you mean to use '#if INCL_WINSOCK_API_TYPEDEFS'?
+     1>c:\users\abr\recommender\recommender\serialization\serialize_training_set.h(6): warning C4255: 'load_training_set' : no function prototype given: converting '()' to '(void)'
+     1>c:\users\abr\recommender\recommender\kfold\k_fold_rmse.c(20): warning C4101: 'i' : unreferenced local variable
+     1>c:\users\abr\recommender\recommender\kfold\k_fold_rmse.c(25): warning C4101: 't' : unreferenced local variable
+         find_minimum_tsearch.c
+         data_set.c
+         Generating Code...
        ManifestResourceCompile:
-         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\kfold.exe.embed.manifest.res" Debug\kfold_manifest.rc 
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\kfold.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\abr\Recommender\Recommender\msvc\Debug\ LibRecommender.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\kfold.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\kfold.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\kfold.lib" /MACHINE:X86 Debug\kfold.exe.embed.manifest.res
          Debug\data_set.obj
@@ -13,10 +83,27 @@
          Debug\k_fold_rmse.obj
          Debug\k_fold_test.obj
          Debug\Simulated_annealing.obj
+         C:\Users\abr\Recommender\Recommender\msvc\Debug\hiredis.lib
          C:\Users\abr\Recommender\Recommender\msvc\Debug\Serialization.lib
-     1>LINK : fatal error LNK1181: cannot open input file '.obj'
-     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\kfold\kfold.vcxproj" (build target(s)) -- FAILED.
+       Manifest:
+         Deleting file "Debug\kfold.exe.embed.manifest".
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\kfold.exe.embed.manifest" /manifest Debug\kfold.exe.intermediate.manifest
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\kfold.exe.embed.manifest.res" Debug\kfold_manifest.rc 
+       LinkEmbedManifest:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\kfold.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\abr\Recommender\Recommender\msvc\Debug\ LibRecommender.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\kfold.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\kfold.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\abr\Recommender\Recommender\msvc\Debug\kfold.lib" /MACHINE:X86 Debug\kfold.exe.embed.manifest.res
+         Debug\data_set.obj
+         Debug\find_minimum_tsearch.obj
+         Debug\k_fold_rmse.obj
+         Debug\k_fold_test.obj
+         Debug\Simulated_annealing.obj
+         C:\Users\abr\Recommender\Recommender\msvc\Debug\hiredis.lib
+         C:\Users\abr\Recommender\Recommender\msvc\Debug\Serialization.lib
+         kfold.vcxproj -> C:\Users\abr\Recommender\Recommender\msvc\Debug\kfold.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\kfold.unsuccessfulbuild".
+         Touching "Debug\kfold.lastbuildstate".
+     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\kfold\kfold.vcxproj" (rebuild target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.25
+Time Elapsed 00:00:01.92
