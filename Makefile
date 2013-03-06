@@ -1,5 +1,15 @@
-.PHONY: make clean purge
+#--------------------------------------
+# Makefile for all Recommender packages
+#--------------------------------------
 
-all: cd src; make all
+default:
+	- ( cd src && $(MAKE) all )
 
-purge: cd src; make clean
+all:
+	- ( cd src && $(MAKE) all )
+
+purge:
+	- ( cd src && $(MAKE) purge )
+
+clean:
+	- ( cd src && $(MAKE) clean )
