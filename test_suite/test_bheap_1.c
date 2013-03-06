@@ -1,4 +1,4 @@
-#include "../recommender.h"
+#include "../src/recommender.h"
 
 #include <stdio.h>
 #include <assert.h>
@@ -8,7 +8,7 @@
 #include <time.h>
 #include <stddef.h>
 
-#include "../binary_heap.h"
+#include "../src/binary_heap.h"
 
 #include "test_bheap_1.h"
 

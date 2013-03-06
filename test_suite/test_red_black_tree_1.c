@@ -1,4 +1,4 @@
-#include "../recommender.h"
+#include "../src/recommender.h"
 
 #include <stdio.h>
 #include <assert.h>
@@ -7,10 +7,10 @@
 #include <math.h>
 #include <time.h>
 
-#include "../matrix_factorization.h"
-#include "../matrix_factorization_bias.h"
-#include "../sparse_matrix.h"
-#include "../red_black_tree.h"
+#include "../src/matrix_factorization.h"
+#include "../src/matrix_factorization_bias.h"
+#include "../src/sparse_matrix.h"
+#include "../src/red_black_tree.h"
 
 #include "test_red_black_tree_1.h"
 

@@ -1,13 +1,13 @@
-#include "../recommender.h"
+#include "recommender.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
 
-#include "../matrix_factorization.h"
-#include "../matrix_factorization_bias.h"
-#include "../sparse_matrix.h"
+#include "matrix_factorization.h"
+#include "matrix_factorization_bias.h"
+#include "sparse_matrix.h"
 
 // void 
 // print_recommended_items(rb_node_t* node, int depth)
