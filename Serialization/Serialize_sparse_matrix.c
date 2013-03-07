@@ -80,7 +80,7 @@ sparse_matrix_t* load_sparse_matrix (redisContext *c)
 	{
 		for (i = 0; i < reply->elements; i++)
 		{
-			matrix->column_index[i] = atoi (reply->element[i]->str);
+			matrix->column_index[i] =  atoi (reply->element[i]->str);
 		}
 	}
 	freeReplyObject (reply);

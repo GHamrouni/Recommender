@@ -1,4 +1,4 @@
-﻿Build started 3/4/2013 11:42:50 AM.
+﻿Build started 3/6/2013 10:30:42 AM.
      1>Project "C:\Users\abr\Recommender\Recommender\msvc\kfold\kfold.vcxproj" on node 2 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\kfold.lastbuildstate".
@@ -68,6 +68,7 @@
      1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\objbase.h(522): warning C4668: '_NT_TARGET_VERSION_WIN7' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
      1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\objbase.h(528): warning C4668: 'DBG' is not defined as a preprocessor macro, replacing with '0' for '#if/#elif'
      1>c:\program files (x86)\microsoft sdks\windows\v7.0a\include\ws2tcpip.h(395): warning C4574: 'INCL_WINSOCK_API_TYPEDEFS' is defined to be '0': did you mean to use '#if INCL_WINSOCK_API_TYPEDEFS'?
+     1>c:\users\abr\recommender\recommender\kfold\k_fold_rmse.c(20): warning C4101: 'l' : unreferenced local variable
          find_minimum_tsearch.c
          data_set.c
          Generating Code...
@@ -103,4 +104,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.03
+Time Elapsed 00:00:03.46

@@ -27,7 +27,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 	if (argc != 13)
 	{
 		printf ("Incorrect arguments \n");
-		printf ("usage: kfold 100000 2 943 1682 u.data 30 30 0.055 0.0095 0.02 0.001 basic \n kfold -h for help \n");
+		printf ("usage: kfold 100000 2 943 1682 u.data 30 30 0.055 0.0095 0.02 0.001 bias \n kfold -h for help \n");
 		if (strcmp (argv[1], "-h") )
 		{
 			printf ("kfold ratings_number K users_number items_number file_path \n");
@@ -77,7 +77,6 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 	strcpy (k_fold_params->file_path, argv[5]);
 	k_fold_params->params.training_set_size = (size_t) (k_fold_params->ratings_number * ( (k_fold_params->K - 1) / k_fold_params->K) );
 
-
 	if (strcmpi (argv[6], "x") == 0)
 	{
 		*param_to_find = & (k_fold_params->params.dimensionality);
@@ -101,7 +100,6 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		return (-1);
 	}
 
-
 	if (strcmpi (argv[8], "x") == 0)
 	{
 		*param_to_find = & (k_fold_params->params.lambda);
@@ -111,8 +109,6 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 	{
 		k_fold_params->params.lambda = (float) atof (argv[8]);
 	}
-
-
 
 	k_fold_params->params.step = (float) atof (argv[9]);
 
@@ -151,12 +147,6 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 	return 0;
 
 }
-
-
-
-
-
-
 
 
 
@@ -214,8 +204,8 @@ int main (int argc, char** argv)
 	free (file_path);
 	end = clock();
 	printf ("Time : %f s \n", (double) (end - start) / CLOCKS_PER_SEC);
+
 	system ("pause");
-	//	_CrtDumpMemoryLeaks();
 
 	return 0;
 }

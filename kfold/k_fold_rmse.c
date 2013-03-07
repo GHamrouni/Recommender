@@ -11,33 +11,29 @@
 #include "../Serialization/serialize_factors.h"
 #include "../sparse_matrix.h"
 #include "../rlog.h"
-
+#include "../Serialization/redis_parameters.h"
 
 double RMSE_mean (k_fold_parameters_t k_fold_params)
 {
 	double RMSE_sum;
 	int index;
-	learned_factors_t *learned;
+	learned_factors_t *learned,*l;
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
-	training_set_t* vs = NULL;
+	training_set_t* vs;
+	redis_parameters_t redis_parameters={"127.0.0.1",6379};
 	k_fold_params.model.parameters = k_fold_params.params;
 	RMSE_sum = 0;
 	for (index = 0; index < k_fold_params.K; index++)
 	{
 		extract_data (k_fold_params, &tset, &validation_set, index);
 		compile_training_set (validation_set);
-		compile_training_set (tset);
-		
-		//memcmp(t->entries,tset->ratings->entries,sizeof(size_t)*t->size);
-		save_training_set(validation_set);
-		
-		vs=load_training_set();
-		
+		compile_training_set (tset);		
+		save_training_set(validation_set,redis_parameters);
+		vs=load_training_set(redis_parameters);
 		learned = learn (tset, k_fold_params.model);
 		
-		//l=load_learned_factors();
-		RMSE_sum += RMSE (learned, validation_set, k_fold_params);
+		RMSE_sum += RMSE (learned, vs, k_fold_params);
 	}
 	free (tset);
 	free (validation_set);

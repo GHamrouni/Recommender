@@ -1,8 +1,8 @@
 #ifndef SERIALIZE_TRAINING_SET_H
 #define SERIALIZE_TRAINING_SET_H
 #include "../training_set.h"
-
-int save_training_set(training_set_t* tset);
-training_set_t* load_training_set(void);
+#include "redis_parameters.h"
+int save_training_set(training_set_t* tset,redis_parameters_t redis_parameters);
+training_set_t* load_training_set(redis_parameters_t redis_parameters);
 
 #endif

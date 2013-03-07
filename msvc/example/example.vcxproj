@@ -97,13 +97,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Serialization\Serialize_sparse_matrix.c" />
     <ClCompile Include="..\..\Serialization\serialize_factors.c" />
+    <ClCompile Include="..\..\Serialization\serialize_sparse_matrix.c" />
     <ClCompile Include="..\..\Serialization\serialize_training_set.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Serialization\Serialize_sparse_matrix.h" />
+    <ClInclude Include="..\..\Serialization\redis_parameters.h" />
     <ClInclude Include="..\..\Serialization\serialize_factors.h" />
+    <ClInclude Include="..\..\Serialization\serialize_sparse_matrix.h" />
     <ClInclude Include="..\..\Serialization\serialize_training_set.h" />
   </ItemGroup>
   <ItemGroup>

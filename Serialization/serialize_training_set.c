@@ -4,19 +4,18 @@
 #include "../hiredis-win32/hiredis.h"
 #include "serialize_training_set.h"
 #include "Serialize_sparse_matrix.h"
+#include "redis_parameters.h"
+#include "../rlog.h"
 
-
-int save_training_set (training_set_t* tset)
+int save_training_set (training_set_t* tset, redis_parameters_t redis_parameters)
 {
 	redisContext *c;
 	redisReply *reply;
-
-	struct timeval timeout = { 1, 500000 }; // 1.5 seconds
-	c = redisConnect ( (char*) "127.0.0.1", 6379);
+	c = redisConnect ( redis_parameters.ip_adr, redis_parameters.port);
 	if (c->err)
 	{
-		printf ("Connection error: %s\n", c->errstr);
-		return (1);
+		RLog ("Connection error: %s\n", c->errstr);
+		return -1;
 	}
 	reply = redisCommand (c, "SET %s %d", "dimensionality", tset->dimensionality);
 	freeReplyObject (reply);
@@ -40,16 +39,15 @@ int save_training_set (training_set_t* tset)
 	return 0;
 }
 
-training_set_t* load_training_set()
+training_set_t* load_training_set (redis_parameters_t redis_parameters)
 {
 	redisContext *c;
 	redisReply *reply;
 	training_set_t* tset;
-	struct timeval timeout = { 1, 500000 }; // 1.5 seconds
-	c = redisConnect ( (char*) "127.0.0.1", 6379);
+	c = redisConnect ( redis_parameters.ip_adr, redis_parameters.port);
 	if (c->err)
 	{
-		printf ("Connection error: %s\n", c->errstr);
+		RLog ("Connection error: %s\n", c->errstr);
 		return NULL;
 	}
 	tset = malloc (sizeof (training_set_t) );
@@ -70,5 +68,6 @@ training_set_t* load_training_set()
 	freeReplyObject (reply);
 	tset->ratings = load_coo_matrix (c);
 	tset->ratings_matrix = load_sparse_matrix (c);
+	redisFree (c);
 	return tset;
 }

@@ -1,103 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef _WIN32
 #include "../hiredis-win32/hiredis.h"
+#else 
+#include "../hiredis/hiredis.h"
 #include "serialize_factors.h"
+#include "../rlog.h"
 
 
 
-int test_redis (void)
-{
-	unsigned int j;
-	redisContext *c;
-	redisReply *reply;
-
-	struct timeval timeout = { 1, 500000 }; // 1.5 seconds
-	c = redisConnectWithTimeout ( (char*) "127.0.0.1", 6379, timeout);
-	if (c->err)
-	{
-		printf ("Connection error: %s\n", c->errstr);
-		return (1);
-	}
-
-	/* PING server */
-	reply = redisCommand (c, "PING");
-	printf ("PING: %s\n", reply->str);
-	freeReplyObject (reply);
-
-	/* Set a key */
-	reply = redisCommand (c, "SET %s %s", "foo", "hello world");
-	printf ("SET: %s\n", reply->str);
-	freeReplyObject (reply);
-
-	/* Set a key using binary safe API */
-	reply = redisCommand (c, "SET %b %b", "bar", 3, "hello", 5);
-	printf ("SET (binary API): %s\n", reply->str);
-	freeReplyObject (reply);
-
-	/* Try a GET and two INCR */
-	reply = redisCommand (c, "GET foo");
-	printf ("GET foo: %s\n", reply->str);
-	freeReplyObject (reply);
-
-	reply = redisCommand (c, "INCR counter");
-	printf ("INCR counter: %lld\n", reply->integer);
-	freeReplyObject (reply);
-	/* again ... */
-	reply = redisCommand (c, "INCR counter");
-	printf ("INCR counter: %lld\n", reply->integer);
-	freeReplyObject (reply);
-
-	/* Create a list of numbers, from 0 to 9 */
-	reply = redisCommand (c, "DEL mylist");
-	freeReplyObject (reply);
-	for (j = 0; j < 10; j++)
-	{
-		reply = redisCommand (c, "LPUSH mylist element-%d", j);
-		freeReplyObject (reply);
-	}
-
-	/* Let's check what we have inside the list */
-	reply = redisCommand (c, "LRANGE mylist 0 -1");
-	if (reply->type == REDIS_REPLY_ARRAY)
-	{
-		for (j = 0; j < reply->elements; j++)
-		{
-			printf ("%u) %s\n", j, reply->element[j]->str);
-		}
-	}
-	freeReplyObject (reply);
-	redisFree(c);
-	system ("pause");
-	return 0;
-}
 
 
-int save_learned_factors (learned_factors_t * factors)
+int save_learned_factors (learned_factors_t * factors, redis_parameters_t redis_parameters)
 {
 	redisContext *c;
 	redisReply *reply;
 	size_t i, j;
-	c = redisConnect ( (char*) "127.0.0.1", 6379);
+	c = redisConnect ( redis_parameters.ip_adr, redis_parameters.port);
 	if (c->err)
 	{
 		printf ("Connection error: %s\n", c->errstr);
 		return -1;
 	}
 	reply = redisCommand (c, "SET %s %d", "dimensionality", factors->dimensionality);
-	printf ("SET: %s\n", reply->str);
+	RLog ("SET: %s\n", reply->str);
 	freeReplyObject (reply);
 
 	reply = redisCommand (c, "SET %s %d", "users_number", factors->users_number);
-	printf ("SET: %s\n", reply->str);
+	RLog ("SET: %s\n", reply->str);
 	freeReplyObject (reply);
 
 	reply = redisCommand (c, "SET %s %d", "items_number", factors->items_number);
-	printf ("SET: %s\n", reply->str);
+	RLog ("SET: %s\n", reply->str);
 	freeReplyObject (reply);
 
 	reply = redisCommand (c, "SET %s %1.29f", "rating_average", factors->ratings_average);
-	printf ("SET: %s\n", reply->str);
+	RLog ("SET: %s\n", reply->str);
 	freeReplyObject (reply);
 
 	reply = redisCommand (c, "DEL user_bias");
@@ -129,18 +68,18 @@ int save_learned_factors (learned_factors_t * factors)
 			freeReplyObject (reply);
 		}
 	}
+	redisFree(c);
 	return 0;
 }
 
 
-learned_factors_t * load_learned_factors()
+learned_factors_t * load_learned_factors(redis_parameters_t redis_parameters)
 {
 	learned_factors_t* factors;
 	redisContext *c;
 	redisReply *reply;
 	size_t i, j;
-	struct timeval timeout = { 1, 500000 };
-	c = redisConnectWithTimeout ( (char*) "127.0.0.1", 6379, timeout);
+	c = redisConnect( redis_parameters.ip_adr, redis_parameters.port);
 	if (c->err)
 	{
 		printf ("Connection error: %s\n", c->errstr);
@@ -160,7 +99,7 @@ learned_factors_t * load_learned_factors()
 	freeReplyObject (reply);
 
 	reply = redisCommand (c, "GET rating_average");
-	factors->ratings_average = atof (reply->str);
+	factors->ratings_average =  atof (reply->str);
 	freeReplyObject (reply);
 
 	factors->user_bias = malloc (sizeof (double) * factors->users_number);
@@ -212,5 +151,6 @@ learned_factors_t * load_learned_factors()
 			}
 		}
 	}
+	redisFree(c);
 	return factors;
 }
