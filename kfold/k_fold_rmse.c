@@ -6,18 +6,18 @@
 #include<stdio.h>
 
 #include <memory.h>
-#include "../Serialization/Serialize_sparse_matrix.h"
-#include "../Serialization/serialize_training_set.h"
-#include "../Serialization/serialize_factors.h"
+#include "../serialization/serialize_sparse_matrix.h"
+#include "../serialization/serialize_training_set.h"
+#include "../serialization/serialize_factors.h"
 #include "../sparse_matrix.h"
 #include "../rlog.h"
-#include "../Serialization/redis_parameters.h"
+#include "../serialization/redis_parameters.h"
 
 double RMSE_mean (k_fold_parameters_t k_fold_params)
 {
 	double RMSE_sum;
 	int index;
-	learned_factors_t *learned,*l;
+	learned_factors_t *learned;
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
 	training_set_t* vs;

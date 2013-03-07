@@ -19,7 +19,7 @@ int i_find_minimum_tsearch(int* param_to_find,
 		double RMSE_meanD,RMSE_meanC;
 		int leftThird,rightThird,left,right;
 		int iter=0;
-		////////////////////////////////////////
+		
 		left=min;
 		right=max;
 		do{
@@ -52,14 +52,14 @@ int i_find_minimum_tsearch(int* param_to_find,
 		else
 			return leftThird;
 
-		/////////////////////////////////////////////
+		
 
 }
 
 
 
 
-// Ternary search algorithm 
+/* Ternary search algorithm */
 double d_find_minimum_tsearch(float* param_to_find,
 					   double min,
 					   double max,
@@ -76,7 +76,7 @@ double d_find_minimum_tsearch(float* param_to_find,
 	double result;
 
 	size_t iter = 0;
-	////////////////////////////////////////
+	
 	left = min;
 	right = max;
 	

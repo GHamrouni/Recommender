@@ -17,7 +17,9 @@
 #include "find_minimum_tsearch.h"
 #include "data_set.h"
 #include "../serialization/serialize_factors.h"
+#if _WIN32
 #pragma warning(disable: 4996)
+#endif
 
 int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, void ** param_to_find, int* is_float)
 {
@@ -170,20 +172,16 @@ int main (int argc, char** argv)
 	recommended_items_t* r_items = NULL;
 	struct k_fold_parameters k_fold_params;
 
-	double A, B;
 	void * param_to_find = NULL;
-	int is_float;// 1 if param_to_find is float
+	int is_float;
 
 	char* file_path = NULL;
 
 
-	//Model configuration
-	//Setup model parameters
 	clock_t start = clock();
 	clock_t end;
 
-	A = 0.1;
-	B = 0.15;
+	
 
 	if (parse_arguments (argc, argv, &k_fold_params, &param_to_find, &is_float) != 0)
 	{
@@ -197,11 +195,11 @@ int main (int argc, char** argv)
 	if (param_to_find != NULL)
 		if (is_float)
 		{
-			A = d_find_minimum_tsearch ( (float*) param_to_find, 0.01, 0.15, 0.00001, 10, &k_fold_params, &RMSE_mean);
+			d_find_minimum_tsearch ( (float*) param_to_find, 0.01, 0.15, 0.00001, 10, &k_fold_params, &RMSE_mean);
 		}
 		else
 		{
-			A = i_find_minimum_tsearch ( (int*) param_to_find, 10, 30, 10, &k_fold_params, &RMSE_mean);
+			i_find_minimum_tsearch ( (int*) param_to_find, 10, 30, 10, &k_fold_params, &RMSE_mean);
 		}
 	else
 	{
@@ -209,13 +207,12 @@ int main (int argc, char** argv)
 	}
 	free_recommended_items (r_items);
 	free_learned_factors (learned);
-	//free_training_set(tset);
+	
 
 	free (file_path);
 	end = clock();
 	printf ("Time : %f s \n", (double) (end - start) / CLOCKS_PER_SEC);
 	system ("pause");
-	//	_CrtDumpMemoryLeaks();
 
 	return 0;
 }

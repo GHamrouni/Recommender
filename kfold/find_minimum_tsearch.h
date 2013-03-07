@@ -7,10 +7,10 @@
 
 
 
-// Ternary search algorithm 
+/* Ternary search algorithm 
 // Find the minimum of a unimodal function.
 // Complexity = O(log(n))
-// Returns double
+// Returns double*/
 double d_find_minimum_tsearch(float* param_to_find,
 	double min,
 	double max,
@@ -20,8 +20,8 @@ double d_find_minimum_tsearch(float* param_to_find,
 	double (*function)(k_fold_parameters_t));
 
 
-// Ternary search algorithm
-// Returns int
+/* Ternary search algorithm
+// Returns int*/
 int i_find_minimum_tsearch(int* param_to_find,
 			int min,
 			int max,

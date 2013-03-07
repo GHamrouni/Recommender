@@ -5,6 +5,7 @@
 #include "../hiredis/hiredis.h"
 #endif
 #include "../rlog.h"
+#include <stdlib.h>
 int save_sparse_matrix (sparse_matrix_t* matrix, redisContext *c)
 {
 	redisReply *reply;
