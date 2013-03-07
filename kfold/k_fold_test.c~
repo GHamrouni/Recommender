@@ -130,13 +130,13 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 
 
 
-	if (strcmp (argv[12], "basic") == 0)
+	if (strcmpi (argv[12], "basic") == 0)
 	{
 		printf ("basic \n");
 		k_fold_params->model.learning_algorithm  = learn_basic_mf;
 		k_fold_params->model.rating_estimator = estimate_rating_basic_mf;
 	}
-	else if (strcmp (argv[12], "bias") == 0)
+	else if (strcmpi (argv[12], "bias") == 0)
 	{
 		printf ("bias \n");
 		k_fold_params->model.learning_algorithm = learn_mf_bias;

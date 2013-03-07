@@ -1,0 +1,4 @@
+all : data_set.c find_minimum_tsearch.c k_fold_rmse.c k_fold_test.c
+	gcc data_set.c find_minimum_tsearch.c k_fold_rmse.c k_fold_test.c ../serialization/serialization.a ../libRecommender.a ../hiredis/libhiredis.a -o kfold -lm
+clean :
+	rm -f *.o kfold
