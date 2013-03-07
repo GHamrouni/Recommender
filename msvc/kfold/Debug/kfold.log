@@ -1,9 +1,9 @@
-﻿Build started 3/6/2013 10:30:42 AM.
+﻿Build started 3/7/2013 10:42:41 AM.
      1>Project "C:\Users\abr\Recommender\Recommender\msvc\kfold\kfold.vcxproj" on node 2 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\kfold.lastbuildstate".
        InitializeBuildStatus:
-         Touching "Debug\kfold.unsuccessfulbuild".
+         Creating "Debug\kfold.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /Wall /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\kfold\data_set.c ..\..\kfold\find_minimum_tsearch.c ..\..\kfold\k_fold_rmse.c ..\..\kfold\k_fold_test.c ..\..\kfold\Simulated_annealing.c
          Simulated_annealing.c
@@ -104,4 +104,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.46
+Time Elapsed 00:00:02.34

@@ -14,7 +14,7 @@ struct k_fold_parameters
 	char* file_path;
 	model_parameters_t params;
 	learning_model_t model;
-	
+
 };
 typedef struct k_fold_parameters k_fold_parameters_t;
 

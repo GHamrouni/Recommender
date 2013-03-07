@@ -1,6 +1,10 @@
-#include "Serialize_sparse_matrix.h"
+#include "serialize_sparse_matrix.h"
+#ifdef _WIN32
 #include "../hiredis-win32/hiredis.h"
-
+#else
+#include "../hiredis/hiredis.h"
+#endif
+#include "../rlog.h"
 int save_sparse_matrix (sparse_matrix_t* matrix, redisContext *c)
 {
 	redisReply *reply;
@@ -80,7 +84,7 @@ sparse_matrix_t* load_sparse_matrix (redisContext *c)
 	{
 		for (i = 0; i < reply->elements; i++)
 		{
-			matrix->column_index[i] =  atoi (reply->element[i]->str);
+			matrix->column_index[i] = atoi (reply->element[i]->str);
 		}
 	}
 	freeReplyObject (reply);

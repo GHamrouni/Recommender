@@ -1,7 +1,7 @@
 #include "serialize_sparse_matrix.h"
 #ifdef _WIN32
 #include "../hiredis-win32/hiredis.h"
-#else 
+#else
 #include "../hiredis/hiredis.h"
 #endif
 #include "../rlog.h"

@@ -175,13 +175,13 @@ int main (int argc, char** argv)
 	int is_float;// 1 if param_to_find is float
 
 	char* file_path = NULL;
-	
+
 
 	//Model configuration
 	//Setup model parameters
 	clock_t start = clock();
 	clock_t end;
-	
+
 	A = 0.1;
 	B = 0.15;
 
@@ -197,11 +197,11 @@ int main (int argc, char** argv)
 	if (param_to_find != NULL)
 		if (is_float)
 		{
-			A = d_find_minimum_tsearch ( (float*) param_to_find, 0.01, 0.15, 0.00001, 10, &k_fold_params,&RMSE_mean);
+			A = d_find_minimum_tsearch ( (float*) param_to_find, 0.01, 0.15, 0.00001, 10, &k_fold_params, &RMSE_mean);
 		}
 		else
 		{
-			A = i_find_minimum_tsearch ( (int*) param_to_find, 10, 30, 10, &k_fold_params,&RMSE_mean);
+			A = i_find_minimum_tsearch ( (int*) param_to_find, 10, 30, 10, &k_fold_params, &RMSE_mean);
 		}
 	else
 	{

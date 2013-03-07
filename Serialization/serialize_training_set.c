@@ -1,21 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef _WIN32
 #include "../hiredis-win32/hiredis.h"
+#else
+#include "../hiredis/hiredis.h"
+#endif
 #include "serialize_training_set.h"
-#include "Serialize_sparse_matrix.h"
-#include "redis_parameters.h"
+#include "serialize_sparse_matrix.h"
 #include "../rlog.h"
+#include "redis_parameters.h"
 
 int save_training_set (training_set_t* tset, redis_parameters_t redis_parameters)
 {
 	redisContext *c;
 	redisReply *reply;
+
 	c = redisConnect ( redis_parameters.ip_adr, redis_parameters.port);
 	if (c->err)
 	{
-		RLog ("Connection error: %s\n", c->errstr);
-		return -1;
+		printf ("Connection error: %s\n", c->errstr);
+		return (-1);
 	}
 	reply = redisCommand (c, "SET %s %d", "dimensionality", tset->dimensionality);
 	freeReplyObject (reply);
@@ -47,7 +52,7 @@ training_set_t* load_training_set (redis_parameters_t redis_parameters)
 	c = redisConnect ( redis_parameters.ip_adr, redis_parameters.port);
 	if (c->err)
 	{
-		RLog ("Connection error: %s\n", c->errstr);
+		printf ("Connection error: %s\n", c->errstr);
 		return NULL;
 	}
 	tset = malloc (sizeof (training_set_t) );
