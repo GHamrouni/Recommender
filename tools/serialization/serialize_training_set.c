@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #ifdef _WIN32
-#include "../hiredis-win32/hiredis.h"
+#include "hiredis-win32/hiredis.h"
 #else
-#include "../hiredis/hiredis.h"
+#include "hiredis/hiredis.h"
 #endif
 #include "serialize_training_set.h"
 #include "serialize_sparse_matrix.h"

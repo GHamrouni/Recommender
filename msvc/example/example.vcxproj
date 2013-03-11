@@ -98,20 +98,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\hiredis-win32\win32\hiredis.vcxproj">
+    <ProjectReference Include="..\hiredis-win32\hiredis.vcxproj">
       <Project>{62fe2454-ab35-4a57-9fa3-51892029221e}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\serialization\redis_parameters.h" />
-    <ClInclude Include="..\..\serialization\serialize_factors.h" />
-    <ClInclude Include="..\..\serialization\serialize_sparse_matrix.h" />
-    <ClInclude Include="..\..\serialization\serialize_training_set.h" />
+    <ClInclude Include="..\..\tools\serialization\redis_parameters.h" />
+    <ClInclude Include="..\..\tools\serialization\serialize_factors.h" />
+    <ClInclude Include="..\..\tools\serialization\serialize_sparse_matrix.h" />
+    <ClInclude Include="..\..\tools\serialization\serialize_training_set.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\serialization\serialize_factors.c" />
-    <ClCompile Include="..\..\serialization\serialize_sparse_matrix.c" />
-    <ClCompile Include="..\..\serialization\serialize_training_set.c" />
+    <ClCompile Include="..\..\tools\serialization\serialize_factors.c" />
+    <ClCompile Include="..\..\tools\serialization\serialize_sparse_matrix.c" />
+    <ClCompile Include="..\..\tools\serialization\serialize_training_set.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

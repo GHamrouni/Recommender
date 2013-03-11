@@ -6,8 +6,8 @@
 #include<stdio.h>
 #include <stdarg.h>
 #include  "rlog.h"
-#include "../../serialization/serialize_training_set.h"
-#include "../../serialization/redis_parameters.h"
+#include "../serialization/serialize_training_set.h"
+#include "../serialization/redis_parameters.h"
 
 double RMSE_mean (k_fold_parameters_t k_fold_params)
 {

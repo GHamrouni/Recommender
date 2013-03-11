@@ -10,6 +10,19 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\tools\serialization\hiredis-win32\async.c" />
+    <ClCompile Include="..\..\tools\serialization\hiredis-win32\hiredis.c" />
+    <ClCompile Include="..\..\tools\serialization\hiredis-win32\net.c" />
+    <ClCompile Include="..\..\tools\serialization\hiredis-win32\sds.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\tools\serialization\hiredis-win32\async.h" />
+    <ClInclude Include="..\..\tools\serialization\hiredis-win32\config.h" />
+    <ClInclude Include="..\..\tools\serialization\hiredis-win32\hiredis.h" />
+    <ClInclude Include="..\..\tools\serialization\hiredis-win32\net.h" />
+    <ClInclude Include="..\..\tools\serialization\hiredis-win32\sds.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{62FE2454-AB35-4A57-9FA3-51892029221E}</ProjectGuid>
     <RootNamespace>hiredis</RootNamespace>
@@ -76,19 +89,6 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\async.c" />
-    <ClCompile Include="..\hiredis.c" />
-    <ClCompile Include="..\net.c" />
-    <ClCompile Include="..\sds.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\async.h" />
-    <ClInclude Include="..\config.h" />
-    <ClInclude Include="..\hiredis.h" />
-    <ClInclude Include="..\net.h" />
-    <ClInclude Include="..\sds.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
