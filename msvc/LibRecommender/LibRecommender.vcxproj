@@ -19,45 +19,44 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\binary_heap.c" />
-    <ClCompile Include="..\..\float_tester.c" />
-    <ClCompile Include="..\..\learned_factors.c" />
-    <ClCompile Include="..\..\matrix_factorization.c" />
-    <ClCompile Include="..\..\matrix_factorization_bias.c" />
-    <ClCompile Include="..\..\projection.c" />
-    <ClCompile Include="..\..\projection_family.c" />
-    <ClCompile Include="..\..\recommended_items.c" />
-    <ClCompile Include="..\..\recommender.c" />
-    <ClCompile Include="..\..\red_black_tree.c" />
-    <ClCompile Include="..\..\rlog.c" />
-    <ClCompile Include="..\..\sparse_matrix.c" />
-    <ClCompile Include="..\..\sparse_matrix_hash.c" />
-    <ClCompile Include="..\..\standard_normal.c" />
-    <ClCompile Include="..\..\training_set.c" />
-    <ClCompile Include="..\..\utils.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\binary_heap.h" />
-    <ClInclude Include="..\..\float_tester.h" />
-    <ClInclude Include="..\..\learned_factors.h" />
-    <ClInclude Include="..\..\matrix_factorization.h" />
-    <ClInclude Include="..\..\matrix_factorization_bias.h" />
-    <ClInclude Include="..\..\model_parameters.h" />
-    <ClInclude Include="..\..\projection.h" />
-    <ClInclude Include="..\..\projection_family.h" />
-    <ClInclude Include="..\..\rating_estimator.h" />
-    <ClInclude Include="..\..\recommended_items.h" />
-    <ClInclude Include="..\..\recommender.h" />
-    <ClInclude Include="..\..\red_black_tree.h" />
-    <ClInclude Include="..\..\rlog.h" />
-    <ClInclude Include="..\..\sparse_matrix.h" />
-    <ClInclude Include="..\..\sparse_matrix_hash.h" />
-    <ClInclude Include="..\..\standard_normal.h" />
-    <ClInclude Include="..\..\training_set.h" />
-    <ClInclude Include="..\..\utils.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\binary_heap.c" />
+    <ClCompile Include="..\..\src\float_tester.c" />
+    <ClCompile Include="..\..\src\learned_factors.c" />
+    <ClCompile Include="..\..\src\matrix_factorization.c" />
+    <ClCompile Include="..\..\src\matrix_factorization_bias.c" />
+    <ClCompile Include="..\..\src\projection.c" />
+    <ClCompile Include="..\..\src\projection_family.c" />
+    <ClCompile Include="..\..\src\recommended_items.c" />
+    <ClCompile Include="..\..\src\recommender.c" />
+    <ClCompile Include="..\..\src\red_black_tree.c" />
+    <ClCompile Include="..\..\src\sparse_matrix.c" />
+    <ClCompile Include="..\..\src\sparse_matrix_hash.c" />
+    <ClCompile Include="..\..\src\standard_normal.c" />
+    <ClCompile Include="..\..\src\training_set.c" />
+    <ClCompile Include="..\..\src\utils.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\binary_heap.h" />
+    <ClInclude Include="..\..\src\float_tester.h" />
+    <ClInclude Include="..\..\src\learned_factors.h" />
+    <ClInclude Include="..\..\src\learning_algorithm.h" />
+    <ClInclude Include="..\..\src\matrix_factorization.h" />
+    <ClInclude Include="..\..\src\matrix_factorization_bias.h" />
+    <ClInclude Include="..\..\src\model_parameters.h" />
+    <ClInclude Include="..\..\src\projection.h" />
+    <ClInclude Include="..\..\src\projection_family.h" />
+    <ClInclude Include="..\..\src\rating_estimator.h" />
+    <ClInclude Include="..\..\src\recommended_items.h" />
+    <ClInclude Include="..\..\src\recommender.h" />
+    <ClInclude Include="..\..\src\red_black_tree.h" />
+    <ClInclude Include="..\..\src\sparse_matrix.h" />
+    <ClInclude Include="..\..\src\sparse_matrix_hash.h" />
+    <ClInclude Include="..\..\src\standard_normal.h" />
+    <ClInclude Include="..\..\src\training_set.h" />
+    <ClInclude Include="..\..\src\utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5AFAB134-00C8-4AEB-AB41-5D0DFE361BD6}</ProjectGuid>

@@ -14,12 +14,15 @@
 *.suo
 *.user
 *.log
+*.tlog
+*.manifest
 ipch
 msvc/Debug
 msvc/ipch
 msvc/LibRecommender/Debug
 msvc/Tests/Debug
-msvc/Shuffle/Debug
+msvc/Demo/Debug
+msvc/shuffle/Debug
 msvc/kfold/Debug
 *.DAT
 *.DATA

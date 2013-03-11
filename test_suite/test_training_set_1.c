@@ -1,4 +1,6 @@
-#include "../recommender.h"
+#include "../src/recommender.h"
+#include "../src/training_set.h"
+#include "../src/model_parameters.h"
 
 #include <stdio.h>
 #include <assert.h>
@@ -7,9 +9,6 @@
 #include <math.h>
 #include <time.h>
 #include <stddef.h>
-
-#include "../training_set.h"
-#include "../model_parameters.h"
 
 #include "test_training_set_1.h"
 

@@ -1,26 +1,15 @@
-CC=gcc
-CFLAGS=-c -Wall -Wextra -pedantic -Werror
-LDFLAGS=
-LIBS=-lm
-SOURCES=training_set.c utils.c learned_factors.c matrix_factorization.c matrix_factorization_bias.c \
-projection.c projection_family.c standard_normal.c sparse_matrix_hash.c \
-sparse_matrix.c recommender.c float_tester.c recommended_items.c red_black_tree.c \
-binary_heap.c rlog.c
-OBJECTS=$(SOURCES:.c=.o)
-EXECUTABLE=test
-OUT = libRecommender.a
-.PHONY: clean purge
+#--------------------------------------
+# Makefile for all Recommender packages
+#--------------------------------------
 
-all: $(SOURCES) $(OUT)
+default:
+	- ( cd src && $(MAKE) all )
 
-$(OUT): $(OBJECTS) 
-	ar rcs $(OUT) $(OBJECTS)
+all:
+	- ( cd src && $(MAKE) all )
 
-$(EXECUTABLE): $(OBJECTS) 
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@ $(LIBS)
+purge:
+	- ( cd src && $(MAKE) purge )
 
-.c.o:
-	$(CC) $(CFLAGS) $< -o $@
-
-purge: clean
-	rm -f *.o *.a
+clean:
+	- ( cd src && $(MAKE) clean )

@@ -15,37 +15,37 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\kfold\Simulated_annealing.c">
+    <ClInclude Include="..\..\tools\kfold\data_set.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\kfold\data_set.c">
+    </ClInclude>
+    <ClInclude Include="..\..\tools\kfold\find_minimum_tsearch.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\kfold\k_fold_rmse.c">
+    </ClInclude>
+    <ClInclude Include="..\..\tools\kfold\k_fold_parameters.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\kfold\find_minimum_tsearch.c">
+    </ClInclude>
+    <ClInclude Include="..\..\tools\kfold\k_fold_rmse.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\kfold\k_fold_test.c">
+    </ClInclude>
+    <ClInclude Include="..\..\tools\kfold\Simulated_annealing.h">
       <Filter>Source Files</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\kfold\k_fold_parameters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\kfold\Simulated_annealing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\kfold\data_set.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\kfold\k_fold_rmse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\kfold\find_minimum_tsearch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="..\..\tools\kfold\data_set.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\kfold\find_minimum_tsearch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\kfold\k_fold_rmse.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\kfold\k_fold_test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\kfold\Simulated_annealing.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
