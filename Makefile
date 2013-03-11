@@ -5,10 +5,11 @@
 default:
 	- ( cd src && $(MAKE) all )
 	- ( cd tools/kfold && $(MAKE) all )
-
+	- ( cd tools/serialization && $(MAKE) all )
 all:
 	- ( cd src && $(MAKE) all )
 	- ( cd tools/kfold && $(MAKE) all )
+	- ( cd tools/serialization && $(MAKE) all )
 
 purge:
 	- ( cd src && $(MAKE) purge )
@@ -16,3 +17,4 @@ purge:
 clean:
 	- ( cd src && $(MAKE) clean )
 	- ( cd tools/kfold && $(MAKE) clean )
+	- ( cd tools/serialization && $(MAKE) clean )
