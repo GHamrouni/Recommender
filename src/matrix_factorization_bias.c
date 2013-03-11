@@ -35,7 +35,7 @@
 #include "utils.h"
 #include "training_set.h"
 #include "float_tester.h"
-
+#include "rlog.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
@@ -160,7 +160,6 @@ update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training
 			u = tset->ratings->entries[r].column_j;
 
 			e_iu = estimate_error_mf_bias(r_iu, u, i, lfactors);
-
 			assert (is_valid(e_iu));
 
 			max_error = fmax(max_error, fabs(e_iu));
@@ -235,7 +234,7 @@ estimate_error_mf_bias(double r_iu, size_t user_index, size_t item_index, learne
 }
 
 /*
- * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+ * estimate_rating_from_factors:  Return the approximates user's rating of an item based on 
  *                                some learned factors.
  */
 double
@@ -251,7 +250,7 @@ estimate_rating_mf_bias(size_t user_index, size_t item_index, learned_factors_t*
 	double user_bias;
 
 	double bias;
-
+	
 	assert(item_index < lfactors->items_number);
 	assert(user_index < lfactors->users_number);
 

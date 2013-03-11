@@ -17,7 +17,9 @@
 #include "find_minimum_tsearch.h"
 #include "data_set.h"
 
+#if WIN32
 #pragma warning(disable: 4996)
+#endif
 
 int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, void ** param_to_find, int* is_float)
 {
@@ -78,7 +80,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 	k_fold_params->params.training_set_size = (size_t) (k_fold_params->ratings_number * ( (k_fold_params->K - 1) / k_fold_params->K) );
 
 
-	if (strcmpi (argv[6], "x") == 0)
+	if (strcmp (argv[6], "x") == 0)
 	{
 		*param_to_find = & (k_fold_params->params.dimensionality);
 		*is_float = 0;
@@ -102,7 +104,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 	}
 
 
-	if (strcmpi (argv[8], "x") == 0)
+	if (strcmp (argv[8], "x") == 0)
 	{
 		*param_to_find = & (k_fold_params->params.lambda);
 		*is_float = 1;
@@ -116,7 +118,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 
 	k_fold_params->params.step = (float) atof (argv[9]);
 
-	if (strcmpi (argv[10], "x") == 0)
+	if (strcmp (argv[10], "x") == 0)
 	{
 		*param_to_find = & (k_fold_params->params.lambda_bias);
 		*is_float = 1;
@@ -130,13 +132,13 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 
 
 
-	if (strcmpi (argv[12], "basic") == 0)
+	if (strcmp (argv[12], "basic") == 0)
 	{
 		printf ("basic \n");
 		k_fold_params->model.learning_algorithm  = learn_basic_mf;
 		k_fold_params->model.rating_estimator = estimate_rating_basic_mf;
 	}
-	else if (strcmpi (argv[12], "bias") == 0)
+	else if (strcmp (argv[12], "bias") == 0)
 	{
 		printf ("bias \n");
 		k_fold_params->model.learning_algorithm = learn_mf_bias;
@@ -170,19 +172,15 @@ int main (int argc, char** argv)
 	recommended_items_t* r_items = NULL;
 	struct k_fold_parameters k_fold_params;
 
-	double A, B;
 	void * param_to_find = NULL;
-	int is_float;// 1 if param_to_find is float
+	int is_float;
 
 	char* file_path = NULL;
 
 
-	//Model configuration
-	//Setup model parameters
+	
 	clock_t start = clock();
 	clock_t end;
-	A = 0.1;
-	B = 0.15;
 
 	if (parse_arguments (argc, argv, &k_fold_params, &param_to_find, &is_float) != 0)
 	{
@@ -196,11 +194,11 @@ int main (int argc, char** argv)
 	if (param_to_find != NULL)
 		if (is_float)
 		{
-			A = d_find_minimum_tsearch ( (float*) param_to_find, 0.01, 0.15, 0.00001, 10, &k_fold_params,&RMSE_mean);
+			d_find_minimum_tsearch ( (float*) param_to_find, 0.01, 0.15, 0.00001, 10, &k_fold_params,&RMSE_mean);
 		}
 		else
 		{
-			A = i_find_minimum_tsearch ( (int*) param_to_find, 10, 30, 10, &k_fold_params,&RMSE_mean);
+			i_find_minimum_tsearch ( (int*) param_to_find, 10, 30, 10, &k_fold_params,&RMSE_mean);
 		}
 	else
 	{
@@ -208,13 +206,13 @@ int main (int argc, char** argv)
 	}
 	free_recommended_items (r_items);
 	free_learned_factors (learned);
-	//free_training_set(tset);
+	
 
 	free (file_path);
 	end = clock();
 	printf ("Time : %f s \n", (double) (end - start) / CLOCKS_PER_SEC);
 	system ("pause");
-	//	_CrtDumpMemoryLeaks();
+	
 
 	return 0;
 }
