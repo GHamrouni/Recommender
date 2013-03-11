@@ -250,7 +250,7 @@ estimate_rating_mf_bias(size_t user_index, size_t item_index, learned_factors_t*
 	double user_bias;
 
 	double bias;
-
+	
 	assert(item_index < lfactors->items_number);
 	assert(user_index < lfactors->users_number);
 

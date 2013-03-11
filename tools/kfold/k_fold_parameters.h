@@ -4,8 +4,9 @@
 #include "recommender.h"
 
 
-
+#if _WIN32
 #pragma warning(disable: 4820)
+#endif
 
 struct k_fold_parameters
 {

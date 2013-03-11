@@ -16,8 +16,8 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 	learned_factors_t *learned;
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
-	training_set_t* vs = NULL;
-	redis_parameters_t redis_param={"127.0.0.1",6379};
+	
+	//redis_parameters_t redis_param={"127.0.0.1",6379};
 	k_fold_params.model.parameters = k_fold_params.params;
 	RMSE_sum = 0;
 	for (index = 0; index < k_fold_params.K; index++)
@@ -25,7 +25,8 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 		extract_data (k_fold_params, &tset, &validation_set, index);
 		compile_training_set (validation_set);
 		compile_training_set (tset);
-		save_training_set(validation_set,redis_param);
+		//save_training_set(validation_set,redis_param);
+
 		learned = learn (tset, k_fold_params.model);
 		RMSE_sum += RMSE (learned, validation_set, k_fold_params);
 	}

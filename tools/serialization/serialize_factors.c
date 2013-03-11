@@ -4,7 +4,7 @@
 #ifdef _WIN32
 #include "hiredis-win32\hiredis.h"
 #else
-#include "../hiredis/hiredis.h"
+#include "hiredis/hiredis.h"
 #endif
 #include "serialize_factors.h"
 #include "redis_parameters.h"
