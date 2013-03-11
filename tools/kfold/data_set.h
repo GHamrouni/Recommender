@@ -4,7 +4,6 @@
 #include "k_fold_parameters.h"
 #include "training_set.h"
 
-
 /*
 * read_file : read the file and outputs 2 training_sets
 * _tset : the traing set that's going to be read
