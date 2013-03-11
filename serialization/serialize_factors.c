@@ -11,7 +11,6 @@
 
 
 
-
 int save_learned_factors (learned_factors_t * factors, redis_parameters_t redis_parameters)
 {
 	redisContext *c;

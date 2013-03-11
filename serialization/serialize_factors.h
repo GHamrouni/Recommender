@@ -1,6 +1,6 @@
 #ifndef SERIALIZE_FACTORS_H
 #define SERIALIZE_FACTORS_H
-#include "../learned_factors.h"
+#include "../src/learned_factors.h"
 #include "redis_parameters.h"
 
 int test_redis (void);

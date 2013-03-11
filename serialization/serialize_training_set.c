@@ -8,8 +8,8 @@
 #endif
 #include "serialize_training_set.h"
 #include "serialize_sparse_matrix.h"
-#include "../rlog.h"
-#include "redis_parameters.h"
+
+
 
 int save_training_set (training_set_t* tset, redis_parameters_t redis_parameters)
 {

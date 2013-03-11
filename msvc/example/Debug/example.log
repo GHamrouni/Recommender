@@ -1,17 +1,17 @@
-﻿Build started 3/7/2013 10:42:39 AM.
+﻿Build started 3/11/2013 12:09:31 PM.
      1>Project "C:\Users\abr\Recommender\Recommender\msvc\example\example.vcxproj" on node 3 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\Serialization.lastbuildstate".
        InitializeBuildStatus:
          Creating "Debug\Serialization.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /Zp1 /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\Serialization\serialize_factors.c ..\..\Serialization\serialize_sparse_matrix.c ..\..\Serialization\serialize_training_set.c
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\src /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /Zp1 /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\serialization\serialize_factors.c ..\..\serialization\serialize_sparse_matrix.c ..\..\serialization\serialize_training_set.c
          serialize_training_set.c
          serialize_sparse_matrix.c
-     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(79): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(161): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(80): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\abr\recommender\recommender\serialization\serialize_sparse_matrix.c(162): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
          serialize_factors.c
-     1>c:\users\abr\recommender\recommender\serialization\serialize_factors.c(101): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\abr\recommender\recommender\serialization\serialize_factors.c(100): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
          Generating Code...
        Lib:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\abr\Recommender\Recommender\msvc\Debug\Serialization.lib" ws2_32.lib /NOLOGO Debug\serialize_factors.obj
@@ -25,4 +25,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.32
+Time Elapsed 00:00:02.21
