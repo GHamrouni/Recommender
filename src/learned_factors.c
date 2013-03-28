@@ -64,6 +64,10 @@ init_learned_factors(struct model_parameters params)
 	lfactors->user_bias =
 	       	malloc(sizeof(double) * params.users_number);
 
+	lfactors->x=malloc(sizeof(double*) * params.items_number);
+
+	lfactors->y=malloc(sizeof(double*) * params.items_number);
+
 	lfactors->ratings_average = 0;
 
 	if (!lfactors->item_factor_vectors ||
@@ -78,16 +82,27 @@ init_learned_factors(struct model_parameters params)
 	{
 		lfactors->item_factor_vectors[i] =  
 			malloc(sizeof(double) * params.dimensionality);
-		
+		lfactors->x[i]=malloc(sizeof(double) * params.items_number);
+		lfactors->y[i]=malloc(sizeof(double) * params.dimensionality);
+
 		if (lfactors->item_factor_vectors[i])
 		{
 			for (j = 0; j < params.dimensionality; j++)
 			{
 				lfactors->item_factor_vectors[i][j] = 0.1;
+				lfactors->y[i][j]=0.1;
+				
+			}
+			for(j=0;j < params.items_number; j++)
+			{
+				lfactors->x[i][j]=0.1;
 			}
 		}
 
 		lfactors->item_bias[i] = 0.0;
+			
+		
+
 	}
 
 	for (i = 0; i < params.users_number; i++)
@@ -121,18 +136,27 @@ free_learned_factors(learned_factors_t* lfactors)
 		return;
 
 	for (i = 0; i < lfactors->items_number; i++)
+	{
 		free(lfactors->item_factor_vectors[i]);
+		free(lfactors->x[i]);
+		free(lfactors->y[i]);
 
+	}
 	free(lfactors->item_factor_vectors);
+	free(lfactors->x);
+	free(lfactors->y);
 
 	for (i = 0; i < lfactors->users_number; i++)
+	{
 		free(lfactors->user_factor_vectors[i]);
-
+		free(lfactors->R[i].ratings_order);
+	}
 	free(lfactors->user_factor_vectors);
 
 	free(lfactors->item_bias);
 	free(lfactors->user_bias);
+	free(lfactors->R);
+//	free(lfactors->R_K);
 
 	free(lfactors);
 }
-

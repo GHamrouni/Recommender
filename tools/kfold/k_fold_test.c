@@ -16,6 +16,8 @@
 #include "k_fold_rmse.h"
 #include "find_minimum_tsearch.h"
 #include "data_set.h"
+#include "neighborMF.h"
+
 
 #if WIN32
 #pragma warning(disable: 4996)
@@ -141,8 +143,10 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 	else if (strcmp (argv[12], "bias") == 0)
 	{
 		printf ("bias \n");
-		k_fold_params->model.learning_algorithm = learn_mf_bias;
-		k_fold_params->model.rating_estimator   = estimate_rating_mf_bias;
+		/*k_fold_params->model.learning_algorithm = learn_mf_bias;
+		k_fold_params->model.rating_estimator   = estimate_rating_mf_bias;*/
+		k_fold_params->model.learning_algorithm = learn_mf_neighbor;
+		k_fold_params->model.rating_estimator   = estimate_rating_;
 
 	}
 	else

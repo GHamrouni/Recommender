@@ -49,8 +49,34 @@ dot_product(double* vect1, double* vect2, size_t dim)
 
 	for (i = 0; i < dim; i++)
 		sum += vect1[i] * vect2[i];
-
+	
 	return sum;
+}
+
+double *
+add_vector(double* vect1,double * vect2, size_t dim)
+{
+	double *rslt =malloc(sizeof(double) * dim);
+	int i;
+	for (i=0;i<dim;i++)
+	{
+		rslt[i]=vect1[i]+vect2[i];
+	}
+	free(vect2);
+	return rslt;
+}
+
+double *
+scalar_product(double * vector,double scalar,size_t dim)
+{
+	double *rslt =malloc(sizeof(double) * dim);
+	int i;
+	for (i=0;i<dim;i++)
+	{
+		rslt[i]=scalar*vector[i];
+	}
+	free(vector);
+	return rslt;
 }
 
 /*

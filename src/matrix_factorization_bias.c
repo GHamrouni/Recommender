@@ -165,6 +165,7 @@ update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training
 			max_error = fmax(max_error, fabs(e_iu));
 
 			compute_factors_bias(u, i, lfactors, e_iu, &params);
+
 		}
 
 		if (max_error < step)
@@ -263,8 +264,7 @@ estimate_rating_mf_bias(size_t user_index, size_t item_index, learned_factors_t*
 	user_factors = lfactors->user_factor_vectors[user_index];
 
 	for (i = 0; i < lfactors->dimensionality; i++)
-		sum += user_factors[i] * item_factors[i];
-
+		sum += user_factors[i] * item_factors[i] ;
 	return sum + bias;
 }
 

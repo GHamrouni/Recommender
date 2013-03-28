@@ -128,5 +128,13 @@ void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix);
 
 void insert_value (sparse_matrix_t* input_matrix, size_t row, size_t col, float val );
 
+double* 
+get_row(size_t row_i, sparse_matrix_t* matrix);
+
+int 
+get_number_in_row(size_t row_i, sparse_matrix_t* matrix);
+
+int 
+get_number_in_column(size_t column_j, sparse_matrix_t* matrix);
 #endif /* SPARSE_MATRIX_H */
 

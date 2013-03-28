@@ -29,6 +29,7 @@
 #define LEARNED_FACTORS_H
 
 #include "model_parameters.h"
+#include "items_rated_by_user.h"
 
 struct learned_factors
 {
@@ -43,6 +44,11 @@ struct learned_factors
 
 	double**        user_factor_vectors;
 	double**        item_factor_vectors;
+
+	double** x;
+	double** y;
+
+	items_rated_by_user_t * R,*R_K;
 };
 
 
