@@ -31,8 +31,6 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 		extract_data (k_fold_params, &tset, &validation_set, index);
 		compile_training_set (tset);
 //		compile_training_set (validation_set);
-		for(i=0;i<30;i++)
-		{
 		learned = learn (tset, k_fold_params.model);
 		//compile_training_set (tset);
 		//simularities_matrix=calculate_simularities_matrix(tset);
@@ -42,12 +40,12 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 		//RMSE_sum += RMSE (learned, validation_set, k_fold_params);
 		//
 		RMSE_sum += RMSE (learned,validation_set,k_fold_params,tset);
-		free_learned_factors(learned);
-		}
 		
+		free_learned_factors(learned);
+		free_training_set (tset);
+		free_training_set (validation_set);
 	}
-	free (tset);
-	free (validation_set);
+	
 	return (RMSE_sum / k_fold_params.K);
 }
 
@@ -66,10 +64,8 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 	{
 		i = _validation_set->ratings->entries[s].row_i;
 		u = _validation_set->ratings->entries[s].column_j;
-		learned->R_K=get_nearest_neighbors (tset, learned->R[u], i);
 		sum += pow (_validation_set->ratings->entries[s].value -
 		            calculate_rating (u, i, learned, tset) , 2) / (_k_fold_params.ratings_number / _k_fold_params.K);
-		free(learned->R_K);
 	}
 	RLog ("RMSE = %f \n", sqrtf (sum) );
 	return (sqrtf (sum) );

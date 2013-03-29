@@ -68,10 +68,10 @@ double
 pearson_correlation_coefficient(double* vectX, double* vectY, size_t dim);
 
 
-double *
+void
 add_vector(double* vect1,double * vect2, size_t dim);
 
-double *
+void
 scalar_product(double * vector,double scalar,size_t dim);
 
 #endif

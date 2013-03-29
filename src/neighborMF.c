@@ -5,6 +5,7 @@
 #include "rlog.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory.h>
 #include <math.h>
 #include <assert.h>
 #include "items_rated_by_user.h"
@@ -271,11 +272,11 @@ calculate_rating (size_t user_index, size_t item_index, learned_factors_t* lfact
 	double user_bias;
 
 	double bias;
-	double * sumy=malloc(sizeof(double)*lfactors->dimensionality);
+	double * sumy;
 	double term2;
 	int i;
 	size_t number=0;
-	
+	sumy=malloc(sizeof(double)*lfactors->dimensionality);
 	memset(sumy,0,sizeof(double)*lfactors->dimensionality);
 	
 	assert (item_index < lfactors->items_number);
@@ -293,24 +294,28 @@ calculate_rating (size_t user_index, size_t item_index, learned_factors_t* lfact
 	for(ri=0 ;ri<lfactors->R[user_index].items_number;ri++)
 	{
 			ii=tset->ratings->entries[ri].row_i;
-			sumy = add_vector(lfactors->y[ii],sumy,lfactors->dimensionality);
+			add_vector(sumy,lfactors->y[ii],lfactors->dimensionality);
 			
 			number++;
 		
 	}
-	sumy = scalar_product(sumy,1/number,lfactors->dimensionality);
+	scalar_product(sumy,(double)1/number,lfactors->dimensionality);
 	number=0;
-	for(ri=0 ;ri<lfactors->R_K->items_number;ri++)
+	for(ri=0 ;ri<lfactors->R_K[item_index].items_number;ri++)
 			{
-				ii=tset->ratings->entries[lfactors->R_K->ratings_order[ri]].row_i;
-				sum += (tset->ratings->entries[lfactors->R_K->ratings_order[ri]].value - (lfactors->item_bias[ii]+lfactors->user_bias[user_index]
+				if(tset->ratings->entries[lfactors->R_K[item_index].ratings_order[ri]].column_j==user_index)
+				{
+				ii=tset->ratings->entries[ri].row_i;
+				sum += (tset->ratings->entries[lfactors->R_K[item_index].ratings_order[ri]].value - (lfactors->item_bias[ii]+lfactors->user_bias[user_index]
 				+lfactors->ratings_average))*lfactors->x[item_index][ii];
+				number++;
+				}
 			}
 	if(sum!=0)
 	{
-		sum/=sqrtf(lfactors->R_K->items_number);
+	sum/=sqrtf(number);
 	}
-	sumy = add_vector(lfactors->user_factor_vectors[user_index],sumy, lfactors->dimensionality);
+	add_vector(sumy,lfactors->user_factor_vectors[user_index], lfactors->dimensionality);
 	term2 = dot_product(lfactors->item_factor_vectors[item_index],sumy,lfactors->dimensionality);
 	free(sumy);
 	if(term2 + bias + sum<1)
@@ -344,6 +349,7 @@ learn_mf_neighbor (struct training_set* tset, struct model_parameters params)
 	lfactors->users_number = params.users_number;
 	calculate_average_ratings (tset, lfactors, params);
 	lfactors->R=init_items_rated_by_user(tset);
+	lfactors->R_K=get_nearest_neighbors(tset);
 	for (k = 0; k < params.iteration_number; k++)
 	{
 		double max_error = 0;
@@ -354,9 +360,9 @@ learn_mf_neighbor (struct training_set* tset, struct model_parameters params)
 
 			i = tset->ratings->entries[r].row_i;
 			u = tset->ratings->entries[r].column_j;
-			lfactors->R_K=get_nearest_neighbors (tset, lfactors->R[u], i);
 			e_iu = estimate_error_mf_neighbor(r_iu, u, i, lfactors,tset);
 			//assert (is_valid(e_iu));
+
 			lfactors->user_bias[u]+=params.step*(e_iu-params.lambda*lfactors->user_bias[u]);
 			lfactors->item_bias[i]+=params.step*(e_iu-params.lambda*lfactors->item_bias[i]);
 			for(dim=0;dim<lfactors->dimensionality;dim++)
@@ -378,16 +384,20 @@ learn_mf_neighbor (struct training_set* tset, struct model_parameters params)
 			{
 				
 				ii=tset->ratings->entries[lfactors->R[u].ratings_order[ri]].row_i;
-				lfactors->y[ii][dim] += params.step *(e_iu*lfactors->item_factor_vectors[i][dim]/sqrtf(lfactors->R[u].items_number) - params.lambda * lfactors->y[ii][dim]);
+					lfactors->y[ii][dim] += params.step *(e_iu*lfactors->item_factor_vectors[i][dim]/sqrtf(number) - params.lambda * lfactors->y[ii][dim]);
+					number++;
+				
+			}
+			for(ri=0 ;ri<lfactors->R_K[i].items_number;ri++)
+			{
+				if(tset->ratings->entries[lfactors->R_K[i].ratings_order[ri]].column_j==u)
+				{
+					ii=tset->ratings->entries[lfactors->R_K[i].ratings_order[ri]].row_i;
+					lfactors->x[i][ii] += params.step *(e_iu*(tset->ratings->entries[lfactors->R_K[i].ratings_order[ri]].value-lfactors->user_bias[u]-lfactors->item_bias[ii]-lfactors->ratings_average)/sqrtf(number) - params.lambda * lfactors->x[i][ii]);
+				}
+			}
 			}
 
-			for(ri=0 ;ri<lfactors->R_K->items_number;ri++)
-			{
-					ii=tset->ratings->entries[lfactors->R_K->ratings_order[ri]].row_i;
-					lfactors->x[i][ii] += params.step *(e_iu*(tset->ratings->entries[lfactors->R_K->ratings_order[ri]].value-lfactors->user_bias[u]-lfactors->item_bias[ii]-lfactors->ratings_average)/sqrtf(lfactors->R_K->items_number) - params.lambda * lfactors->x[i][ii]);
-			}
-			}
-			free(lfactors->R_K);
 		}
 
 		/*if (max_error < step)
