@@ -5,19 +5,47 @@
 #include "model_parameters.h"
 #include "training_set.h"
 #include "learned_factors.h"
-
+#include "rating_estimator.h"
 /************************************************************************/
 /*                         Learning algorithms                          */
 /************************************************************************/
 
+/*
+ * learn:            Learn using training set and the model parameters
+ *                               
+ *
+ * Arguments:
+ *      tset				The training set contains the known rating of items
+ *      params				Parameters of the model
+ *
+ * Returns:
+ *      Return the learned factors.
+ *
+ */
 struct learned_factors*
 learn_mf_neighbor(struct training_set* tset, struct model_parameters params);
 
 /*
  * Update the learned factors
+ * Arguments :
+ *		lfactors			The leaned factors to be learned
+ *		tset :				The training set contains the known rating of items
+ *		params				Parameters of the model
  */
 void
 update_learned_factors_mf_neighbor(learned_factors_t* lfactors, training_set_t* tset, model_parameters_t params);
+
+
+
+
+
+/*
+ * Estimate the error between the rating r_ui and the predicted rating
+ *		r_iu				The real rating
+ *		estim_param			The rating estimator parameters
+ */
+double
+estimate_error_mf_neighbor (double r_iu, rating_estimator_parameters_t* estim_param);
 
 
 /*
@@ -34,16 +62,5 @@ update_learned_factors_mf_neighbor(learned_factors_t* lfactors, training_set_t* 
  *
  */
 double
-estimate_rating_(size_t user_index, size_t item_index, learned_factors_t* lfactors);
-
-/*
- * Estimate the error between the rating r_ui and the predicted rating
- */
-double
-estimate_error_mf_neighbor
-	(double r_iu, size_t user_index, size_t item_index, learned_factors_t* lfactors,training_set_t * tset);
-
-double
-calculate_rating (size_t user_index, size_t item_index, learned_factors_t* lfactors,training_set_t * tset);
-
+	estimate_rating_mf_neighbor (rating_estimator_parameters_t* estim_param);
 #endif 

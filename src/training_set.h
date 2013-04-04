@@ -137,10 +137,10 @@ add_rating(size_t user_index,size_t item_index,float _value,training_set_t* tset
 
 
 /*
- * add_user : add a new user
+ * add_user : add a new user to the training set
  *                              
  *                               
- * Arguments:
+ * Arguments
  *      tset:       The training set to be filled
  *
  */
@@ -148,10 +148,10 @@ void
 add_user(training_set_t* tset);
 
 /*
- * add_user : add a new user
+ * add_user : add a new user to the training set
  *                              
  *                               
- * Arguments:
+ * Arguments
  *      tset:       The training set to be filled
  *
  */

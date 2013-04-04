@@ -33,7 +33,7 @@ UNI(normal_generator_t* gen)
 static double 
 nfix(int hz, int iz, normal_generator_t* gen)
 {
-	double r = 3.442619855899;
+	double r = 3.5283501;
 	double r1 = 1/r;
 	double x, y;
 
@@ -81,7 +81,7 @@ init_normal_distribution(unsigned long seed)
 {  
 	const double m1 = 2147483648.0;
 
-	double dn = 3.442619855899;
+	double dn = 3.5283501;
 	double tn = dn;
 	double vn = 9.91256303526217e-3;
 	double q;

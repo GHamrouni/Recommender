@@ -7,7 +7,8 @@
 items_rated_by_user_t *
 init_items_rated_by_user (training_set_t* tset)
 {
-	int i, n;
+	int  n;
+	size_t i;
 	items_rated_by_user_t* R = malloc (sizeof (items_rated_by_user_t) * tset->users_number);
 	for (i = 0; i < tset->users_number; i++)
 	{
@@ -23,19 +24,16 @@ init_items_rated_by_user (training_set_t* tset)
 }
 
 items_rated_by_user_t *
-get_nearest_neighbors (training_set_t* tset)
+get_nearest_neighbors (training_set_t* tset,int bin_width,int proj_family_size,int seed)
 {
-	int i, n, j, oldj;
+	int n;
+	size_t i, j, oldj;
 	items_rated_by_user_t* R = malloc (sizeof (items_rated_by_user_t) * tset->items_number);
 	/*Projection*/
 	int dimension = tset->users_number;
-	int seed = 4578;
-	int bin_width = 35;
-	int proj_family_size = 3;
 	projection_family_t* pfamily = NULL;
 	/* end projection*/
 	int add = 0;
-
 	/* Initialize a family (size = proj_family_size) */
 	pfamily =
 	    init_random_projections (dimension, seed, bin_width, proj_family_size);
@@ -49,12 +47,50 @@ get_nearest_neighbors (training_set_t* tset)
 		n = lsh_row (pfamily, tset->ratings_matrix, i);
 		if (n != 0)
 		{
-			
+			oldj=i;
+
 			for (j = 0; j < tset->ratings->size; j++)
 			{
-				if (abs (n - lsh_row (pfamily, tset->ratings_matrix, tset->ratings->entries[j].row_i) ) == 0)
+				if(tset->ratings->entries[j].row_i != oldj)
 				{
-					R[i].ratings_order[R[i].items_number++] = tset->ratings->entries[j].row_i;
+				if ((tset->ratings->entries[j].row_i != i)&&(abs (n - lsh_row (pfamily, tset->ratings_matrix, tset->ratings->entries[j].row_i) ) == 0))
+				{
+					R[i].items_number++;
+					add=1;
+				}else add=0;
+				oldj=tset->ratings->entries[j].row_i;
+				}else if(add)
+				{
+					R[i].items_number++;
+				}
+			}
+		}
+	}
+	for (i = 0; i < tset->items_number; i++)
+	{
+		R[i].ratings_order = malloc (sizeof (size_t) * R[i].items_number);
+		R[i].items_number = 0;
+	}
+	for (i = 0; i < tset->items_number; i++)
+	{
+		n = lsh_row (pfamily, tset->ratings_matrix, i);
+		if (n != 0)
+		{
+			oldj=i;
+
+			for (j = 0; j < tset->ratings->size; j++)
+			{
+				if(tset->ratings->entries[j].row_i != oldj)
+				{
+				if ((tset->ratings->entries[j].row_i != i) && abs(n - lsh_row (pfamily, tset->ratings_matrix, tset->ratings->entries[j].row_i) ) == 0)
+				{
+					R[i].ratings_order[R[i].items_number++] = j;
+					add=1;
+				}else add=0;
+				oldj=tset->ratings->entries[j].row_i;
+				}else if(add)
+				{
+					R[i].ratings_order[R[i].items_number++] = j;
 				}
 			}
 		}
@@ -62,37 +98,3 @@ get_nearest_neighbors (training_set_t* tset)
 	return R;
 
 }
-
-
-//items_rated_by_user_t *
-//	get_nearest_neighbors ( training_set_t* tset, items_rated_by_user_t ratings_by_user, size_t item_index)
-//{
-//	items_rated_by_user_t* R_u_i= malloc(sizeof(items_rated_by_user_t));
-//	int i,n;
-//	/*Projection*/
-//	int dimension = tset->users_number;
-//	int seed = 4578;
-//	int bin_width = 35;
-//	int proj_family_size = 3;
-//	projection_family_t* pfamily = NULL;
-//	/* end projection*/
-//	/* Initialize a family (size = proj_family_size) */
-//	pfamily =
-//	    init_random_projections (dimension, seed, bin_width, proj_family_size);
-//	R_u_i->ratings_order=malloc(ratings_by_user.items_number*sizeof(size_t));
-//	R_u_i->items_number=0;
-//	n=lsh_row (pfamily, tset->ratings_matrix, item_index);
-//	for(i=0;i<ratings_by_user.items_number;i++)
-//	{
-//		if(ABS(n-lsh_row (pfamily, tset->ratings_matrix, tset->ratings->entries[ratings_by_user.ratings_order[i]].row_i))<10)
-//		{
-//			R_u_i->ratings_order[R_u_i->items_number++] = ratings_by_user.ratings_order[i];
-//			if(tset->ratings->entries[ratings_by_user.ratings_order[i]].row_i != item_index)
-//			{
-//				RLog("");
-//			}
-//		}
-//	}
-//	free_projection_family(pfamily);
-//	return R_u_i;
-//}

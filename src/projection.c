@@ -54,10 +54,6 @@ init_random_projection_rng(size_t dim, unsigned int seed,
 
 	proj->dimension = dim;
 	proj->vector = malloc(sizeof(double) * dim);
-	if(proj->vector==NULL)
-	{
-		RLog("");
-	}
 	proj->bin_width = bin_width;
 	proj->bias = rand() % (bin_width + 1);
 

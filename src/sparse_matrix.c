@@ -438,7 +438,6 @@ get_row(size_t row_i, sparse_matrix_t* matrix)
 int 
 get_number_in_row(size_t row_i, sparse_matrix_t* matrix)
 {
-	size_t i = 0;
 	size_t r1, r2; /* Range */
 	
 	assert(row_i < matrix->row_nb);
@@ -455,7 +454,7 @@ get_number_in_row(size_t row_i, sparse_matrix_t* matrix)
 int 
 get_number_in_column(size_t column_j, sparse_matrix_t* matrix)
 {
-	int i,nb=0;
+	size_t i,nb=0;
 	for(i=0;i<matrix->nonzero_entries_nb;i++)
 	{
 		if(matrix->column_index[i]==column_j)

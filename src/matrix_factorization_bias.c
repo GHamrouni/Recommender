@@ -239,8 +239,12 @@ estimate_error_mf_bias(double r_iu, size_t user_index, size_t item_index, learne
  *                                some learned factors.
  */
 double
-estimate_rating_mf_bias(size_t user_index, size_t item_index, learned_factors_t* lfactors)
+estimate_rating_mf_bias(rating_estimator_parameters_t* estim_param)
 {
+	learned_factors_t* lfactors = estim_param->lfactors;
+	size_t item_index = estim_param->item_index;
+	size_t user_index = estim_param->user_index;
+
 	double sum = 0;
 	size_t i;
 

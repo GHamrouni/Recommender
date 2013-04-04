@@ -56,7 +56,7 @@ dot_product(double* vect1, double* vect2, size_t dim)
 void
 add_vector(double* vect1,double * vect2, size_t dim)
 {
-	int i;
+	size_t i;
 	for (i=0;i<dim;i++)
 	{
 		vect1[i]=vect1[i]+vect2[i];
@@ -66,7 +66,7 @@ add_vector(double* vect1,double * vect2, size_t dim)
 void
 scalar_product(double * vector,double scalar,size_t dim)
 {
-	int i;
+	size_t i;
 	for (i=0;i<dim;i++)
 	{
 		vector[i]=scalar*vector[i];
@@ -129,3 +129,33 @@ double pearson_correlation_coefficient(double* vectX, double* vectY, size_t dim)
 	return d / f;
 }
 
+
+
+double** generate_random_matrix(int nrow,int ncol,int seed)
+{
+	int i;
+	int j;
+	double ** matrix=malloc(nrow * sizeof(double*));
+	srand(seed);
+	for (i=0; i<nrow; i++)
+	{
+		matrix [i] = malloc(ncol * sizeof(double));
+		for (j=0; j < ncol; j++)
+		{
+			matrix[i][j] = 0.1 * rand()/(double)RAND_MAX;
+		}
+	}
+	return matrix;
+}
+
+double * generate_random_vector(int n,int seed)
+{
+	int i;
+	double * vect=malloc(n * sizeof(double));
+	srand(seed);
+	for (i=0; i<n; i++)
+	{
+			vect[i] = 0.1* rand()/(double)RAND_MAX;
+	}
+	return vect;
+}

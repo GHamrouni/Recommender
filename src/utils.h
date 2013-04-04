@@ -67,12 +67,29 @@ dot_product(double* vect1, double* vect2, size_t dim);
 double
 pearson_correlation_coefficient(double* vectX, double* vectY, size_t dim);
 
-
+/*
+ * Add two vectors together
+ *    The result is in vect1
+ */
 void
 add_vector(double* vect1,double * vect2, size_t dim);
 
+/*
+ * Multiply a vector by a scalar value
+ *
+ */
 void
 scalar_product(double * vector,double scalar,size_t dim);
+
+/*
+ * Generate a random vector
+ */
+double * generate_random_vector(int n,int seed);
+
+/*
+ * Generate a random matrix
+ */
+double** generate_random_matrix(int nrow,int ncol,int seed);
 
 #endif
 

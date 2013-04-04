@@ -29,3 +29,5 @@ msvc/kfold/Debug
 *.dat
 *.data
 *.test
+msvc/example
+*.so

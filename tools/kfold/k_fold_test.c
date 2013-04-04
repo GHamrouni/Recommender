@@ -28,7 +28,8 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 
 
 	size_t file_path_length = 0;
-	if (argc != 13)
+	int bin_width_ratio;
+	if (argc != 15)
 	{
 		printf ("Incorrect arguments \n");
 		printf ("usage: kfold 100000 2 943 1682 u.data 30 30 0.055 0.0095 0.02 0.001 basic \n kfold -h for help \n");
@@ -46,6 +47,8 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 			printf ("step : step \n");
 			printf ("lambda_bias : lambda_bias \n");
 			printf ("step_bias : step_bias \n");
+			printf ("projection family number :  \n");
+			printf ("bin width ratio \n");
 			printf ("type : basic or bias \n");
 		}
 		system ("pause");
@@ -97,6 +100,12 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 			exit (-1);
 		}
 	}
+	if (strcmp (argv[7], "x") == 0)
+	{
+		*param_to_find = & (k_fold_params->params.iteration_number);
+		*is_float = 0;
+	}else
+	{
 	k_fold_params->params.iteration_number = atoi (argv[7]);
 	if (k_fold_params->params.iteration_number < 1)
 	{
@@ -104,7 +113,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		system ("pause");
 		return (-1);
 	}
-
+	}
 
 	if (strcmp (argv[8], "x") == 0)
 	{
@@ -132,21 +141,28 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 
 	k_fold_params->params.step_bias = (float) atof (argv[11]);
 
+	k_fold_params->params.proj_family_size = (int) atoi (argv[12]);
 
+	bin_width_ratio = (int) atoi (argv[13]);
 
-	if (strcmp (argv[12], "basic") == 0)
+	if (strcmp (argv[14], "basic") == 0)
 	{
 		printf ("basic \n");
 		k_fold_params->model.learning_algorithm  = learn_basic_mf;
 		k_fold_params->model.rating_estimator = estimate_rating_basic_mf;
 	}
-	else if (strcmp (argv[12], "bias") == 0)
+	else if (strcmp (argv[14], "bias") == 0)
 	{
 		printf ("bias \n");
-		/*k_fold_params->model.learning_algorithm = learn_mf_bias;
-		k_fold_params->model.rating_estimator   = estimate_rating_mf_bias;*/
+		k_fold_params->model.learning_algorithm = learn_mf_bias;
+		k_fold_params->model.rating_estimator   = estimate_rating_mf_bias;
+
+	}
+	else if (strcmp (argv[14], "MFneighbors") == 0)
+	{
+		printf ("MFneighbors \n");
 		k_fold_params->model.learning_algorithm = learn_mf_neighbor;
-		k_fold_params->model.rating_estimator   = estimate_rating_;
+		k_fold_params->model.rating_estimator   = estimate_rating_mf_neighbor;
 
 	}
 	else
@@ -154,6 +170,9 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		printf ("type must be bias or basic");
 		return -1;
 	}
+	k_fold_params->params.bin_width = (int)(k_fold_params->params.items_number * bin_width_ratio / 100.0);
+	
+	k_fold_params->params.seed = 4578;
 	return 0;
 
 }
@@ -202,7 +221,7 @@ int main (int argc, char** argv)
 		}
 		else
 		{
-			i_find_minimum_tsearch ( (int*) param_to_find, 10, 30, 10, &k_fold_params,&RMSE_mean);
+			i_find_minimum_tsearch ( (int*) param_to_find, 10, 40, 20, &k_fold_params,&RMSE_mean);
 		}
 	else
 	{

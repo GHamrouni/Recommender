@@ -111,29 +111,30 @@ row_values_average(size_t row_i, sparse_matrix_t* matrix);
 float
 column_values_average(size_t column_j, sparse_matrix_t* matrix);
 
-
+/* Add a row to the sparse matrix */
 void add_row(sparse_matrix_t* input_matrix);
 
-
+/* Add a column to the sparse matrix */
 void add_column(sparse_matrix_t* input_matrix);
 
-
-
-void insert(sparse_matrix_t* input_matrix,size_t row,size_t col,float val);
-
-
+/* Add a number of rows to the sparse matrix */
 void add_rows (sparse_matrix_t* input_matrix , size_t number);
 
+/* Add a list of values in the COO to the sparse matrix */
 void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix);
 
+/* Inset a value to the sparse matrix */
 void insert_value (sparse_matrix_t* input_matrix, size_t row, size_t col, float val );
 
+/* Get a row from the sparse matrix */
 double* 
 get_row(size_t row_i, sparse_matrix_t* matrix);
 
+/* Get number of elements in a row*/
 int 
 get_number_in_row(size_t row_i, sparse_matrix_t* matrix);
 
+/* Get number of elements in a column*/
 int 
 get_number_in_column(size_t column_j, sparse_matrix_t* matrix);
 #endif /* SPARSE_MATRIX_H */

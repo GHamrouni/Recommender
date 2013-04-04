@@ -36,7 +36,7 @@
 #include "model_parameters.h"
 #include "training_set.h"
 #include "learned_factors.h"
-
+#include "rating_estimator.h"
 /************************************************************************/
 /*                         Learning algorithms                          */
 /************************************************************************/
@@ -70,6 +70,6 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params);
 *
 */
 double
-estimate_rating_basic_mf(size_t user_index, size_t item_index, learned_factors_t* lfactors);
+estimate_rating_basic_mf(rating_estimator_parameters_t* estim_param);
 
 #endif /* BASIC_MATRIX_FACTORIZATION_H */
