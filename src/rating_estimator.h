@@ -26,11 +26,21 @@
 
 #ifndef RATING_ESTIMATOR_H
 #define RATING_ESTIMATOR_H
-
+#include "training_set.h"
 /************************************************************************/
 /*                         Rating estimator                             */
 /************************************************************************/
 
+struct rating_estimator_parameters
+{
+
+	size_t user_index;
+	size_t item_index; 
+	struct learned_factors* lfactors;
+	training_set_t* tset;
+};
+
+typedef struct rating_estimator_parameters rating_estimator_parameters_t;
 /*
  * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
  *                                some learned factors.
@@ -44,6 +54,6 @@
  *      The estimated rating.
  *
  */
-typedef double (*rating_estimator_t)(size_t user_index, size_t item_index, struct learned_factors* lfactors);
+typedef double (*rating_estimator_t)(rating_estimator_parameters_t* rating_estimator_param);
 
 #endif /* RATING_ESTIMATOR_H */

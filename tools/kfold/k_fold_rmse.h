@@ -18,8 +18,8 @@
 *	Returns :
 *		return the RMSE
 **/
-double RMSE(learned_factors_t* learned,training_set_t * _validation_set,
-	k_fold_parameters_t _k_fold_params) ;
+double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
+             k_fold_parameters_t _k_fold_params,training_set_t * tset) ;
 
 /*
 * RMSE : Calculate the RMSE
@@ -30,7 +30,5 @@ double RMSE(learned_factors_t* learned,training_set_t * _validation_set,
 *		return the RMSE
 **/
 double RMSE_mean(k_fold_parameters_t k_fold_params);
-
-
 
 #endif

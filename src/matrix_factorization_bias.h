@@ -36,7 +36,7 @@
 #include "model_parameters.h"
 #include "training_set.h"
 #include "learned_factors.h"
-
+#include "rating_estimator.h"
 /************************************************************************/
 /*                         Learning algorithms                          */
 /************************************************************************/
@@ -78,7 +78,7 @@ update_learned_factors_mf_bias(learned_factors_t* lfactors, training_set_t* tset
  *
  */
 double
-estimate_rating_mf_bias(size_t user_index, size_t item_index, learned_factors_t* lfactors);
+estimate_rating_mf_bias(rating_estimator_parameters_t* estim_param);
 
 /*
  * Estimate the error between the rating r_ui and the predicted rating

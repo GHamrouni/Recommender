@@ -13,14 +13,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\tools\kfold\data_set.c" />
     <ClCompile Include="..\..\tools\kfold\find_minimum_tsearch.c" />
+    <ClCompile Include="..\..\tools\kfold\k_fold_parameters.c" />
     <ClCompile Include="..\..\tools\kfold\k_fold_rmse.c" />
     <ClCompile Include="..\..\tools\kfold\k_fold_test.c" />
     <ClCompile Include="..\..\tools\kfold\Simulated_annealing.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\example\example.vcxproj">
-      <Project>{9715ac8d-ea96-4943-92d5-858f65d07edb}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\tools\kfold\data_set.h" />

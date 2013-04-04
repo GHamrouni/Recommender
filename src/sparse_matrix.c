@@ -4,7 +4,7 @@
 #include <memory.h>
 #include <math.h>
 #include <assert.h>
-
+#include <stdio.h>
 coo_matrix_t*
 init_coo_matrix(size_t max_size)
 {
@@ -133,7 +133,12 @@ init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb)
 		if (matrix->column_index)
 			matrix->column_index[i] = c_matrix->entries[i].column_j;
 	}
-
+	if (matrix->row_index)
+	{
+		for (i = 0; i < row_nb + 1; i++)
+			if(matrix->row_index[i]==0)
+			matrix->row_index[i] = matrix->row_index[i-1];
+	}
 	return matrix;
 }
 
@@ -188,6 +193,8 @@ get_element(size_t row_i, size_t column_j, sparse_matrix_t* matrix)
 
 	return 0;
 }
+
+
 
 float
 row_values_average(size_t row_i, sparse_matrix_t* matrix)
@@ -407,4 +414,54 @@ void insert_coo (sparse_matrix_t* input_matrix, coo_matrix_t* c_matrix)
 		}
 		input_matrix->nonzero_entries_nb++;
 	}
+}
+
+double* 
+get_row(size_t row_i, sparse_matrix_t* matrix)
+{
+	size_t i = 0;
+	size_t r1, r2; /* Range */
+	double * vector=malloc(matrix->column_nb*sizeof(double));
+	assert(row_i < matrix->row_nb);
+	memset(vector,0,matrix->column_nb);
+	if (!matrix->row_index[row_i]) return 0;
+
+	r1 = matrix->row_index[row_i] - 1;
+	r2 = matrix->row_index[row_i + 1] - 1;
+
+	for (i = r1; i < r2; i++)
+		vector[matrix->column_index[i]] = matrix->values[i];
+
+	return vector;
+}
+
+int 
+get_number_in_row(size_t row_i, sparse_matrix_t* matrix)
+{
+	size_t r1, r2; /* Range */
+	
+	assert(row_i < matrix->row_nb);
+	
+	if (!matrix->row_index[row_i]) return 0;
+
+	r1 = matrix->row_index[row_i] - 1;
+	r2 = matrix->row_index[row_i + 1] - 1;
+
+
+	return r2-r1;
+}
+
+int 
+get_number_in_column(size_t column_j, sparse_matrix_t* matrix)
+{
+	size_t i,nb=0;
+	for(i=0;i<matrix->nonzero_entries_nb;i++)
+	{
+		if(matrix->column_index[i]==column_j)
+		{
+		nb++;
+		}
+	}
+
+	return nb;
 }

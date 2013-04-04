@@ -32,7 +32,7 @@
  */
 
 #include "recommender.h"
-
+#include "rating_estimator.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
@@ -60,12 +60,10 @@ learn(struct training_set* tset, struct learning_model model)
  *                                some learned factors.
  */
 double
-estimate_rating_from_factors(size_t user_index, 
-		size_t item_index, 
-		learned_factors_t* lfactors, 
+	estimate_rating_from_factors(rating_estimator_parameters_t* estim_param, 
 		struct learning_model model)
 {
-	return model.rating_estimator(user_index, item_index, lfactors);
+	return model.rating_estimator(estim_param);
 }
 
 /*
@@ -73,20 +71,17 @@ estimate_rating_from_factors(size_t user_index,
  *					a particular user (Nearest neighbor search)
  */
 recommended_items_t*
-recommend_items(size_t user_index, 
-		size_t items_number, 
-		learned_factors_t* lfactors, 
-		training_set_t* tset, 
+	recommend_items(rating_estimator_parameters_t* estim_param,
 		learning_model_t model)
 {
 	size_t j;
-	recommended_items_t* r_items = init_recommended_items(items_number);
+	recommended_items_t* r_items = init_recommended_items(estim_param->lfactors->items_number);
 
 	assert (model.learning_algorithm && model.rating_estimator);
 
-	for (j = 0; j < tset->items_number; j++)
+	for (j = 0; j < estim_param->tset->items_number; j++)
 	{
-		insert_recommended_item(j, (float) model.rating_estimator(user_index, j, lfactors), r_items);
+		insert_recommended_item(j, (float) model.rating_estimator(estim_param), r_items);
 	}
 
 	j = 0;

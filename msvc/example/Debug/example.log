@@ -1,8 +1,6 @@
-﻿Build started 3/11/2013 2:24:04 PM.
-     1>Project "C:\Users\abr\Recommender\Recommender\msvc\example\example.vcxproj" on node 3 (rebuild target(s)).
-     1>_PrepareForClean:
-         Deleting file "Debug\Serialization.lastbuildstate".
-       InitializeBuildStatus:
+﻿Build started 4/1/2013 10:45:40 AM.
+     1>Project "C:\Users\abr\Recommender\Recommender\msvc\example\example.vcxproj" on node 3 (build target(s)).
+     1>InitializeBuildStatus:
          Creating "Debug\Serialization.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\src /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /Zp1 /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\tools\serialization\serialize_factors.c ..\..\tools\serialization\serialize_sparse_matrix.c ..\..\tools\serialization\serialize_training_set.c
@@ -21,8 +19,8 @@
        FinalizeBuildStatus:
          Deleting file "Debug\Serialization.unsuccessfulbuild".
          Touching "Debug\Serialization.lastbuildstate".
-     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\example\example.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\abr\Recommender\Recommender\msvc\example\example.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.39
+Time Elapsed 00:00:01.62

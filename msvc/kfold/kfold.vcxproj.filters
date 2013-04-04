@@ -21,6 +21,9 @@
     <ClCompile Include="..\..\tools\kfold\find_minimum_tsearch.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\tools\kfold\k_fold_parameters.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\tools\kfold\k_fold_rmse.c">
       <Filter>Source Files</Filter>
     </ClCompile>
