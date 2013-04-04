@@ -39,32 +39,30 @@
 #include <memory.h>
 #include <math.h>
 #include <assert.h>
-
+#include "utils.h"
 struct learned_factors* 
 init_learned_factors(struct model_parameters params)
 {
 	struct learned_factors* lfactors = 
 		malloc(sizeof(struct learned_factors));
 
-	size_t i = 0;
-	size_t j = 0;
-
 	if (!lfactors)
 		return NULL;
 
-	lfactors->item_factor_vectors =
-	       	malloc(sizeof(double*) * params.items_number);
-
-	lfactors->user_factor_vectors =
-	       	malloc(sizeof(double*) * params.users_number);
-
-	lfactors->item_bias =
-	       	malloc(sizeof(double) * params.items_number);
-
-	lfactors->user_bias =
-	       	malloc(sizeof(double) * params.users_number);
 
 	lfactors->ratings_average = 0;
+
+
+
+	lfactors->item_factor_vectors=generate_random_matrix(params.items_number,params.dimensionality,params.seed);
+	lfactors->y=generate_random_matrix(params.items_number,params.dimensionality,params.seed);
+	lfactors->x=generate_random_matrix(params.items_number,params.items_number,params.seed);
+	lfactors->user_factor_vectors=generate_random_matrix(params.users_number,params.dimensionality,params.seed);
+	lfactors->user_bias=malloc(sizeof(double)*params.users_number);
+	lfactors->item_bias=malloc(sizeof(double)*params.items_number);
+	memset(lfactors->user_bias,0.0,params.users_number*sizeof(double));
+	memset(lfactors->item_bias,0.0,params.items_number*sizeof(double));
+
 
 	if (!lfactors->item_factor_vectors ||
 		!lfactors->user_factor_vectors ||
@@ -72,38 +70,6 @@ init_learned_factors(struct model_parameters params)
 		!lfactors->user_bias)
 	{
 		return lfactors;
-	}
-
-	for (i = 0; i < params.items_number; i++)
-	{
-		lfactors->item_factor_vectors[i] =  
-			malloc(sizeof(double) * params.dimensionality);
-		
-		if (lfactors->item_factor_vectors[i])
-		{
-			for (j = 0; j < params.dimensionality; j++)
-			{
-				lfactors->item_factor_vectors[i][j] = 0.1;
-			}
-		}
-
-		lfactors->item_bias[i] = 0.0;
-	}
-
-	for (i = 0; i < params.users_number; i++)
-	{
-		lfactors->user_factor_vectors[i] =  
-			malloc(sizeof(double) * params.dimensionality);
-
-		if (lfactors->user_factor_vectors[i])
-		{
-			for (j = 0; j < params.dimensionality; j++)
-			{
-				lfactors->user_factor_vectors[i][j] = 0.1;
-			}
-		}
-
-		lfactors->user_bias[i] = 0.0;
 	}
 
 	return lfactors;
@@ -121,18 +87,28 @@ free_learned_factors(learned_factors_t* lfactors)
 		return;
 
 	for (i = 0; i < lfactors->items_number; i++)
+	{
 		free(lfactors->item_factor_vectors[i]);
+		free(lfactors->x[i]);
+		free(lfactors->y[i]);
 
+	}
 	free(lfactors->item_factor_vectors);
+	free(lfactors->x);
+	free(lfactors->y);
 
 	for (i = 0; i < lfactors->users_number; i++)
+	{
 		free(lfactors->user_factor_vectors[i]);
-
+		if(lfactors->R != NULL)
+			free(lfactors->R[i].ratings_order);
+	}
 	free(lfactors->user_factor_vectors);
 
 	free(lfactors->item_bias);
 	free(lfactors->user_bias);
+	free(lfactors->R);
+	free(lfactors->R_K);
 
 	free(lfactors);
 }
-

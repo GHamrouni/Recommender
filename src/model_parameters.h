@@ -44,6 +44,10 @@ struct model_parameters
 
 	float			step_bias;
 	float			lambda_bias;
+
+	int 			seed;
+	int 			bin_width;
+	int 			proj_family_size;
 };
 
 typedef struct model_parameters model_parameters_t;

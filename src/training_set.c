@@ -62,7 +62,7 @@ init_training_set(struct model_parameters params)
 
 	tset->users_number = params.users_number;
 	tset->items_number = params.items_number;
-         
+     
 	return tset;
 }
 

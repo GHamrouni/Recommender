@@ -183,8 +183,11 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params)
  *                                some learned factors.
  */
 double
-estimate_rating_basic_mf(size_t user_index, size_t item_index, learned_factors_t* lfactors)
+estimate_rating_basic_mf(rating_estimator_parameters_t* estim_param)
 {
+	learned_factors_t* lfactors = estim_param->lfactors;
+	size_t item_index = estim_param->item_index;
+	size_t user_index = estim_param->user_index;
 	assert(item_index < lfactors->items_number);
 	assert(user_index < lfactors->users_number);
 

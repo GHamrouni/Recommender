@@ -30,8 +30,10 @@ free_projection_family(projection_family_t* pfamily)
 {
 	size_t i;
 	for (i = 0; i < pfamily->projection_nb; i++)
+	{
+		free(pfamily->projections[i]->vector);
 		free(pfamily->projections[i]);
-
+	}
 	free(pfamily);
 }
 

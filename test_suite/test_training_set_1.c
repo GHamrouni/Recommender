@@ -11,18 +11,18 @@
 #include <stddef.h>
 
 #include "test_training_set_1.h"
+#include "../src/nearest_neighbors.h"
+#define USER_NUMBER_TEST_SIZE		4
 
-#define USER_NUMBER_TEST_SIZE		40
+#define ITEM_NUMBER_TEST_SIZE		4
 
-#define ITEM_NUMBER_TEST_SIZE		40
-
-#define TRAINING_SET_TEST_SIZE		(40 * 40)
+#define TRAINING_SET_TEST_SIZE		(4 * 4)
 
 int test_training_set_1(void)
 {
 	training_set_t* tset;
 	size_t u,  i, k;
-
+	double * a;
 	/* Model configuration */
 	/* Setup model parameters */
 	model_parameters_t params = { 0 };
@@ -42,12 +42,18 @@ int test_training_set_1(void)
 	{
 		for (i = 0; i < tset->items_number; i++)
 		{
-			set_known_rating(u, i, (float) (rand() % 10), tset);
+			int x=(rand() % 10);
+			set_known_rating(u, i, (float) x, tset);
+			printf("%d ",x);
 		}
+		printf("\n");
 	}
+	
 
 	compile_training_set(tset);
-
+	//a = get_row(1, tset->ratings_matrix);
+	get_number_in_row(0, tset->ratings_matrix);
+	get_number_in_column(0, tset->ratings_matrix);
 	for (i = 0; i < TRAINING_SET_TEST_SIZE; i++)
 	{
 		float val;
