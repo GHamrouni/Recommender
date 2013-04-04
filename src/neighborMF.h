@@ -33,7 +33,7 @@ learn_mf_neighbor(struct training_set* tset, struct model_parameters params);
  *		params				Parameters of the model
  */
 void
-update_learned_factors_mf_neighbor(learned_factors_t* lfactors, training_set_t* tset, model_parameters_t params);
+update_learned_factors_mf_neighbor(training_set_t* tset, model_parameters_t params);
 
 
 

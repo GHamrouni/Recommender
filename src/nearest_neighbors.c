@@ -5,7 +5,7 @@
 double ** 
 	calculate_simularities_matrix (training_set_t* tset)
 {
-	int i, j, k;
+	size_t i, j, k;
 	double ** simularities_matrix = (double**) malloc (tset->items_number * sizeof (double*) );
 	double *item_i_ratings, *item_j_ratings;
 	item_i_ratings = malloc (tset->users_number * sizeof (double) );
@@ -41,7 +41,7 @@ double **
 double 
 	estimate_rating(double** simularities_matrix,training_set_t* tset,size_t user,size_t item)
 {	
-	int i;
+	size_t  i;
 	float rating;
 	double sum_numerator=0;
 	double sum_denum=0;
