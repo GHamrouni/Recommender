@@ -16,7 +16,7 @@
 
 
 static void
-calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
+calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactors)
 {
 	lfactors->ratings_average = (float) tset->ratings_sum / ( (float) tset->training_set_size);
 }
@@ -170,7 +170,7 @@ learn_mf_neighbor (struct training_set* tset, struct model_parameters params)
 	lfactors->dimensionality = params.dimensionality;
 	lfactors->items_number = params.items_number;
 	lfactors->users_number = params.users_number;
-	calculate_average_ratings (tset, lfactors, params);
+	calculate_average_ratings (tset, lfactors);
 	lfactors->R = init_items_rated_by_user (tset);
 	lfactors->R_K = get_nearest_neighbors (tset, params.bin_width, params.proj_family_size, params.seed);
 	for (k = 0; k < params.iteration_number; k++)
