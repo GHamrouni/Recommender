@@ -117,7 +117,7 @@ estimate_rating_mf_neighbor (rating_estimator_parameters_t* estim_param)
 	return term2 + bias + sum;
 }
 
-void update_factors_mf_neighbor (size_t u, size_t i, double e_iu,learned_factors_t* lfactors,training_set_t * tset,struct model_parameters params)
+void update_factors_mf_neighbor (size_t u, size_t i, double e_iu,learned_factors_t* lfactors,training_set_t * tset)
 {
 	size_t dim, ri, ii,number;
 	double sumy;
