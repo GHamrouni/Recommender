@@ -152,7 +152,7 @@ update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training
 	{
 		double max_error = 0;
 
-		for (r = 0; r < params.training_set_size; r++)
+		for (r = 0; r < tset->training_set_size; r++)
 		{
 			r_iu = tset->ratings->entries[r].value;
 
@@ -272,3 +272,76 @@ estimate_rating_mf_bias(rating_estimator_parameters_t* estim_param)
 	return sum + bias;
 }
 
+
+
+void update_learning_with_rating(size_t user_index,size_t item_index,double rating,learned_factors_t* lfactors,
+		const model_parameters_t* params)
+{
+	size_t k;
+
+	double e_iu = 0;
+	double step = params->step;
+
+	k =0;
+
+	for (k = 0; k < params->iteration_number; k++)
+	{
+		double max_error = 0;
+
+			e_iu = estimate_error_mf_bias(rating, user_index, item_index, lfactors);
+			assert (is_valid(e_iu));
+
+			max_error = fmax(max_error, fabs(e_iu));
+
+			compute_factors_bias(user_index, item_index, lfactors, e_iu, params);
+
+		
+
+		if (max_error < step)
+			break;
+	}
+
+	
+}
+
+void update_learning_with_training_set(training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,
+		const model_parameters_t* params)
+{
+			size_t r, k, i, u;
+
+	double r_iu = 0;
+	double ratings_sum = old_tset->ratings_sum;
+	double e_iu = 0;
+	double step = params->step;
+	
+
+	add_training_set(old_tset,new_tset);
+//	compile_training_set(old_tset);
+	//lfactors->ratings_average = ratings_sum /(old_tset->training_set_size + new_tset->training_set_size);
+	calculate_average_ratings(old_tset,lfactors,*params);
+	r = k = u = i = 0;
+
+	for (k = 0; k < params->iteration_number; k++)
+	{
+		double max_error = 0;
+
+		for (r = 0; r < new_tset->training_set_size; r++)
+		{
+			r_iu = new_tset->ratings->entries[r].value;
+
+			i = new_tset->ratings->entries[r].row_i;
+			u = new_tset->ratings->entries[r].column_j;
+
+			e_iu = estimate_error_mf_bias(r_iu, u, i, lfactors);
+			assert (is_valid(e_iu));
+
+			max_error = fmax(max_error, fabs(e_iu));
+
+			compute_factors_bias(u, i, lfactors, e_iu, params);
+
+		}
+
+		if (max_error < step)
+			break;
+	}
+}

@@ -100,15 +100,23 @@ free_learned_factors(learned_factors_t* lfactors)
 	for (i = 0; i < lfactors->users_number; i++)
 	{
 		free(lfactors->user_factor_vectors[i]);
-		if(lfactors->R != NULL)
-			free(lfactors->R[i].ratings_order);
 	}
 	free(lfactors->user_factor_vectors);
 
 	free(lfactors->item_bias);
 	free(lfactors->user_bias);
+	if((lfactors->R != 0)&&(lfactors->R != 0xcdcdcdcd))
+	{
+		for(i=0; i< lfactors->users_number;i++)
+		{
+		free(lfactors->R[i].ratings_order);
+		}
 	free(lfactors->R);
+	for(i=0; i< lfactors->items_number;i++)
+		{
+			free(lfactors->R_K[i].ratings_order);
+		}
 	free(lfactors->R_K);
-
+	}
 	free(lfactors);
 }

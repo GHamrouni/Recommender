@@ -86,5 +86,8 @@ estimate_rating_mf_bias(rating_estimator_parameters_t* estim_param);
 double
 estimate_error_mf_bias(double r_iu, size_t user_index, size_t item_index, learned_factors_t* lfactors);
 
+void update_learning_with_training_set(training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,
+		const model_parameters_t* params);
+
 #endif /* MATRIX_FACTORIZATION_WITH_BIAS_H */
 

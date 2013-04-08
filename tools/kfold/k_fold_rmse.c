@@ -13,6 +13,7 @@
 #include"sparse_matrix_hash.h"
 #include "items_rated_by_user.h"
 #include "rating_estimator.h"
+#define ABS(a) ((a)<0 ? -(a) : (a))
 double RMSE_mean (k_fold_parameters_t k_fold_params)
 {
 	double RMSE_sum;
@@ -20,15 +21,16 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 	learned_factors_t *learned;
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
-
+	training_set_t* second_tset = NULL;
 
 	k_fold_params.model.parameters = k_fold_params.params;
 	RMSE_sum = 0;
 	for (index = 0; index < k_fold_params.K; index++)
 	{
-		extract_data (k_fold_params, &tset, &validation_set, index);
+		extract_data_2_tset (k_fold_params, &tset, &validation_set,&second_tset, index);
 		compile_training_set (tset);
 		learned = learn (tset, k_fold_params.model);
+		update_learning_with_training_set(tset,second_tset,learned,&k_fold_params.model.parameters);
 		RMSE_sum += RMSE (learned,validation_set,k_fold_params,tset);
 		
 		free_learned_factors(learned);
@@ -46,8 +48,11 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 {
 	unsigned int i;
 	double sum = 0;
+	double mae = 0;
+	double a;
 	size_t s;
 	size_t u;
+	int n=0;
 	rating_estimator_parameters_t* estim_param=malloc(sizeof(rating_estimator_parameters_t));
 	estim_param->lfactors=learned;
 	estim_param->tset=tset;
@@ -57,8 +62,15 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 		u = _validation_set->ratings->entries[s].column_j;
 		estim_param->item_index = i;
 		estim_param->user_index = u;
+		a = estimate_rating_from_factors (estim_param,_k_fold_params.model);
 		sum += pow (_validation_set->ratings->entries[s].value -
-		            estimate_rating_from_factors (estim_param,_k_fold_params.model) , 2) / (_k_fold_params.ratings_number / _k_fold_params.K);
+			a , 2) / ((double)_validation_set->training_set_size);
+		mae += ABS(a-_validation_set->ratings->entries[s].value);
+		if(abs(a-_validation_set->ratings->entries[s].value)>2)
+		{
+			RLog("");
+			n++;
+		}
 	}
 	RLog ("RMSE = %f \n", sqrtf (sum) );
 	free(estim_param);
