@@ -63,4 +63,8 @@ estimate_error_mf_neighbor (double r_iu, rating_estimator_parameters_t* estim_pa
  */
 double
 	estimate_rating_mf_neighbor (rating_estimator_parameters_t* estim_param);
+void update_learning_with_training_set_neighborMF(training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,
+		const model_parameters_t* params);
+
 #endif 
+

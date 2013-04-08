@@ -30,7 +30,7 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 		extract_data_2_tset (k_fold_params, &tset, &validation_set,&second_tset, index);
 		compile_training_set (tset);
 		learned = learn (tset, k_fold_params.model);
-		update_learning_with_training_set(tset,second_tset,learned,&k_fold_params.model.parameters);
+		update_learning_with_training_set_neighborMF(tset,second_tset,learned,&k_fold_params.model.parameters);
 		RMSE_sum += RMSE (learned,validation_set,k_fold_params,tset);
 		
 		free_learned_factors(learned);
