@@ -17,4 +17,7 @@
 int extract_data(struct k_fold_parameters _k_fold_params, training_set_t** _t_set,training_set_t ** _validation_set,
 	int index);
 
+int extract_data_2_tset (struct k_fold_parameters _k_fold_params, training_set_t** _t_set, 
+	training_set_t ** _validation_set, training_set_t ** new_tset, int index);
+
 #endif

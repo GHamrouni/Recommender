@@ -101,3 +101,14 @@ recommended_items_t*
 
 	return r_items;
 }
+
+
+
+void
+update_learning(training_set_t * old_tset, training_set_t* new_tset, learned_factors_t* lfactors,
+		struct learning_model model)
+{
+	assert (model.update_algorithm);
+
+	model.update_algorithm(old_tset, new_tset, lfactors,model.parameters);
+}

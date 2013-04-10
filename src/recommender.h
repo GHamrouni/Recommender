@@ -49,6 +49,7 @@ struct learning_model
 	learning_algorithm_t	learning_algorithm;
 	rating_estimator_t		rating_estimator;
 	model_parameters_t		parameters;
+	update_learning_t		update_algorithm;
 };
 
 typedef struct learning_model learning_model_t;
@@ -105,5 +106,8 @@ double
 recommended_items_t*
 	recommend_items(rating_estimator_parameters_t* estim_param,
 		learning_model_t model);
+
+void update_learning(training_set_t * old_tset, training_set_t* new_tset, learned_factors_t* lfactors,
+		struct learning_model model);
 
 #endif /* RECOMMANDER_H */

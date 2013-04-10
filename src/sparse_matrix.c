@@ -465,3 +465,23 @@ get_number_in_column(size_t column_j, sparse_matrix_t* matrix)
 
 	return nb;
 }
+
+
+void insert_coo_to_coo (coo_matrix_t* input_matrix, coo_matrix_t* c_matrix)
+{
+	size_t i;
+	coo_entry_t* new_values = NULL;
+
+	new_values = realloc(input_matrix->entries, sizeof(coo_entry_t)*(input_matrix->size + c_matrix->size));
+	if (new_values)
+	{
+		input_matrix->entries = new_values;
+		for(i = 0 ; i < c_matrix->size;i++)
+		{
+			input_matrix->entries[i + input_matrix->size].value=c_matrix->entries[i].value;
+			input_matrix->entries[i + input_matrix->size].row_i=c_matrix->entries[i].row_i;
+			input_matrix->entries[i + input_matrix->size].column_j=c_matrix->entries[i].column_j;
+		}
+		input_matrix->size = input_matrix->size + c_matrix->size;
+	}
+}

@@ -159,4 +159,5 @@ void
 add_item(training_set_t* tset);
 
 
+void add_training_set(training_set_t * tset, training_set_t * new_tset);
 #endif /* TRAINING_SET_H */
