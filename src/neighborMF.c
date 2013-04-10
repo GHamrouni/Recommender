@@ -208,10 +208,7 @@ void update_learning_with_training_set_neighborMF(training_set_t * old_tset,trai
 	rating_estim->tset = old_tset;
 	rating_estim->lfactors = lfactors;
 	add_training_set(old_tset,new_tset);
-//	compile_training_set(old_tset);
-	//lfactors->ratings_average = ratings_sum /(old_tset->training_set_size + new_tset->training_set_size);
-	//calculate_average_ratings(old_tset,lfactors,*params);
-		lfactors->R = init_items_rated_by_user (old_tset);
+	lfactors->R = init_items_rated_by_user (old_tset);
 	lfactors->R_K = get_nearest_neighbors (old_tset, params->bin_width, params->proj_family_size, params->seed);
 	for (k = 0; k < params->iteration_number; k++)
 	{
@@ -219,16 +216,12 @@ void update_learning_with_training_set_neighborMF(training_set_t * old_tset,trai
 		for (r = 0; r < params->training_set_size; r++)
 		{
 			r_iu = old_tset->ratings->entries[r].value;
-
 			i = old_tset->ratings->entries[r].row_i;
 			u = old_tset->ratings->entries[r].column_j;
 			rating_estim->user_index = u;
 			rating_estim->item_index = i;
 			e_iu = estimate_error_mf_neighbor (r_iu, rating_estim);
-
 			update_factors_mf_neighbor(u,i,e_iu,lfactors,old_tset,*params);
-
 		}
-
 	}
 }

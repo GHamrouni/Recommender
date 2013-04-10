@@ -310,14 +310,11 @@ void update_learning_with_training_set(training_set_t * old_tset,training_set_t*
 			size_t r, k, i, u;
 
 	double r_iu = 0;
-	double ratings_sum = old_tset->ratings_sum;
 	double e_iu = 0;
 	double step = params->step;
 	
 
 	add_training_set(old_tset,new_tset);
-//	compile_training_set(old_tset);
-	//lfactors->ratings_average = ratings_sum /(old_tset->training_set_size + new_tset->training_set_size);
 	calculate_average_ratings(old_tset,lfactors,*params);
 	r = k = u = i = 0;
 
