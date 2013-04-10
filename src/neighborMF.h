@@ -63,8 +63,21 @@ estimate_error_mf_neighbor (double r_iu, rating_estimator_parameters_t* estim_pa
  */
 double
 	estimate_rating_mf_neighbor (rating_estimator_parameters_t* estim_param);
+
+
+/*
+ * update_learning :  incrementally update the learned factors with a new training set
+ *                               
+ *
+ * Arguments:
+ *      old_tset		: The old training set
+ *      new_tset		: The new training set
+ *      lfactors		: The factors that's going to be updated
+ *		params			: The model parameteres
+ *
+ */
 void update_learning_with_training_set_neighborMF(training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,
-		const model_parameters_t* params);
+		model_parameters_t params);
 
 #endif 
 

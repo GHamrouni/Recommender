@@ -156,13 +156,14 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		printf ("bias \n");
 		k_fold_params->model.learning_algorithm = learn_mf_bias;
 		k_fold_params->model.rating_estimator   = estimate_rating_mf_bias;
-
+		k_fold_params->model.update_algorithm = update_learning_with_training_set;
 	}
 	else if (strcmp (argv[14], "MFneighbors") == 0)
 	{
 		printf ("MFneighbors \n");
 		k_fold_params->model.learning_algorithm = learn_mf_neighbor;
 		k_fold_params->model.rating_estimator   = estimate_rating_mf_neighbor;
+		k_fold_params->model.update_algorithm = update_learning_with_training_set_neighborMF;
 
 	}
 	else

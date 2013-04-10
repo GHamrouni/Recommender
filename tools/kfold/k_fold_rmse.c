@@ -30,7 +30,7 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 		extract_data_2_tset (k_fold_params, &tset, &validation_set,&second_tset, index);
 		compile_training_set (tset);
 		learned = learn (tset, k_fold_params.model);
-		update_learning_with_training_set_neighborMF(tset,second_tset,learned,&k_fold_params.model.parameters);
+		update_learning (tset,second_tset,learned,k_fold_params.model);
 		RMSE_sum += RMSE (learned,validation_set,k_fold_params,tset);
 		
 		free_learned_factors(learned);
@@ -48,7 +48,6 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 {
 	unsigned int i;
 	double sum = 0;
-	double mae = 0;
 	double a;
 	size_t s;
 	size_t u;
@@ -65,12 +64,6 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 		a = estimate_rating_from_factors (estim_param,_k_fold_params.model);
 		sum += pow (_validation_set->ratings->entries[s].value -
 			a , 2) / ((double)_validation_set->training_set_size);
-		mae += ABS(a-_validation_set->ratings->entries[s].value);
-		if(abs(a-_validation_set->ratings->entries[s].value)>2)
-		{
-			RLog("");
-			n++;
-		}
 	}
 	RLog ("RMSE = %f \n", sqrtf (sum) );
 	free(estim_param);
