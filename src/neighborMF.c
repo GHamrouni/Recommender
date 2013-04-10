@@ -203,7 +203,6 @@ void update_learning_with_training_set_neighborMF(training_set_t * old_tset,trai
 
 	double r_iu = 0;
 	double e_iu = 0;
-	double step = params->step;
 	rating_estimator_parameters_t * rating_estim = malloc (sizeof (rating_estimator_parameters_t) );
 	rating_estim->tset = old_tset;
 	rating_estim->lfactors = lfactors;
