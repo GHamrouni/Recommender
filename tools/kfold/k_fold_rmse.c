@@ -51,7 +51,6 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 	double a;
 	size_t s;
 	size_t u;
-	int n=0;
 	rating_estimator_parameters_t* estim_param=malloc(sizeof(rating_estimator_parameters_t));
 	estim_param->lfactors=learned;
 	estim_param->tset=tset;
