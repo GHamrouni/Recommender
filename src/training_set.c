@@ -152,3 +152,19 @@ void add_rating (size_t user_index, size_t item_index, float _value, training_se
 	tset->training_set_size++;
 	tset->ratings_sum += _value;
 }
+
+
+void add_training_set(training_set_t * tset, training_set_t * new_tset)
+{
+	size_t r;
+	double ratings_sum = tset->ratings_sum;
+	insert_coo_to_coo(tset->ratings,new_tset->ratings);
+	tset->training_set_size += new_tset->training_set_size;
+	for (r = 0; r < new_tset->training_set_size; r++)
+	{
+		ratings_sum += new_tset->ratings->entries[r].value;
+	}
+	tset->ratings_sum = ratings_sum;
+	compile_training_set(tset);
+
+}
