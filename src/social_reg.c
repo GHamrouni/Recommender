@@ -1,36 +1,3 @@
-/*-
-* Copyright (c) 2012 Hamrouni Ghassen.
-* All rights reserved.
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions
-* are met:
-* 1. Redistributions of source code must retain the above copyright
-*    notice, this list of conditions and the following disclaimer.
-* 2. Redistributions in binary form must reproduce the above copyright
-*    notice, this list of conditions and the following disclaimer in the
-*    documentation and/or other materials provided with the distribution.
-*
-* THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
-* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-* ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
-* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-* SUCH DAMAGE.
-*/
-
-/*
- *
- * Recommender system using matrix factorization (MF)
- * Computing the product recommendation using latent factor models
- *
- */
-
 #include "matrix_factorization_bias.h"
 #include "utils.h"
 #include "training_set.h"
@@ -41,18 +8,17 @@
 #include <memory.h>
 #include <math.h>
 #include <assert.h>
-
 /************************************************************************/
 /*                          Learning algorithms                         */
 /************************************************************************/
 #define ABS(a) ((a)<0 ? -(a) : (a))
 
 static void
-compute_factors_bias (  size_t user_index,
-                        size_t item_index,
-                        learned_factors_t* lfactors,
-                        double predicted_error,
-                        const model_parameters_t* params)
+compute_factors_social (	size_t user_index,
+                            size_t item_index,
+                            learned_factors_t* lfactors,
+                            double predicted_error,
+                            const model_parameters_t* params)
 {
 	size_t i = 0;
 
@@ -65,10 +31,10 @@ compute_factors_bias (  size_t user_index,
 	user_factors = lfactors->user_factor_vectors[user_index];
 
 	lfactors->user_bias[user_index] = lfactors->user_bias[user_index] +
-	                                  params->step_bias * (predicted_error - params->lambda_bias *  lfactors->user_bias[user_index]);
+	                                  params->step_bias * (predicted_error - params->lambda_bias * lfactors->user_bias[user_index]);
 
 	lfactors->item_bias[item_index] = lfactors->item_bias[item_index] +
-	                                  params->step_bias * (predicted_error - params->step_bias *  lfactors->item_bias[item_index]);
+	                                  params->step_bias * (predicted_error - params->lambda_bias * lfactors->item_bias[item_index]);
 
 	assert (is_valid (lfactors->user_bias[user_index]) );
 	assert (is_valid (lfactors->item_bias[item_index]) );
@@ -94,24 +60,26 @@ calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactor
 	double average_rating = (double) tset->ratings_sum / ( (double) tset->training_set_size);
 	average_rating = (average_rating - 1) / 4.0;
 	lfactors->ratings_average = log ( (double) average_rating / (1 - average_rating) );
+
 }
 
 /*
  * Update the learned factors
  */
 void
-update_learned_factors_mf_bias (struct learned_factors* lfactors, struct training_set* tset, struct model_parameters params)
+update_learned_factors_social (struct learned_factors* lfactors, struct training_set* tset, sparse_matrix_t* social_matrix, struct model_parameters params)
 {
-	size_t r, k, i, u;
+	size_t r, k, i, u, n;
 
 	double r_iu = 0;
 
 	double e_iu = 0;
 	double prediction;
 	double sig_score;
-	double loss		= 999999;
-	double curr_loss = 0;
 	double score;
+	double *sum = malloc (sizeof (double) * params.dimensionality);
+	double* user_bias_copy;
+	double** user_factors_copy;
 	lfactors->dimensionality = params.dimensionality;
 	lfactors->items_number = params.items_number;
 	lfactors->users_number = params.users_number;
@@ -120,13 +88,15 @@ update_learned_factors_mf_bias (struct learned_factors* lfactors, struct trainin
 
 	for (k = 0; k < params.iteration_number; k++)
 	{
-		if (curr_loss < loss)
+		user_bias_copy = malloc (sizeof (double) * params.users_number);
+		user_factors_copy = malloc (sizeof (double*) *params.users_number);
+		memcpy (user_bias_copy, lfactors->user_bias, sizeof (double) *params.users_number);
+		for (r = 0; r < params.users_number; r++)
 		{
-			params.step *= 1.0;
-			params.step_bias *= 1.0;
-			loss = curr_loss;
+			user_factors_copy[r] = malloc (sizeof (double) * params.dimensionality);
+			memcpy (user_factors_copy[r], lfactors->user_factor_vectors[r], params.dimensionality * sizeof (double) );
 		}
-		curr_loss = 0;
+		
 		for (r = 0; r < tset->training_set_size; r++)
 		{
 			r_iu = tset->ratings->entries[r].value;
@@ -140,20 +110,67 @@ update_learned_factors_mf_bias (struct learned_factors* lfactors, struct trainin
 			prediction = 1 + sig_score * 4;
 
 			e_iu = r_iu - prediction;
-			curr_loss += pow (e_iu, 2);
 			if (e_iu)
 			{
-				compute_factors_bias (u, i, lfactors, e_iu * sig_score * (1 - sig_score) * 4 , &params);
+				compute_factors_social (u, i, lfactors, e_iu , &params);
 			}
+
+		}
+
+		for (u = 0; u < params.users_number; u++)
+		{
+			coo_matrix_t* user_relations = get_row_in_coo (social_matrix, u);
+
+			size_t v;
+			double bias_diff = 0;
+			memset (sum, 0, params.dimensionality * sizeof (double) );
+
+			for (v = 0 ; v < user_relations->current_size; v++)
+			{
+				for (r = 0; r < params.dimensionality; r++)
+				{
+					sum[r] += ( user_factors_copy[user_relations->entries[v].column_j][r] / user_relations->current_size);
+				}
+				bias_diff += user_bias_copy[user_relations->entries[v].column_j] / user_relations->current_size;
+			}
+
+
+			if (user_relations->current_size)
+				for (r = 0; r < params.dimensionality; r++)
+				{
+					lfactors->user_factor_vectors[u][r] +=  params.step * (user_factors_copy[u][r] - sum[r]);
+				}
+			lfactors->user_bias[u] += params.step_bias * (user_bias_copy[u] - bias_diff);
+
+			for (v = 0 ; v < user_relations->current_size; v++)
+			{
+				for (r = 0; r < params.dimensionality; r++)
+				{
+					lfactors->user_factor_vectors[user_relations->entries[v].column_j][r] -=
+					    params.step * (sum[r]);
+				}
+				lfactors->user_bias[user_relations->entries[v].column_j] -= params.step_bias * (bias_diff);
+			}
+			free_coo_matrix (user_relations);
 		}
 	}
+
+	free (user_bias_copy);
+	for (n = 0; n < params.users_number; n++)
+	{
+		free (user_factors_copy[n]);
+	}
+	free (user_factors_copy);
+
+
+	free (sum);
 }
 
 /*
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn_mf_bias (struct training_set* tset, struct model_parameters params)
+learn_social (struct training_set* tset, struct model_parameters params, sparse_matrix_t* social_matrix)
 {
 	struct learned_factors* lfactors = init_learned_factors (params);
 
@@ -174,7 +191,7 @@ learn_mf_bias (struct training_set* tset, struct model_parameters params)
 		tset->ratings_matrix = NULL;
 	}
 
-	update_learned_factors_mf_bias (lfactors, tset, params);
+	update_learned_factors_social (lfactors, tset, social_matrix, params);
 
 	return lfactors;
 }
@@ -185,7 +202,7 @@ learn_mf_bias (struct training_set* tset, struct model_parameters params)
  *                                some learned factors.
  */
 double
-estimate_rating_mf_bias (rating_estimator_parameters_t* estim_param)
+estimate_rating_social (rating_estimator_parameters_t* estim_param)
 {
 	learned_factors_t* lfactors = estim_param->lfactors;
 	size_t item_index = estim_param->item_index;
@@ -218,42 +235,4 @@ estimate_rating_mf_bias (rating_estimator_parameters_t* estim_param)
 		sum += user_factors[i] * item_factors[i] ;
 	}
 	return 1 + (1 / (1 + exp (-sum - bias) ) ) * 4;
-}
-
-void update_learning_with_training_set (training_set_t * old_tset, training_set_t* new_tset, learned_factors_t* lfactors,
-                                        model_parameters_t params)
-{
-	size_t r, k, i, u;
-
-	double r_iu = 0;
-	double e_iu = 0;
-	double step = params.step;
-	double score,sig_score, prediction,curr_loss;
-
-	add_training_set (old_tset, new_tset);
-	calculate_average_ratings (old_tset, lfactors, params);
-	r = k = u = i = 0;
-
-	for (k = 0; k < params.iteration_number; k++)
-	{
-		for (r = 0; r < new_tset->training_set_size; r++)
-		{
-			r_iu = new_tset->ratings->entries[r].value;
-
-			i = new_tset->ratings->entries[r].row_i;
-			u = new_tset->ratings->entries[r].column_j;
-
-			score = lfactors->ratings_average + lfactors->user_bias[u] + lfactors->item_bias[i] +
-			        dot_product (lfactors->user_factor_vectors[u], lfactors->item_factor_vectors[i], lfactors->dimensionality);
-			sig_score = 1 / (1 + exp (-score) );
-			prediction = 1 + sig_score * 4;
-
-			e_iu = r_iu - prediction;
-			curr_loss += pow (e_iu, 2);
-			if (e_iu)
-			{
-				compute_factors_bias (u, i, lfactors, e_iu * sig_score * (1 - sig_score) * 4 , &params);
-			}
-		}
-	}
 }

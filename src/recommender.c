@@ -52,7 +52,7 @@ learn(struct training_set* tset, struct learning_model model)
 	assert (model.learning_algorithm && model.rating_estimator);
 	assert(tset->ratings_matrix);
 
-	return model.learning_algorithm(tset, model.parameters);
+	return model.learning_algorithm(tset, model.parameters,model.social_matrix);
 }
 
 /*

@@ -115,6 +115,10 @@ init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb)
 		{
 			if (c_matrix->entries[i].row_i < row_nb + 1)
 			{
+				if(c_matrix->entries[i].row_i==1)
+				{
+					RLog("");
+				}
 				if (matrix->row_index)
 					matrix->row_index[c_matrix->entries[i].row_i] = i + 1;
 
@@ -423,7 +427,7 @@ get_row(size_t row_i, sparse_matrix_t* matrix)
 	size_t r1, r2; /* Range */
 	double * vector=malloc(matrix->column_nb*sizeof(double));
 	assert(row_i < matrix->row_nb);
-	memset(vector,0,matrix->column_nb);
+	memset(vector,0,matrix->column_nb*sizeof(double));
 	if (!matrix->row_index[row_i]) return 0;
 
 	r1 = matrix->row_index[row_i] - 1;
@@ -450,6 +454,7 @@ get_number_in_row(size_t row_i, sparse_matrix_t* matrix)
 
 	return r2-r1;
 }
+
 
 int 
 get_number_in_column(size_t column_j, sparse_matrix_t* matrix)
@@ -484,4 +489,40 @@ void insert_coo_to_coo (coo_matrix_t* input_matrix, coo_matrix_t* c_matrix)
 		}
 		input_matrix->size = input_matrix->size + c_matrix->size;
 	}
+}
+
+
+
+int coo_element_exist(size_t row_i,size_t column_j,coo_matrix_t* c_matrix)
+{
+	int i=0;
+	if(c_matrix->current_size == 0)
+	{
+		return 0;
+	}
+	while ((i<c_matrix->current_size-1)&&((c_matrix->entries[i].column_j != column_j)||(c_matrix->entries[i].row_i!=row_i)))
+	{
+		i++;
+	}
+	
+	return (c_matrix->entries[i].column_j == column_j)&&(c_matrix->entries[i].row_i == row_i);
+}
+
+
+coo_matrix_t* get_row_in_coo(sparse_matrix_t* sparse_matrix,size_t row_i)
+{
+	size_t i = 0;
+	size_t r1,r2;
+	coo_matrix_t* coo=init_coo_matrix(sparse_matrix->column_nb);
+	assert(row_i < sparse_matrix->row_nb);
+
+	if (!sparse_matrix->row_index[row_i]) return 0;
+
+	r1 = sparse_matrix->row_index[row_i] - 1;
+	r2 = sparse_matrix->row_index[row_i + 1] - 1;
+
+	for (i = r1; i < r2; i++)
+		insert_coo_matrix(sparse_matrix->values[i],row_i,sparse_matrix->column_index[i],coo);
+
+	return coo;
 }

@@ -51,14 +51,15 @@ init_learned_factors (struct model_parameters params)
 		return NULL;
 	}
 
-
+	lfactors->x=NULL;
+	lfactors->y = NULL;
 	lfactors->ratings_average = 0;
 
 
 
 	lfactors->item_factor_vectors = generate_random_matrix (params.items_number, params.dimensionality, params.seed);
-	lfactors->y = generate_random_matrix (params.items_number, params.dimensionality, params.seed);
-	lfactors->x = generate_random_matrix (params.items_number, params.items_number, params.seed);
+	//lfactors->y = generate_random_matrix (params.items_number, params.dimensionality, params.seed);
+	//lfactors->x = generate_random_matrix (params.items_number, params.items_number, params.seed);
 	lfactors->user_factor_vectors = generate_random_matrix (params.users_number, params.dimensionality, params.seed);
 	lfactors->user_bias = malloc (sizeof (double) *params.users_number);
 	lfactors->item_bias = malloc (sizeof (double) *params.items_number);
@@ -94,13 +95,17 @@ free_learned_factors (learned_factors_t* lfactors)
 	for (i = 0; i < lfactors->items_number; i++)
 	{
 		free (lfactors->item_factor_vectors[i]);
-		free (lfactors->x[i]);
-		free (lfactors->y[i]);
+		if(lfactors->x)
+			free (lfactors->x[i]);
+		if(lfactors->y)
+			free (lfactors->y[i]);
 
 	}
 	free (lfactors->item_factor_vectors);
-	free (lfactors->x);
-	free (lfactors->y);
+	if(lfactors->x)
+		free (lfactors->x);
+	if(lfactors->y)
+		free (lfactors->y);
 
 	for (i = 0; i < lfactors->users_number; i++)
 	{

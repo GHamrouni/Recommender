@@ -31,3 +31,5 @@ msvc/kfold/Debug
 *.test
 msvc/example
 *.so
+*.txt
+*.index

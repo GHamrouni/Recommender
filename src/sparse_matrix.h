@@ -139,5 +139,9 @@ int
 get_number_in_column(size_t column_j, sparse_matrix_t* matrix);
 
 void insert_coo_to_coo (coo_matrix_t* input_matrix, coo_matrix_t* c_matrix);
+
+int coo_element_exist(size_t row_i,size_t column_j,coo_matrix_t* c_matrix);
+
+coo_matrix_t* get_row_in_coo(sparse_matrix_t* sparse_matrix,size_t row_i);
 #endif /* SPARSE_MATRIX_H */
 

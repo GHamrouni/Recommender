@@ -15,7 +15,8 @@ struct k_fold_parameters
 	char* file_path;
 	model_parameters_t params;
 	learning_model_t model;
-	
+	char* social_relations_file_path;
+	size_t social_relations_number;
 };
 typedef struct k_fold_parameters k_fold_parameters_t;
 

@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\binary_heap.c" />
+    <ClCompile Include="..\..\src\box_muller.c" />
     <ClCompile Include="..\..\src\float_tester.c" />
     <ClCompile Include="..\..\src\items_rated_by_user.c" />
     <ClCompile Include="..\..\src\learned_factors.c" />
@@ -36,6 +37,7 @@
     <ClCompile Include="..\..\src\recommender.c" />
     <ClCompile Include="..\..\src\red_black_tree.c" />
     <ClCompile Include="..\..\src\rlog.c" />
+    <ClCompile Include="..\..\src\social_reg.c" />
     <ClCompile Include="..\..\src\sparse_matrix.c" />
     <ClCompile Include="..\..\src\sparse_matrix_hash.c" />
     <ClCompile Include="..\..\src\standard_normal.c" />
@@ -44,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\binary_heap.h" />
+    <ClInclude Include="..\..\src\box_muller.h" />
     <ClInclude Include="..\..\src\float_tester.h" />
     <ClInclude Include="..\..\src\items_rated_by_user.h" />
     <ClInclude Include="..\..\src\learned_factors.h" />
@@ -60,6 +63,7 @@
     <ClInclude Include="..\..\src\recommender.h" />
     <ClInclude Include="..\..\src\red_black_tree.h" />
     <ClInclude Include="..\..\src\rlog.h" />
+    <ClInclude Include="..\..\src\social_reg.h" />
     <ClInclude Include="..\..\src\sparse_matrix.h" />
     <ClInclude Include="..\..\src\sparse_matrix_hash.h" />
     <ClInclude Include="..\..\src\standard_normal.h" />

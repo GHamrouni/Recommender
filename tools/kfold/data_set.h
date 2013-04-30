@@ -20,4 +20,7 @@ int extract_data(struct k_fold_parameters _k_fold_params, training_set_t** _t_se
 int extract_data_2_tset (struct k_fold_parameters _k_fold_params, training_set_t** _t_set, 
 	training_set_t ** _validation_set, training_set_t ** new_tset, int index);
 
+
+int extract_social_realtions (char* file_path, sparse_matrix_t** social_matrix,size_t users_number,size_t realtions_number);
+
 #endif

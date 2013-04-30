@@ -17,7 +17,7 @@
 #include "find_minimum_tsearch.h"
 #include "data_set.h"
 #include "neighborMF.h"
-
+#include "social_reg.h"
 
 #if WIN32
 #pragma warning(disable: 4996)
@@ -29,7 +29,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 
 	size_t file_path_length = 0;
 	int bin_width_ratio;
-	if (argc != 15)
+	if (argc < 15)
 	{
 		printf ("Incorrect arguments \n");
 		printf ("usage: kfold 100000 2 943 1682 u.data 30 30 0.055 0.0095 0.02 0.001 basic \n kfold -h for help \n");
@@ -82,7 +82,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 
 	k_fold_params->file_path = (char*) malloc (file_path_length);
 	strcpy (k_fold_params->file_path, argv[5]);
-	k_fold_params->params.training_set_size = (size_t) (k_fold_params->ratings_number * ( (k_fold_params->K - 1) / k_fold_params->K) );
+	k_fold_params->params.training_set_size = k_fold_params->ratings_number;
 
 
 	if (strcmp (argv[6], "x") == 0)
@@ -150,6 +150,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		printf ("basic \n");
 		k_fold_params->model.learning_algorithm  = learn_basic_mf;
 		k_fold_params->model.rating_estimator = estimate_rating_basic_mf;
+		k_fold_params->model.is_social = 0;
 	}
 	else if (strcmp (argv[14], "bias") == 0)
 	{
@@ -157,6 +158,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		k_fold_params->model.learning_algorithm = learn_mf_bias;
 		k_fold_params->model.rating_estimator   = estimate_rating_mf_bias;
 		k_fold_params->model.update_algorithm = update_learning_with_training_set;
+		k_fold_params->model.is_social = 0;
 	}
 	else if (strcmp (argv[14], "MFneighbors") == 0)
 	{
@@ -164,7 +166,19 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		k_fold_params->model.learning_algorithm = learn_mf_neighbor;
 		k_fold_params->model.rating_estimator   = estimate_rating_mf_neighbor;
 		k_fold_params->model.update_algorithm = update_learning_with_training_set_neighborMF;
+		k_fold_params->model.is_social = 0;
 
+	}else if (strcmp (argv[14], "social") == 0)
+	{
+		printf ("social \n");
+		k_fold_params->model.learning_algorithm = learn_social;
+		k_fold_params->model.rating_estimator   = estimate_rating_social;
+		k_fold_params->model.is_social = 1;
+		if(argc!=17)
+			return -1;
+		k_fold_params->social_relations_file_path= malloc(strlen(argv[15]+1));
+		strcpy(k_fold_params->social_relations_file_path,argv[15]);
+		k_fold_params->social_relations_number = atoi(argv[16]);
 	}
 	else
 	{
@@ -231,8 +245,9 @@ int main (int argc, char** argv)
 	free_recommended_items (r_items);
 	free_learned_factors (learned);
 	
-
-	free (file_path);
+	k_fold_params.social_relations_file_path = NULL;
+	free (k_fold_params.file_path);
+	free (k_fold_params.social_relations_file_path);
 	end = clock();
 	printf ("Time : %f s \n", (double) (end - start) / CLOCKS_PER_SEC);
 	system ("pause");
