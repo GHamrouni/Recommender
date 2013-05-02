@@ -150,7 +150,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		printf ("basic \n");
 		k_fold_params->model.learning_algorithm  = learn_basic_mf;
 		k_fold_params->model.rating_estimator = estimate_rating_basic_mf;
-		k_fold_params->model.is_social = 0;
+		k_fold_params->model.parameters.algoithm_type = 0;
 	}
 	else if (strcmp (argv[14], "bias") == 0)
 	{
@@ -158,7 +158,7 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		k_fold_params->model.learning_algorithm = learn_mf_bias;
 		k_fold_params->model.rating_estimator   = estimate_rating_mf_bias;
 		k_fold_params->model.update_algorithm = update_learning_with_training_set;
-		k_fold_params->model.is_social = 0;
+		k_fold_params->model.parameters.algoithm_type = BIAS;
 	}
 	else if (strcmp (argv[14], "MFneighbors") == 0)
 	{
@@ -166,14 +166,14 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		k_fold_params->model.learning_algorithm = learn_mf_neighbor;
 		k_fold_params->model.rating_estimator   = estimate_rating_mf_neighbor;
 		k_fold_params->model.update_algorithm = update_learning_with_training_set_neighborMF;
-		k_fold_params->model.is_social = 0;
+		k_fold_params->model.parameters.algoithm_type = NEIGHBOURS_MF;
 
 	}else if (strcmp (argv[14], "social") == 0)
 	{
 		printf ("social \n");
 		k_fold_params->model.learning_algorithm = learn_social;
 		k_fold_params->model.rating_estimator   = estimate_rating_social;
-		k_fold_params->model.is_social = 1;
+		k_fold_params->params.algoithm_type = SOCIAL;
 		if(argc!=17)
 			return -1;
 		k_fold_params->social_relations_file_path= malloc(strlen(argv[15]+1));

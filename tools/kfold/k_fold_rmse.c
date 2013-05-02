@@ -15,6 +15,7 @@
 #include "rating_estimator.h"
 #include "sparse_matrix.h"
 #include "social_reg.h"
+#include "model_parameters.h"
 #define ABS(a) ((a)<0 ? -(a) : (a))
 double RMSE_mean (k_fold_parameters_t k_fold_params)
 {
@@ -24,17 +25,18 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
 	training_set_t* second_tset = NULL;
-	sparse_matrix_t *social_matrix;
+	sparse_matrix_t *social_matrix=NULL;
 	k_fold_params.model.parameters = k_fold_params.params;
 	RMSE_sum = 0;
+	if(k_fold_params.model.parameters.algoithm_type == SOCIAL)
+	{
+		k_fold_params.model.social_matrix = extract_social_realtions(k_fold_params.social_relations_file_path,
+										k_fold_params.params.users_number,k_fold_params.social_relations_number);
+	}
 	for (index = 0; index < k_fold_params.K; index++)
 	{
 		extract_data (k_fold_params, &tset, &validation_set, index);
-		if(k_fold_params.model.is_social)
-		{
-			extract_social_realtions(k_fold_params.social_relations_file_path,&(k_fold_params.model.social_matrix),
-										k_fold_params.params.users_number,k_fold_params.social_relations_number);
-		}
+		
 		compile_training_set (tset);
 		learned = learn(tset,k_fold_params.model);
 		RMSE_sum += RMSE (learned,validation_set,k_fold_params,tset);
@@ -43,7 +45,10 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 		free_training_set (tset);
 		free_training_set (validation_set);
 	}
-	
+	if(k_fold_params.model.social_matrix)
+	{
+		free(k_fold_params.model.social_matrix);
+	}
 	return (RMSE_sum / k_fold_params.K);
 }
 

@@ -115,12 +115,13 @@ int extract_data_2_tset (struct k_fold_parameters _k_fold_params, training_set_t
 }
 
 
-int extract_social_realtions (char* file_path, sparse_matrix_t** social_matrix, size_t users_number,size_t relations_number)
+sparse_matrix_t* extract_social_realtions (char* file_path, size_t users_number,size_t relations_number)
 {
 	FILE* file;
 	double * row0;
 	coo_matrix_t * coo = init_coo_matrix (relations_number);
 	size_t i, j, s;
+	sparse_matrix_t* social_matrix;
 	file = fopen (file_path, "r");
 
 	assert (file);
@@ -137,8 +138,8 @@ int extract_social_realtions (char* file_path, sparse_matrix_t** social_matrix, 
 		}
 		insert_coo_matrix (1, i , j , coo);
 	}
-	*social_matrix = init_sparse_matrix (coo, users_number, users_number);
+	social_matrix = init_sparse_matrix (coo, users_number, users_number);
 	free_coo_matrix (coo);
 	fclose (file);
-	return 0;
+	return social_matrix;
 }

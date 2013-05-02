@@ -51,7 +51,6 @@ struct learning_model
 	rating_estimator_t		rating_estimator;
 	model_parameters_t		parameters;
 	update_learning_t		update_algorithm;
-	int						is_social;
 	sparse_matrix_t*		social_matrix;
 };
 

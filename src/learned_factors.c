@@ -58,8 +58,11 @@ init_learned_factors (struct model_parameters params)
 
 
 	lfactors->item_factor_vectors = generate_random_matrix (params.items_number, params.dimensionality, params.seed);
-	//lfactors->y = generate_random_matrix (params.items_number, params.dimensionality, params.seed);
-	//lfactors->x = generate_random_matrix (params.items_number, params.items_number, params.seed);
+	if(params.algoithm_type == NEIGHBOURS_MF)
+	{
+	lfactors->y = generate_random_matrix (params.items_number, params.dimensionality, params.seed);
+	lfactors->x = generate_random_matrix (params.items_number, params.items_number, params.seed);
+	}
 	lfactors->user_factor_vectors = generate_random_matrix (params.users_number, params.dimensionality, params.seed);
 	lfactors->user_bias = malloc (sizeof (double) *params.users_number);
 	lfactors->item_bias = malloc (sizeof (double) *params.items_number);
