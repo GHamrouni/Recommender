@@ -89,7 +89,7 @@ compute_factors_bias (  size_t user_index,
 }
 
 static void
-calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
+calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactors)
 {
 	double average_rating = (double) tset->ratings_sum / ( (double) tset->training_set_size);
 	average_rating = (average_rating - 1) / 4.0;
@@ -168,7 +168,7 @@ learn_mf_bias (struct training_set* tset, struct model_parameters params)
 
 	if (tset->ratings_matrix)
 	{
-		calculate_average_ratings (tset, lfactors, params);
+		calculate_average_ratings (tset, lfactors);
 
 		free_sparse_matrix (tset->ratings_matrix);
 		tset->ratings_matrix = NULL;
@@ -227,11 +227,10 @@ void update_learning_with_training_set (training_set_t * old_tset, training_set_
 
 	double r_iu = 0;
 	double e_iu = 0;
-	double step = params.step;
 	double score,sig_score, prediction,curr_loss;
 
 	add_training_set (old_tset, new_tset);
-	calculate_average_ratings (old_tset, lfactors, params);
+	calculate_average_ratings (old_tset, lfactors);
 	r = k = u = i = 0;
 
 	for (k = 0; k < params.iteration_number; k++)

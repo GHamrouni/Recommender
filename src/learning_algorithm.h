@@ -26,7 +26,7 @@
 
 #ifndef LEARNING_ALGORITHM_H
 #define LEARNING_ALGORITHM_H
-
+#include "sparse_matrix.h"
 /************************************************************************/
 /*                         Learning algorithm                           */
 /************************************************************************/
@@ -43,8 +43,8 @@
  *      Return the learned factors.
  *
  */
-typedef struct learned_factors* (*learning_algorithm_t)(struct training_set* tset, struct model_parameters params);
+typedef struct learned_factors* (*learning_algorithm_t)(struct training_set* tset, struct model_parameters params,sparse_matrix_t* social_matrix);
 
-typedef void (*update_learning_t) (training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,
-		model_parameters_t params);
+typedef void (*update_learning_t) (training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,model_parameters_t params);
+
 #endif /* LEARNING_ALGORITHM_H */

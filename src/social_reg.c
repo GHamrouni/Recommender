@@ -55,7 +55,7 @@ compute_factors_social (	size_t user_index,
 }
 
 static void
-calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
+calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactors)
 {
 	double average_rating = (double) tset->ratings_sum / ( (double) tset->training_set_size);
 	average_rating = (average_rating - 1) / 4.0;
@@ -185,7 +185,7 @@ learn_social (struct training_set* tset, struct model_parameters params, sparse_
 
 	if (tset->ratings_matrix)
 	{
-		calculate_average_ratings (tset, lfactors, params);
+		calculate_average_ratings (tset, lfactors);
 
 		free_sparse_matrix (tset->ratings_matrix);
 		tset->ratings_matrix = NULL;

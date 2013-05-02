@@ -115,10 +115,6 @@ init_sparse_matrix(coo_matrix_t* c_matrix, size_t row_nb, size_t column_nb)
 		{
 			if (c_matrix->entries[i].row_i < row_nb + 1)
 			{
-				if(c_matrix->entries[i].row_i==1)
-				{
-					RLog("");
-				}
 				if (matrix->row_index)
 					matrix->row_index[c_matrix->entries[i].row_i] = i + 1;
 
@@ -495,7 +491,7 @@ void insert_coo_to_coo (coo_matrix_t* input_matrix, coo_matrix_t* c_matrix)
 
 int coo_element_exist(size_t row_i,size_t column_j,coo_matrix_t* c_matrix)
 {
-	int i=0;
+	size_t i=0;
 	if(c_matrix->current_size == 0)
 	{
 		return 0;
