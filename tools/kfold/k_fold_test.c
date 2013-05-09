@@ -179,6 +179,8 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		k_fold_params->social_relations_file_path= malloc(strlen(argv[15]+1));
 		strcpy(k_fold_params->social_relations_file_path,argv[15]);
 		k_fold_params->social_relations_number = atoi(argv[16]);
+		/**param_to_find = &(k_fold_params->params.betha);
+		*is_float = 1;*/
 	}
 	else
 	{
@@ -232,7 +234,7 @@ int main (int argc, char** argv)
 	if (param_to_find != NULL)
 		if (is_float)
 		{
-			d_find_minimum_tsearch ( (float*) param_to_find, 0.01, 0.15, 0.00001, 10, &k_fold_params,&RMSE_mean);
+			d_find_minimum_tsearch ( (float*) param_to_find, 0.1, 1, 0.1, 40, &k_fold_params,&RMSE_mean);
 		}
 		else
 		{

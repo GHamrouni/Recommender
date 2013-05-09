@@ -48,11 +48,11 @@ int extract_data (struct k_fold_parameters _k_fold_params, training_set_t** _t_s
 		++ss;
 		if ( ss % (int) _k_fold_params.K == index )
 		{
-			set_known_rating (i  , j , (float) m, *_validation_set);
+			set_known_rating (i-1  , j-1 , (float) m, *_validation_set);
 		}
 		else
 		{
-			set_known_rating (i  , j  , (float) m, *_t_set);
+			set_known_rating (i-1  , j-1  , (float) m, *_t_set);
 		}
 	}
 
@@ -97,16 +97,16 @@ int extract_data_2_tset (struct k_fold_parameters _k_fold_params, training_set_t
 		{
 			if (ss % 2 == 0)
 			{
-				set_known_rating (i , j , (float) m, *_t_set);
+				set_known_rating (i-1 , j-1 , (float) m, *_t_set);
 			}
 			else
 			{
-				set_known_rating (i , j , (float) m, *new_tset);
+				set_known_rating (i-1 , j-1 , (float) m, *new_tset);
 			}
 		}
 		else
 		{
-			set_known_rating (i, j , (float) m, *_validation_set);
+			set_known_rating (i-1, j-1 , (float) m, *_validation_set);
 		}
 	}
 
@@ -136,7 +136,7 @@ sparse_matrix_t* extract_social_realtions (char* file_path, size_t users_number,
 		{
 			break;
 		}
-		insert_coo_matrix (1, i , j , coo);
+		insert_coo_matrix (1, i-1 , j-1 , coo);
 	}
 	social_matrix = init_sparse_matrix (coo, users_number, users_number);
 	free_coo_matrix (coo);

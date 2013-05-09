@@ -54,6 +54,7 @@ struct model_parameters
 	int 			seed;
 	int 			bin_width;
 	int 			proj_family_size;
+	float			betha;
 };
 
 typedef struct model_parameters model_parameters_t;
