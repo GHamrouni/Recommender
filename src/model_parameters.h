@@ -29,6 +29,10 @@
 
 #include <stddef.h>
 
+#define BIAS 1
+#define NEIGHBOURS_MF 2
+#define SOCIAL 3
+
 struct model_parameters
 {
 	size_t			users_number;
@@ -45,9 +49,12 @@ struct model_parameters
 	float			step_bias;
 	float			lambda_bias;
 
+	int				algoithm_type;
+
 	int 			seed;
 	int 			bin_width;
 	int 			proj_family_size;
+	float			betha;
 };
 
 typedef struct model_parameters model_parameters_t;

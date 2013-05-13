@@ -33,6 +33,7 @@
 
 #include "recommender.h"
 #include "rating_estimator.h"
+#include "learning_algorithm.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
@@ -49,10 +50,13 @@
 struct learned_factors*
 learn(struct training_set* tset, struct learning_model model)
 {
+	learning_algorithm_params_t learning_param;
 	assert (model.learning_algorithm && model.rating_estimator);
 	assert(tset->ratings_matrix);
-
-	return model.learning_algorithm(tset, model.parameters);
+	learning_param.params = model.parameters;
+	learning_param.tset=tset;
+	learning_param.social_matrix=model.social_matrix;
+	return model.learning_algorithm(learning_param);
 }
 
 /*

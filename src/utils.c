@@ -37,6 +37,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
+#include "box_muller.h"
 
 /*
  * Calculate the dot product
@@ -142,7 +143,7 @@ double** generate_random_matrix(int nrow,int ncol,int seed)
 		matrix [i] = malloc(ncol * sizeof(double));
 		for (j=0; j < ncol; j++)
 		{
-			matrix[i][j] = 0.1 * rand()/(double)RAND_MAX;
+			matrix[i][j] = box_muller(0,0.1);
 		}
 	}
 	return matrix;
@@ -155,7 +156,7 @@ double * generate_random_vector(int n,int seed)
 	srand(seed);
 	for (i=0; i<n; i++)
 	{
-			vect[i] = 0.1* rand()/(double)RAND_MAX;
+			vect[i] = box_muller(0,0.1);
 	}
 	return vect;
 }
