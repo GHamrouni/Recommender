@@ -174,13 +174,12 @@ int parse_arguments (int argc, char** argv, k_fold_parameters_t *k_fold_params, 
 		k_fold_params->model.learning_algorithm = learn_social;
 		k_fold_params->model.rating_estimator   = estimate_rating_social;
 		k_fold_params->params.algoithm_type = SOCIAL;
-		if(argc!=17)
+		if(argc!=18)
 			return -1;
 		k_fold_params->social_relations_file_path= malloc(strlen(argv[15]+1));
 		strcpy(k_fold_params->social_relations_file_path,argv[15]);
 		k_fold_params->social_relations_number = atoi(argv[16]);
-		/**param_to_find = &(k_fold_params->params.betha);
-		*is_float = 1;*/
+		k_fold_params->params.betha=atoi(argv[17]);
 	}
 	else
 	{
