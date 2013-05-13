@@ -6,7 +6,7 @@
 
 
 struct learned_factors*
-	learn_social(struct training_set* tset, struct model_parameters params,sparse_matrix_t* social_matrix);
+	learn_social(learning_algorithm_params_t learning_param);
 
 
 double

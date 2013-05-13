@@ -54,7 +54,7 @@
  *
  */
 struct learned_factors*
-learn_basic_mf(struct training_set* tset, struct model_parameters params);
+learn_basic_mf(learning_algorithm_params_t learning_param);
 
 /*
 * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 

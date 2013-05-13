@@ -55,7 +55,7 @@
  */
 
 struct learned_factors*
-learn_mf_bias(struct training_set* tset, struct model_parameters params);
+learn_mf_bias(learning_algorithm_params_t learning_param);
 
 /*
  * Update the learned factors

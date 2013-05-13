@@ -37,6 +37,7 @@
 #include "float_tester.h"
 #include "rlog.h"
 #include <stdio.h>
+#include "learning_algorithm.h"
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
@@ -153,9 +154,12 @@ update_learned_factors_mf_bias (struct learned_factors* lfactors, struct trainin
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn_mf_bias (struct training_set* tset, struct model_parameters params)
+learn_mf_bias (learning_algorithm_params_t learning_param)
 {
+	struct training_set* tset = learning_param.tset;
+	struct model_parameters params = learning_param.params;
 	struct learned_factors* lfactors = init_learned_factors (params);
+
 
 	if (!lfactors)
 	{

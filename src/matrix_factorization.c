@@ -33,7 +33,7 @@
 
 #include "matrix_factorization.h"
 #include "utils.h"
-
+#include "learning_algorithm.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
@@ -126,10 +126,10 @@ compute_factors(
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn_basic_mf(struct training_set* tset, struct model_parameters params)
+learn_basic_mf(learning_algorithm_params_t learning_params)
 {
 	struct learned_factors* lfactors = 
-		init_learned_factors(params);
+		init_learned_factors(learning_params.params);
 
 	size_t r, k, i, u;
 
@@ -145,35 +145,35 @@ learn_basic_mf(struct training_set* tset, struct model_parameters params)
 	if (!lfactors)
 		return NULL;
 
-	for (k = 0; k < params.iteration_number; k++)
+	for (k = 0; k < learning_params.params.iteration_number; k++)
 	{
-		for (r = 0; r < params.training_set_size; r++)
+		for (r = 0; r < learning_params.params.training_set_size; r++)
 		{
-			 r_iu = tset->ratings->entries[r].value;
+			 r_iu = learning_params.tset->ratings->entries[r].value;
 
-			 i = tset->ratings->entries[r].row_i;
-			 u = tset->ratings->entries[r].column_j;
+			 i = learning_params.tset->ratings->entries[r].row_i;
+			 u = learning_params.tset->ratings->entries[r].column_j;
 
 			 item_factors = lfactors->item_factor_vectors[i];
 			 user_factors = lfactors->user_factor_vectors[u];
 
 			 r_iu_estimated = 
-				 estimate_item_rating(item_factors, user_factors, params.dimensionality);
+				 estimate_item_rating(item_factors, user_factors, learning_params.params.dimensionality);
 
 			 e_iu = r_iu - r_iu_estimated;
 
 			 compute_factors(item_factors, 
 					 user_factors, 
-					 params.lambda, 
-					 params.step, 
+					 learning_params.params.lambda, 
+					 learning_params.params.step, 
 					 e_iu, 
-					 params.dimensionality);
+					 learning_params.params.dimensionality);
 		 }
 	 }
 
-	lfactors->dimensionality = params.dimensionality;
-	lfactors->items_number = params.items_number;
-	lfactors->users_number = params.users_number;
+	lfactors->dimensionality = learning_params.params.dimensionality;
+	lfactors->items_number = learning_params.params.items_number;
+	lfactors->users_number = learning_params.params.users_number;
 
 	return lfactors;
 }

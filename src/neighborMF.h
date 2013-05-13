@@ -23,7 +23,7 @@
  *
  */
 struct learned_factors*
-learn_mf_neighbor(struct training_set* tset, struct model_parameters params);
+learn_mf_neighbor(learning_algorithm_params_t learning_param);
 
 /*
  * Update the learned factors

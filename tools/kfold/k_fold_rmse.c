@@ -21,6 +21,7 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 {
 	double RMSE_sum;
 	int index;
+	
 	learned_factors_t *learned;
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
