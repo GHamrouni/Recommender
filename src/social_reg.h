@@ -3,7 +3,7 @@
 #include "training_set.h"
 #include "learned_factors.h"
 #include "rating_estimator.h"
-
+#include "learning_algorithm.h"
 
 struct learned_factors*
 	learn_social(learning_algorithm_params_t learning_param);

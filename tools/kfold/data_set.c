@@ -8,10 +8,10 @@
 #endif
 
 int extract_data (struct k_fold_parameters _k_fold_params, training_set_t** _t_set, training_set_t ** _validation_set,
-                  int index)
+                  size_t index)
 {
 	FILE* file;
-	unsigned int i, j, l, ss;
+	unsigned int i, j, ss;
 	double m;
 
 	_k_fold_params.params.training_set_size =
@@ -46,7 +46,7 @@ int extract_data (struct k_fold_parameters _k_fold_params, training_set_t** _t_s
 			break;
 		}
 		++ss;
-		if ( ss % (int) _k_fold_params.K == index )
+		if ( ss % (size_t) _k_fold_params.K == index )
 		{
 			set_known_rating (i-1  , j-1 , (float) m, *_validation_set);
 		}
@@ -118,9 +118,8 @@ int extract_data_2_tset (struct k_fold_parameters _k_fold_params, training_set_t
 sparse_matrix_t* extract_social_realtions (char* file_path, size_t users_number,size_t relations_number)
 {
 	FILE* file;
-	double * row0;
 	coo_matrix_t * coo = init_coo_matrix (relations_number);
-	size_t i, j, s;
+	size_t i, j;
 	sparse_matrix_t* social_matrix;
 	file = fopen (file_path, "r");
 
@@ -128,7 +127,7 @@ sparse_matrix_t* extract_social_realtions (char* file_path, size_t users_number,
 
 	if (!file)
 	{
-		return -1;
+		return NULL;
 	}
 	while (!feof (file) )
 	{

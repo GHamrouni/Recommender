@@ -214,7 +214,7 @@ int main (int argc, char** argv)
 	void * param_to_find = NULL;
 	int is_float;
 
-	char* file_path = NULL;
+	
 
 
 	

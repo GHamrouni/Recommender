@@ -25,8 +25,6 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 	learned_factors_t *learned;
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
-	training_set_t* second_tset = NULL;
-	sparse_matrix_t *social_matrix=NULL;
 	k_fold_params.model.parameters = k_fold_params.params;
 	RMSE_sum = 0;
 	if(k_fold_params.model.parameters.algoithm_type == SOCIAL)
@@ -40,7 +38,7 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 		
 		compile_training_set (tset);
 		learned = learn(tset,k_fold_params.model);
-		RMSE_sum += RMSE (learned,validation_set,k_fold_params,tset);
+		RMSE_sum += RMSE (learned,validation_set,tset);
 		
 		free_learned_factors(learned);
 		free_training_set (tset);
@@ -56,7 +54,7 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 
 
 double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
-             k_fold_parameters_t _k_fold_params,training_set_t * tset)
+             training_set_t * tset)
 {
 	unsigned int i;
 	double sum = 0;

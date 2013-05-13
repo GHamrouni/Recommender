@@ -37,6 +37,7 @@
 #include "training_set.h"
 #include "learned_factors.h"
 #include "rating_estimator.h"
+#include "learning_algorithm.h"
 /************************************************************************/
 /*                         Learning algorithms                          */
 /************************************************************************/
