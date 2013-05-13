@@ -15,9 +15,12 @@
 *		-1 else
 */
 int extract_data(struct k_fold_parameters _k_fold_params, training_set_t** _t_set,training_set_t ** _validation_set,
-	int index);
+	size_t index);
 
 int extract_data_2_tset (struct k_fold_parameters _k_fold_params, training_set_t** _t_set, 
 	training_set_t ** _validation_set, training_set_t ** new_tset, int index);
+
+
+sparse_matrix_t* extract_social_realtions (char* file_path, size_t users_number,size_t relations_number);
 
 #endif

@@ -37,6 +37,7 @@
 #include "float_tester.h"
 #include "rlog.h"
 #include <stdio.h>
+#include "learning_algorithm.h"
 #include <stdlib.h>
 #include <memory.h>
 #include <math.h>
@@ -45,103 +46,73 @@
 /************************************************************************/
 /*                          Learning algorithms                         */
 /************************************************************************/
+#define ABS(a) ((a)<0 ? -(a) : (a))
 
-static void 
-compute_factors_bias(	size_t user_index, 
-			size_t item_index, 
-			learned_factors_t* lfactors,
-			double predicted_error,
-			const model_parameters_t* params)
+static void
+compute_factors_bias (  size_t user_index,
+                        size_t item_index,
+                        learned_factors_t* lfactors,
+                        double predicted_error,
+                        const model_parameters_t* params)
 {
 	size_t i = 0;
 
 	double* item_factors;
 	double* user_factors;
 
-	assert (is_valid(predicted_error));	
+	assert (is_valid (predicted_error) );
 
 	item_factors = lfactors->item_factor_vectors[item_index];
 	user_factors = lfactors->user_factor_vectors[user_index];
 
-	lfactors->user_bias[user_index] = lfactors->user_bias[user_index] + 
-	params->step_bias * (predicted_error - params->lambda_bias * lfactors->user_bias[user_index]);
+	lfactors->user_bias[user_index] = lfactors->user_bias[user_index] +
+	                                  params->step_bias * (predicted_error - params->lambda_bias *  lfactors->user_bias[user_index]);
 
-	lfactors->item_bias[item_index] = lfactors->item_bias[item_index] + 
-	params->step_bias * (predicted_error - params->lambda_bias * lfactors->item_bias[item_index]);
+	lfactors->item_bias[item_index] = lfactors->item_bias[item_index] +
+	                                  params->step_bias * (predicted_error - params->step_bias *  lfactors->item_bias[item_index]);
 
-	assert (is_valid(lfactors->user_bias[user_index]));
-	assert (is_valid(lfactors->item_bias[item_index]));
+	assert (is_valid (lfactors->user_bias[user_index]) );
+	assert (is_valid (lfactors->item_bias[item_index]) );
 
 	for (i = 0; i < params->dimensionality; i++)
 	{
-		item_factors[i] = item_factors[i] + 
-			params->step * (predicted_error * user_factors[i] - params->lambda * item_factors[i]);
+		double delta_i =  predicted_error * user_factors[i] - params->lambda * item_factors[i];
+		double delta_u =  predicted_error * item_factors[i] - params->lambda * user_factors[i];
+		item_factors[i] = item_factors[i] +
+		                  params->step * delta_i;
 
 		user_factors[i] = user_factors[i] +
-		       	params->step * (predicted_error * item_factors[i] - params->lambda * user_factors[i]);
+		                  params->step * delta_u;
 
-		assert (is_valid(item_factors[i]));
-		assert (is_valid(user_factors[i]));
+		assert (is_valid (item_factors[i]) );
+		assert (is_valid (user_factors[i]) );
 	}
 }
 
-static void 
-calculate_average_ratings(struct training_set* tset, learned_factors_t* lfactors, model_parameters_t params)
+static void
+calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactors)
 {
-	size_t i;
-	float average_rating = (float) tset->ratings_sum / ((float) tset->training_set_size);
-	double* nb_ratings_per_user = NULL;
-
-	if (!tset->ratings_matrix) return;
-
-	nb_ratings_per_user = malloc(sizeof(double) * params.users_number);
-
-	if (!nb_ratings_per_user)
-		return;
-
-	memset(nb_ratings_per_user, 0, sizeof(double) * params.users_number);
-
-	lfactors->ratings_average = average_rating;
-
-	for (i = 0; i < params.items_number; i++)
-	{
-		lfactors->item_bias[i] = item_ratings_average(i, tset)- average_rating;
-	}
-
-	for (i = 0; i < tset->ratings_matrix->nonzero_entries_nb; i++)
-	{
-		nb_ratings_per_user[tset->ratings_matrix->column_index[i]] += 1; 
-	}
-
-	for (i = 0; i < tset->ratings_matrix->nonzero_entries_nb; i++)
-	{
-		lfactors->user_bias[tset->ratings_matrix->column_index[i]] += 
-			tset->ratings_matrix->values[i];
-	}
-
-	for (i = 0; i < tset->users_number; i++)
-	{
-		if (nb_ratings_per_user[i] > 0)
-			lfactors->user_bias[i] = 
-			lfactors->user_bias[i]/(nb_ratings_per_user[i]) - average_rating;
-	}
-
-	free(nb_ratings_per_user);
+	double average_rating = (double) tset->ratings_sum / ( (double) tset->training_set_size);
+	average_rating = (average_rating - 1) / 4.0;
+	lfactors->ratings_average = log ( (double) average_rating / (1 - average_rating) );
 }
 
 /*
  * Update the learned factors
  */
 void
-update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training_set* tset, struct model_parameters params)
+update_learned_factors_mf_bias (struct learned_factors* lfactors, struct training_set* tset, struct model_parameters params)
 {
 	size_t r, k, i, u;
 
 	double r_iu = 0;
 
 	double e_iu = 0;
-	double step = params.step;
-
+	double prediction;
+	double sig_score;
+	double loss		= 999999;
+	double curr_loss = 0;
+	double score;
 	lfactors->dimensionality = params.dimensionality;
 	lfactors->items_number = params.items_number;
 	lfactors->users_number = params.users_number;
@@ -150,8 +121,13 @@ update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training
 
 	for (k = 0; k < params.iteration_number; k++)
 	{
-		double max_error = 0;
-
+		if (curr_loss < loss)
+		{
+			params.step *= 1.0;
+			params.step_bias *= 1.0;
+			loss = curr_loss;
+		}
+		curr_loss = 0;
 		for (r = 0; r < tset->training_set_size; r++)
 		{
 			r_iu = tset->ratings->entries[r].value;
@@ -159,17 +135,18 @@ update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training
 			i = tset->ratings->entries[r].row_i;
 			u = tset->ratings->entries[r].column_j;
 
-			e_iu = estimate_error_mf_bias(r_iu, u, i, lfactors);
-			assert (is_valid(e_iu));
+			score = lfactors->ratings_average + lfactors->user_bias[u] + lfactors->item_bias[i] +
+			        dot_product (lfactors->user_factor_vectors[u], lfactors->item_factor_vectors[i], lfactors->dimensionality);
+			sig_score = 1 / (1 + exp (-score) );
+			prediction = 1 + sig_score * 4;
 
-			max_error = fmax(max_error, fabs(e_iu));
-
-			compute_factors_bias(u, i, lfactors, e_iu, &params);
-
+			e_iu = r_iu - prediction;
+			curr_loss += pow (e_iu, 2);
+			if (e_iu)
+			{
+				compute_factors_bias (u, i, lfactors, e_iu * sig_score * (1 - sig_score) * 4 , &params);
+			}
 		}
-
-		if (max_error < step)
-			break;
 	}
 }
 
@@ -177,12 +154,17 @@ update_learned_factors_mf_bias(struct learned_factors* lfactors, struct training
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn_mf_bias(struct training_set* tset, struct model_parameters params)
+learn_mf_bias (learning_algorithm_params_t learning_param)
 {
-	struct learned_factors* lfactors = init_learned_factors(params);
+	struct training_set* tset = learning_param.tset;
+	struct model_parameters params = learning_param.params;
+	struct learned_factors* lfactors = init_learned_factors (params);
+
 
 	if (!lfactors)
+	{
 		return NULL;
+	}
 
 	lfactors->dimensionality = params.dimensionality;
 	lfactors->items_number = params.items_number;
@@ -190,56 +172,24 @@ learn_mf_bias(struct training_set* tset, struct model_parameters params)
 
 	if (tset->ratings_matrix)
 	{
-		calculate_average_ratings(tset, lfactors, params);
+		calculate_average_ratings (tset, lfactors);
 
-		free_sparse_matrix(tset->ratings_matrix);
+		free_sparse_matrix (tset->ratings_matrix);
 		tset->ratings_matrix = NULL;
 	}
 
-	update_learned_factors_mf_bias(lfactors, tset, params);
+	update_learned_factors_mf_bias (lfactors, tset, params);
 
 	return lfactors;
 }
 
-double
-estimate_error_mf_bias(double r_iu, size_t user_index, size_t item_index, learned_factors_t* lfactors)
-{
-	double sum = 0.0;
-	size_t i;
-
-	double* item_factors;
-	double* user_factors;
-
-	double item_bias;
-	double user_bias;
-
-	double bias;
-
-	assert(item_index < lfactors->items_number);
-	assert(user_index < lfactors->users_number);
-
-	item_bias = lfactors->item_bias[item_index];
-	user_bias = lfactors->user_bias[user_index];
-
-	bias = lfactors->ratings_average + item_bias + user_bias;
-
-	item_factors = lfactors->item_factor_vectors[item_index];
-	user_factors = lfactors->user_factor_vectors[user_index];
-
-	for (i = 0; i < lfactors->dimensionality; i++)
-		sum += user_factors[i] * item_factors[i];
-
-	assert(is_valid(sum));
-
-	return r_iu - (sum + bias);
-}
 
 /*
- * estimate_rating_from_factors:  Return the approximates user's rating of an item based on 
+ * estimate_rating_from_factors:  Return the approximates user's rating of an item based on
  *                                some learned factors.
  */
 double
-estimate_rating_mf_bias(rating_estimator_parameters_t* estim_param)
+estimate_rating_mf_bias (rating_estimator_parameters_t* estim_param)
 {
 	learned_factors_t* lfactors = estim_param->lfactors;
 	size_t item_index = estim_param->item_index;
@@ -255,9 +205,9 @@ estimate_rating_mf_bias(rating_estimator_parameters_t* estim_param)
 	double user_bias;
 
 	double bias;
-	
-	assert(item_index < lfactors->items_number);
-	assert(user_index < lfactors->users_number);
+
+	assert (item_index < lfactors->items_number);
+	assert (user_index < lfactors->users_number);
 
 	item_bias = lfactors->item_bias[item_index];
 	user_bias = lfactors->user_bias[user_index];
@@ -268,28 +218,27 @@ estimate_rating_mf_bias(rating_estimator_parameters_t* estim_param)
 	user_factors = lfactors->user_factor_vectors[user_index];
 
 	for (i = 0; i < lfactors->dimensionality; i++)
+	{
 		sum += user_factors[i] * item_factors[i] ;
-	return sum + bias;
+	}
+	return 1 + (1 / (1 + exp (-sum - bias) ) ) * 4;
 }
 
-void update_learning_with_training_set(training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,
-		model_parameters_t params)
+void update_learning_with_training_set (training_set_t * old_tset, training_set_t* new_tset, learned_factors_t* lfactors,
+                                        model_parameters_t params)
 {
-			size_t r, k, i, u;
+	size_t r, k, i, u;
 
 	double r_iu = 0;
 	double e_iu = 0;
-	double step = params.step;
-	
+	double score,sig_score, prediction,curr_loss;
 
-	add_training_set(old_tset,new_tset);
-	calculate_average_ratings(old_tset,lfactors,params);
+	add_training_set (old_tset, new_tset);
+	calculate_average_ratings (old_tset, lfactors);
 	r = k = u = i = 0;
 
 	for (k = 0; k < params.iteration_number; k++)
 	{
-		double max_error = 0;
-
 		for (r = 0; r < new_tset->training_set_size; r++)
 		{
 			r_iu = new_tset->ratings->entries[r].value;
@@ -297,16 +246,17 @@ void update_learning_with_training_set(training_set_t * old_tset,training_set_t*
 			i = new_tset->ratings->entries[r].row_i;
 			u = new_tset->ratings->entries[r].column_j;
 
-			e_iu = estimate_error_mf_bias(r_iu, u, i, lfactors);
-			assert (is_valid(e_iu));
+			score = lfactors->ratings_average + lfactors->user_bias[u] + lfactors->item_bias[i] +
+			        dot_product (lfactors->user_factor_vectors[u], lfactors->item_factor_vectors[i], lfactors->dimensionality);
+			sig_score = 1 / (1 + exp (-score) );
+			prediction = 1 + sig_score * 4;
 
-			max_error = fmax(max_error, fabs(e_iu));
-
-			compute_factors_bias(u, i, lfactors, e_iu, &params);
-
+			e_iu = r_iu - prediction;
+			curr_loss += pow (e_iu, 2);
+			if (e_iu)
+			{
+				compute_factors_bias (u, i, lfactors, e_iu * sig_score * (1 - sig_score) * 4 , &params);
+			}
 		}
-
-		if (max_error < step)
-			break;
 	}
 }

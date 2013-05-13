@@ -39,6 +39,7 @@
 #include "learning_algorithm.h"
 #include "rating_estimator.h"
 #include "recommended_items.h"
+#include "sparse_matrix.h"
 
 /************************************************************************/
 /*                         Learning algorithms                          */
@@ -50,6 +51,7 @@ struct learning_model
 	rating_estimator_t		rating_estimator;
 	model_parameters_t		parameters;
 	update_learning_t		update_algorithm;
+	sparse_matrix_t*		social_matrix;
 };
 
 typedef struct learning_model learning_model_t;
