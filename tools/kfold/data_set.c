@@ -131,7 +131,7 @@ sparse_matrix_t* extract_social_realtions (char* file_path, size_t users_number,
 	}
 	while (!feof (file) )
 	{
-		if (fscanf (file, "%u %u", &i, &j) != 2)
+		if (fscanf (file, "%lu %lu", &i, &j) != 2)
 		{
 			break;
 		}
