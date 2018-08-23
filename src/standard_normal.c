@@ -5,7 +5,7 @@
 #include <math.h>
 #include <limits.h>
 
-#include <stdlib.h> // Fro abs(int)
+#include <stdlib.h>
 
 static double kn[128];
 static double wn[128];
