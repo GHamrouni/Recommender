@@ -118,18 +118,20 @@ update_learned_factors_social (struct learned_factors* lfactors, struct training
 			}
 
 		}
+		
 		for (u = 0; u < params.users_number; u++)
 			lfactors->user_bias[u] += params.step_bias * user_bias_copy[u] * params.lambda_bias;
-		for (i = 0; i < params.items_number; i++)
+		for (i = 0; i < params.items_number; i++) 
 			lfactors->item_bias[i] += params.step_bias * lfactors->item_bias[i] * params.lambda_bias;
 			
-			for (u = 0; u < params.users_number; u++)
-				for (r = 0; r < params.dimensionality; r++)
-					lfactors->user_factor_vectors[u][r] +=params.step * user_factors_copy[u][r] * params.lambda;
+		for (u = 0; u < params.users_number; u++)
+			for (r = 0; r < params.dimensionality; r++)
+				lfactors->user_factor_vectors[u][r] +=params.step * user_factors_copy[u][r] * params.lambda;
 
-			for (i = 0; i < params.items_number; i++)
-				for (r = 0; r < params.dimensionality; r++)
-					lfactors->item_factor_vectors[i][r] +=params.step * lfactors->item_factor_vectors[i][r] * params.lambda;
+		for (i = 0; i < params.items_number; i++)
+			for (r = 0; r < params.dimensionality; r++)
+				lfactors->item_factor_vectors[i][r] +=params.step * lfactors->item_factor_vectors[i][r] * params.lambda;
+		
 		for (u = 0; u < params.users_number; u++)
 		{
 			coo_matrix_t* user_relations = get_row_in_coo (social_matrix, u);
