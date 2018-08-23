@@ -1,4 +1,11 @@
-language: node_js
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "OnENUuiMBfm9PZNsEylGr4nesggjfkhRycvAjl4+ZRfz1aXGaF82Fxws/lks9X0imkPq53L0SVcdMGVUghRqj5K2JLtWylIFw2xu8X52aMaIXPBx8adla7vtQFgL+SuGjFonNVHImj5vuCFEXoJDAorzrMVtXLO2IAkgn/55/ZiZTcN5eh7pdc8GsscnNv51ElOdIlrQVYy0hKMlBDRmqCELKDWX1sbidgrPt30+x63Eo9r+3DPpLimDJpLUPjg0lCG6xKDTEEJnRGZ5XzBFitUAGRDwl0YEo6+ko2bTUFqYnDP88vRVFLU/Kz4z4kXE28uWE6iypUiD2FKesPq5M+5SpDlvRdc2+dOMnl2L7PPv3CczWZc/O3St3mQTND+D9M5u1k2+PG84hn+WxgED2ocOMFF/gcLFSbyPJQMKOEvAMOGLLV4M1qhYiE8Gs1AD2+tmJrZX9viMXQtFPybEy4R1CM48TuT/9pV1/EFSJgLcpqhHldPijBBOnXRRKei7oY2t4FDxXcf4k24zH+BOZYOhD+YOuF4+2P8GzOTU4r8Z7GMPqDAS07kyYL5frX1gIYuYL81Jv0owa6FZixDQyq1jHnkdSkfZIVkcPFRXkgsCZtLgFh7SrX0z3milzarTqCsVJP/bFL5eHouRZODSDSFJ2e7Z80xaSu/yusKFARg="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 script:
   - "make"
