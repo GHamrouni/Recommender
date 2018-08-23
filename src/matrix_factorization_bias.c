@@ -233,6 +233,8 @@ void update_learning_with_training_set (training_set_t * old_tset, training_set_
 	double e_iu = 0;
 	double score,sig_score, prediction,curr_loss;
 
+	curr_loss = 0.0;
+
 	add_training_set (old_tset, new_tset);
 	calculate_average_ratings (old_tset, lfactors);
 	r = k = u = i = 0;
@@ -260,3 +262,4 @@ void update_learning_with_training_set (training_set_t * old_tset, training_set_
 		}
 	}
 }
+

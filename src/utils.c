@@ -160,3 +160,4 @@ double * generate_random_vector(int n,int seed)
 	}
 	return vect;
 }
+

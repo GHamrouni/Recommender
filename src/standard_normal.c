@@ -5,6 +5,8 @@
 #include <math.h>
 #include <limits.h>
 
+#include <stdlib.h> // Fro abs(int)
+
 static double kn[128];
 static double wn[128];
 static double fn[128];
@@ -57,7 +59,7 @@ nfix(int hz, int iz, normal_generator_t* gen)
 	    hz = SHR3(gen);
 	    iz = hz&127;
 	 
-	    if(fabs(hz)<kn[iz]) 
+	    if(abs(hz)<kn[iz]) 
 		    return (hz*wn[iz]);
 	}
 }
@@ -70,7 +72,7 @@ RNOR(normal_generator_t* gen)
 	hz = SHR3(gen); 
 	iz = hz & 127;
 	
-	return (fabs(hz) < kn[iz]) ? hz*wn[iz] : nfix(hz, iz, gen);
+	return (abs(hz) < kn[iz]) ? hz*wn[iz] : nfix(hz, iz, gen);
 }
 
 /* 

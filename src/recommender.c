@@ -60,7 +60,7 @@ learn(struct training_set* tset, struct learning_model model)
 }
 
 /*
- * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+ * estimate_rating_from_factors:  Return the approximates userï¿½s rating of an item based on 
  *                                some learned factors.
  */
 double
