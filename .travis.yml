@@ -7,6 +7,18 @@ env:
 before_install:
   - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
+
+addons:
+  coverity_scan:
+    project:
+      name: "GHamrouni/Recommender"
+      description: "Recommender engine in pure C"
+    notification_email: ghamrouni.iptech@gmail.com
+    build_command_prepend: ""
+    build_command: "make"
+    branch_pattern: master
+
+
 script:
   - "make"
   - "./test_suite.sh"
