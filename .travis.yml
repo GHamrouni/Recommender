@@ -19,5 +19,4 @@ addons:
 
 
 script:
-  - make
-  - ./test_suite.sh
+- make -j2  
