@@ -20,7 +20,7 @@ addons:
     branch_pattern: master
 
 
-    
+
 script:
-  - "make"
-  - "./test_suite.sh"
+  - make
+  - ./test_suite.sh
