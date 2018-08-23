@@ -4,4 +4,5 @@
 #include <stdarg.h>
 void RLog(const char *format, ...);
 
-#endif // RLOG_H
+#endif
+

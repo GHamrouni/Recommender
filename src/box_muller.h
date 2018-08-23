@@ -2,4 +2,5 @@
 #define BOX_MULLER_H
 
 double box_muller(double mean, double sd);
-#endif // BOX_MULLER_H
+#endif
+
