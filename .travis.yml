@@ -1,22 +1,9 @@
-language: c
-compiler:
-  - gcc
-
-env:
-  global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "h48TdrVDGOZ91NtfJqYNSJOywxB8ua8Kf66XjYjLD2VaDCw6LFvnTPOs/pk84+IzV+d9N2v5/LrkMZqGaONoCyjDwPMho+pOqvTX7gzwwcsa/T64nH/Y6pJE/Q6OqmGXpISLA2hI2jktl8PIn8uEzaJ4fu/eqdBmZMZPKjvpFT+NEFiWjU2qkuUP72leSr7sTyj3Y8YlQ8LGN/0eoo7a3EgbXjYP7eJvVB+ecqaTcE5D9c64mpPKZW1lgAxRljRIiPCUZRLnIg0sXUz/PSkeOXEKXkwMVaq8hgfWUq6ApadYYW6MCoEy1rEWtp3iLZqZRFc67qIGM6DV+94vrXQv3IRdgjyNBu9iB4vc+9i9RUHHl3T/fvmoXjUdqhE33TWGEWNNpgB5GMcB54F4rIqjRpoDkH2QVWo3p6akEsTsFrhL5fog00PzZplnnjagsezEIFU0AmBXIV2Jv++OgTrM/7HCJJL5T5OmlSVZD2H5KzzUly671b0UOdQ+wB8GgFz1lsrxHHbFZAdg9kwGoyckqUg9jAL18ob2+5YX3bR68ldhDTWhSEnyuMLPx2wokQhnW+xhOM8cc/2CzH4w2C3i+M0FOUlv+NpPmIxOoY21bvfZ0X55vsv/QovR9RwzlY54Gvfns9hl+DIrvUkOOebjgdAHksbv0MUhkH8nlhsEUUY="
-
-addons:
-  coverity_scan:
-    project:
-      name: "GHamrouni/Recommender"
-    notification_email: ghamrouni.iptech@gmail.com
-    build_command: "make -j2"
-    branch_pattern: master
-
-
+language: node_js
 
 script:
-- make -j2  
+  - "make"
+  - "./test_suite.sh"
+
+
+notifications:
+  email: true
