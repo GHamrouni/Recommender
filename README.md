@@ -1,6 +1,8 @@
 ﻿Recommender [![Build Status](https://secure.travis-ci.org/GHamrouni/Recommender.png)](http://travis-ci.org/GHamrouni/Recommender)
 =======================
 
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/GHamrouni/Recommender.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/GHamrouni/Recommender/alerts/)
+
 A C library for product recommendations/suggestions using collaborative filtering (CF).
 
 Recommender analyzes the feedback of some users (implicit and explicit) and their 
