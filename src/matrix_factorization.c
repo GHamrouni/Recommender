@@ -41,7 +41,7 @@
 #include <assert.h>
 
 /*
- * rate_item:  Return the approximates user’s rating of an item
+ * rate_item:  Return the approximates userï¿½s rating of an item
  *
  * Arguments:
  *      user_vector     The user's vector, measure the extent to which a user
@@ -126,10 +126,10 @@ compute_factors(
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn_basic_mf(learning_algorithm_params_t learning_params)
+learn_basic_mf(learning_algorithm_params_t* learning_params)
 {
 	struct learned_factors* lfactors = 
-		init_learned_factors(learning_params.params);
+		init_learned_factors(learning_params->params);
 
 	size_t r, k, i, u;
 
@@ -145,41 +145,41 @@ learn_basic_mf(learning_algorithm_params_t learning_params)
 	if (!lfactors)
 		return NULL;
 
-	for (k = 0; k < learning_params.params.iteration_number; k++)
+	for (k = 0; k < learning_params->params.iteration_number; k++)
 	{
-		for (r = 0; r < learning_params.params.training_set_size; r++)
+		for (r = 0; r < learning_params->params.training_set_size; r++)
 		{
-			 r_iu = learning_params.tset->ratings->entries[r].value;
+			 r_iu = learning_params->tset->ratings->entries[r].value;
 
-			 i = learning_params.tset->ratings->entries[r].row_i;
-			 u = learning_params.tset->ratings->entries[r].column_j;
+			 i = learning_params->tset->ratings->entries[r].row_i;
+			 u = learning_params->tset->ratings->entries[r].column_j;
 
 			 item_factors = lfactors->item_factor_vectors[i];
 			 user_factors = lfactors->user_factor_vectors[u];
 
 			 r_iu_estimated = 
-				 estimate_item_rating(item_factors, user_factors, learning_params.params.dimensionality);
+				 estimate_item_rating(item_factors, user_factors, learning_params->params.dimensionality);
 
 			 e_iu = r_iu - r_iu_estimated;
 
 			 compute_factors(item_factors, 
 					 user_factors, 
-					 learning_params.params.lambda, 
-					 learning_params.params.step, 
+					 learning_params->params.lambda, 
+					 learning_params->params.step, 
 					 e_iu, 
-					 learning_params.params.dimensionality);
+					 learning_params->params.dimensionality);
 		 }
 	 }
 
-	lfactors->dimensionality = learning_params.params.dimensionality;
-	lfactors->items_number = learning_params.params.items_number;
-	lfactors->users_number = learning_params.params.users_number;
+	lfactors->dimensionality = learning_params->params.dimensionality;
+	lfactors->items_number = learning_params->params.items_number;
+	lfactors->users_number = learning_params->params.users_number;
 
 	return lfactors;
 }
 
 /*
- * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+ * estimate_rating_from_factors:  Return the approximates userï¿½s rating of an item based on 
  *                                some learned factors.
  */
 double

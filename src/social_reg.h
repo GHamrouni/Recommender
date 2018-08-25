@@ -6,7 +6,7 @@
 #include "learning_algorithm.h"
 
 struct learned_factors*
-	learn_social(learning_algorithm_params_t learning_param);
+	learn_social(learning_algorithm_params_t* learning_param);
 
 
 double

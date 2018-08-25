@@ -56,7 +56,7 @@ learn(struct training_set* tset, struct learning_model model)
 	learning_param.params = model.parameters;
 	learning_param.tset=tset;
 	learning_param.social_matrix=model.social_matrix;
-	return model.learning_algorithm(learning_param);
+	return model.learning_algorithm(&learning_param);
 }
 
 /*

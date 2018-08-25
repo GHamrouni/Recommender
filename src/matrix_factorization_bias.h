@@ -56,7 +56,7 @@
  */
 
 struct learned_factors*
-learn_mf_bias(learning_algorithm_params_t learning_param);
+learn_mf_bias(learning_algorithm_params_t* learning_param);
 
 /*
  * Update the learned factors
@@ -66,7 +66,7 @@ update_learned_factors_mf_bias(learned_factors_t* lfactors, training_set_t* tset
 
 
 /*
- * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+ * estimate_rating_from_factors:  Return the approximates userï¿½s rating of an item based on 
  *                                some learned factors.
  *
  * Arguments:

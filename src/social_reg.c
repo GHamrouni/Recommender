@@ -212,12 +212,12 @@ update_learned_factors_social (struct learned_factors* lfactors, struct training
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn_social (learning_algorithm_params_t learning_param)
+learn_social (learning_algorithm_params_t* learning_param)
 {
-	struct training_set* tset = learning_param.tset;
-	struct model_parameters params = learning_param.params;
+	struct training_set* tset = learning_param->tset;
+	struct model_parameters params = learning_param->params;
 	struct learned_factors* lfactors = init_learned_factors (params);
-	sparse_matrix_t * social_matrix = learning_param.social_matrix;
+	sparse_matrix_t * social_matrix = learning_param->social_matrix;
 
 	if (!lfactors)
 	{

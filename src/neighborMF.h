@@ -24,7 +24,7 @@
  *
  */
 struct learned_factors*
-learn_mf_neighbor(learning_algorithm_params_t learning_param);
+learn_mf_neighbor(learning_algorithm_params_t* learning_param);
 
 /*
  * Update the learned factors
@@ -50,7 +50,7 @@ estimate_error_mf_neighbor (double r_iu, rating_estimator_parameters_t* estim_pa
 
 
 /*
- * estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+ * estimate_rating_from_factors:  Return the approximates userï¿½s rating of an item based on 
  *                                some learned factors.
  *
  * Arguments:

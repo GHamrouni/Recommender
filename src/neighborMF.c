@@ -154,10 +154,10 @@ void update_factors_mf_neighbor (size_t u, size_t i, double e_iu,learned_factors
 
 
 struct learned_factors*
-learn_mf_neighbor (learning_algorithm_params_t learning_param)
+learn_mf_neighbor (learning_algorithm_params_t* learning_param)
 {
-	struct training_set* tset = learning_param.tset;
-	struct model_parameters params = learning_param.params;
+	struct training_set* tset = learning_param->tset;
+	struct model_parameters params = learning_param->params;
 	size_t k,r, u, i;
 	double r_iu, e_iu;
 	rating_estimator_parameters_t * rating_estim = malloc (sizeof (rating_estimator_parameters_t) );
