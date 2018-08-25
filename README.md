@@ -1,6 +1,8 @@
 ﻿Recommender [![Build Status](https://secure.travis-ci.org/GHamrouni/Recommender.png)](http://travis-ci.org/GHamrouni/Recommender)
 =======================
 
+[![GitHub stars](https://img.shields.io/github/stars/GHamrouni/Recommender.svg)](https://github.com/GHamrouni/Recommender/stargazers)
+[![GitHub license](https://img.shields.io/github/license/GHamrouni/Recommender.svg)](https://github.com/GHamrouni/Recommender/blob/master/LICENSE)
 
 A C library for product recommendations/suggestions using collaborative filtering (CF).
 
