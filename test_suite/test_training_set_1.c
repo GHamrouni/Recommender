@@ -34,7 +34,7 @@ int test_training_set_1(void)
 	params.training_set_size = TRAINING_SET_TEST_SIZE;
 
 	/* Initialize a training set */
-	tset = init_training_set(params);
+	tset = init_training_set(&params);
 
 	srand ( 47 );
 

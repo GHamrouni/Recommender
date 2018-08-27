@@ -44,7 +44,7 @@
  * init_training_set:  allocate space for the training set
  */
 struct training_set* 
-init_training_set(struct model_parameters params)
+init_training_set(struct model_parameters * params)
 {
 	struct training_set* tset = malloc(sizeof(struct training_set));
 
@@ -53,15 +53,15 @@ init_training_set(struct model_parameters params)
 
 	tset->ratings_sum = 0;
 
-	tset->ratings = init_coo_matrix(params.training_set_size);
+	tset->ratings = init_coo_matrix(params->training_set_size);
 
-	tset->training_set_size = params.training_set_size;
-	tset->dimensionality = params.dimensionality;
+	tset->training_set_size = params->training_set_size;
+	tset->dimensionality = params->dimensionality;
 
 	tset->ratings_matrix = NULL;
 
-	tset->users_number = params.users_number;
-	tset->items_number = params.items_number;
+	tset->users_number = params->users_number;
+	tset->items_number = params->items_number;
      
 	return tset;
 }

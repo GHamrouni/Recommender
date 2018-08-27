@@ -129,7 +129,7 @@ struct learned_factors*
 learn_basic_mf(learning_algorithm_params_t* learning_params)
 {
 	struct learned_factors* lfactors = 
-		init_learned_factors(learning_params->params);
+		init_learned_factors(&learning_params->params);
 
 	size_t r, k, i, u;
 

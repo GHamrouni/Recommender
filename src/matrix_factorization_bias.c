@@ -101,7 +101,7 @@ calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactor
  * Update the learned factors
  */
 void
-update_learned_factors_mf_bias (struct learned_factors* lfactors, struct training_set* tset, struct model_parameters params)
+update_learned_factors_mf_bias (struct learned_factors* lfactors, struct training_set* tset, struct model_parameters * params)
 {
 	size_t r, k, i, u;
 
@@ -113,18 +113,18 @@ update_learned_factors_mf_bias (struct learned_factors* lfactors, struct trainin
 	double loss		= 999999;
 	double curr_loss = 0;
 	double score;
-	lfactors->dimensionality = params.dimensionality;
-	lfactors->items_number = params.items_number;
-	lfactors->users_number = params.users_number;
+	lfactors->dimensionality = params->dimensionality;
+	lfactors->items_number = params->items_number;
+	lfactors->users_number = params->users_number;
 
 	r = k = u = i = 0;
 
-	for (k = 0; k < params.iteration_number; k++)
+	for (k = 0; k < params->iteration_number; k++)
 	{
 		if (curr_loss < loss)
 		{
-			params.step *= 1.0;
-			params.step_bias *= 1.0;
+			params->step *= 1.0;
+			params->step_bias *= 1.0;
 			loss = curr_loss;
 		}
 		curr_loss = 0;
@@ -144,7 +144,7 @@ update_learned_factors_mf_bias (struct learned_factors* lfactors, struct trainin
 			curr_loss += pow (e_iu, 2);
 			if (e_iu)
 			{
-				compute_factors_bias (u, i, lfactors, e_iu * sig_score * (1 - sig_score) * 4 , &params);
+				compute_factors_bias (u, i, lfactors, e_iu * sig_score * (1 - sig_score) * 4 , params);
 			}
 		}
 	}
@@ -158,7 +158,7 @@ learn_mf_bias (learning_algorithm_params_t* learning_param)
 {
 	struct training_set* tset = learning_param->tset;
 	struct model_parameters params = learning_param->params;
-	struct learned_factors* lfactors = init_learned_factors (params);
+	struct learned_factors* lfactors = init_learned_factors (&params);
 
 
 	if (!lfactors)
@@ -178,7 +178,7 @@ learn_mf_bias (learning_algorithm_params_t* learning_param)
 		tset->ratings_matrix = NULL;
 	}
 
-	update_learned_factors_mf_bias (lfactors, tset, params);
+	update_learned_factors_mf_bias (lfactors, tset, &params);
 
 	return lfactors;
 }
@@ -225,7 +225,7 @@ estimate_rating_mf_bias (rating_estimator_parameters_t* estim_param)
 }
 
 void update_learning_with_training_set (training_set_t * old_tset, training_set_t* new_tset, learned_factors_t* lfactors,
-                                        model_parameters_t params)
+                                        model_parameters_t* params)
 {
 	size_t r, k, i, u;
 
@@ -239,7 +239,7 @@ void update_learning_with_training_set (training_set_t * old_tset, training_set_
 	calculate_average_ratings (old_tset, lfactors);
 	r = k = u = i = 0;
 
-	for (k = 0; k < params.iteration_number; k++)
+	for (k = 0; k < params->iteration_number; k++)
 	{
 		for (r = 0; r < new_tset->training_set_size; r++)
 		{
@@ -257,7 +257,7 @@ void update_learning_with_training_set (training_set_t * old_tset, training_set_
 			curr_loss += pow (e_iu, 2);
 			if (e_iu)
 			{
-				compute_factors_bias (u, i, lfactors, e_iu * sig_score * (1 - sig_score) * 4 , &params);
+				compute_factors_bias (u, i, lfactors, e_iu * sig_score * (1 - sig_score) * 4 , params);
 			}
 		}
 	}

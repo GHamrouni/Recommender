@@ -116,13 +116,13 @@ estimate_rating_mf_neighbor (rating_estimator_parameters_t* estim_param)
 	return term2 + bias + sum;
 }
 
-void update_factors_mf_neighbor (size_t u, size_t i, double e_iu,learned_factors_t* lfactors,training_set_t * tset,struct model_parameters params)
+void update_factors_mf_neighbor (size_t u, size_t i, double e_iu,learned_factors_t* lfactors,training_set_t * tset, struct model_parameters * params)
 {
 	size_t dim, ri, ii;
 	double sumy;
 	
-	lfactors->user_bias[u] += params.step_bias * (e_iu - params.lambda_bias * lfactors->user_bias[u]);
-	lfactors->item_bias[i] += params.step_bias * (e_iu - params.lambda_bias * lfactors->item_bias[i]);
+	lfactors->user_bias[u] += params->step_bias * (e_iu - params->lambda_bias * lfactors->user_bias[u]);
+	lfactors->item_bias[i] += params->step_bias * (e_iu - params->lambda_bias * lfactors->item_bias[i]);
 	for (dim = 0; dim < lfactors->dimensionality; dim++)
 	{
 		sumy = 0;
@@ -132,20 +132,20 @@ void update_factors_mf_neighbor (size_t u, size_t i, double e_iu,learned_factors
 			sumy += lfactors->y[ii][dim];
 		}
 
-		lfactors->item_factor_vectors[i][dim] += params.step * (e_iu * lfactors->user_factor_vectors[u][dim]  - params.lambda * lfactors->item_factor_vectors[i][dim]);
-		lfactors->user_factor_vectors[u][dim] += params.step * (e_iu * lfactors->item_factor_vectors[i][dim] - params.lambda * lfactors->user_factor_vectors[u][dim]);
+		lfactors->item_factor_vectors[i][dim] += params->step * (e_iu * lfactors->user_factor_vectors[u][dim]  - params->lambda * lfactors->item_factor_vectors[i][dim]);
+		lfactors->user_factor_vectors[u][dim] += params->step * (e_iu * lfactors->item_factor_vectors[i][dim] - params->lambda * lfactors->user_factor_vectors[u][dim]);
 		for (ri = 0 ; ri < lfactors->R[u].items_number; ri++)
 		{
 			ii = tset->ratings->entries[lfactors->R[u].ratings_order[ri]].row_i;
-			lfactors->y[ii][dim] += params.step * (e_iu * lfactors->item_factor_vectors[i][dim] / sqrtf (ri+ lfactors->R[u].items_number) - params.lambda * lfactors->y[ii][dim]);
+			lfactors->y[ii][dim] += params->step * (e_iu * lfactors->item_factor_vectors[i][dim] / sqrtf (ri+ lfactors->R[u].items_number) - params->lambda * lfactors->y[ii][dim]);
 		}
 		
 		for (ri = 0 ; ri < lfactors->R_K[i].items_number; ri++)
 		{
 			if (tset->ratings->entries[lfactors->R_K[i].ratings_order[ri]].column_j == u)
 			{
-			ii = tset->ratings->entries[lfactors->R_K[i].ratings_order[ri]].row_i;
-			lfactors->x[i][ii] += params.step * (e_iu * (tset->ratings->entries[lfactors->R_K[i].ratings_order[ri]].value - lfactors->user_bias[u] - lfactors->item_bias[ii] - lfactors->ratings_average) / sqrtf (lfactors->R[u].items_number) - params.lambda * lfactors->x[i][ii]);
+				ii = tset->ratings->entries[lfactors->R_K[i].ratings_order[ri]].row_i;
+				lfactors->x[i][ii] += params->step * (e_iu * (tset->ratings->entries[lfactors->R_K[i].ratings_order[ri]].value - lfactors->user_bias[u] - lfactors->item_bias[ii] - lfactors->ratings_average) / sqrtf (lfactors->R[u].items_number) - params->lambda * lfactors->x[i][ii]);
 			}
 		}
 	}
@@ -161,7 +161,7 @@ learn_mf_neighbor (learning_algorithm_params_t* learning_param)
 	size_t k,r, u, i;
 	double r_iu, e_iu;
 	rating_estimator_parameters_t * rating_estim = malloc (sizeof (rating_estimator_parameters_t) );
-	struct learned_factors* lfactors = init_learned_factors (params);
+	struct learned_factors* lfactors = init_learned_factors (&params);
 	if (!lfactors)
 	{
 		return NULL;
@@ -186,7 +186,7 @@ learn_mf_neighbor (learning_algorithm_params_t* learning_param)
 			rating_estim->user_index = u;
 			rating_estim->item_index = i;
 			e_iu = estimate_error_mf_neighbor (r_iu, rating_estim);
-			update_factors_mf_neighbor(u,i,e_iu,lfactors,tset,params);
+			update_factors_mf_neighbor(u,i,e_iu,lfactors,tset, &params);
 		}
 	}
 	free (rating_estim);
@@ -195,7 +195,7 @@ learn_mf_neighbor (learning_algorithm_params_t* learning_param)
 
 
 void update_learning_with_training_set_neighborMF(training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,
-		model_parameters_t params)
+		model_parameters_t * params)
 {
 	size_t r, k, i, u;
 
@@ -206,11 +206,11 @@ void update_learning_with_training_set_neighborMF(training_set_t * old_tset,trai
 	rating_estim->lfactors = lfactors;
 	add_training_set(old_tset,new_tset);
 	lfactors->R = init_items_rated_by_user (old_tset);
-	lfactors->R_K = get_nearest_neighbors (old_tset, params.bin_width, params.proj_family_size, params.seed);
-	for (k = 0; k < params.iteration_number; k++)
+	lfactors->R_K = get_nearest_neighbors (old_tset, params->bin_width, params->proj_family_size, params->seed);
+	for (k = 0; k < params->iteration_number; k++)
 	{
 
-		for (r = 0; r < params.training_set_size; r++)
+		for (r = 0; r < params->training_set_size; r++)
 		{
 			r_iu = old_tset->ratings->entries[r].value;
 			i = old_tset->ratings->entries[r].row_i;

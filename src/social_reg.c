@@ -68,7 +68,7 @@ calculate_average_ratings (struct training_set* tset, learned_factors_t* lfactor
  * Update the learned factors
  */
 void
-update_learned_factors_social (struct learned_factors* lfactors, struct training_set* tset, sparse_matrix_t* social_matrix, struct model_parameters params)
+update_learned_factors_social (struct learned_factors* lfactors, struct training_set* tset, sparse_matrix_t* social_matrix, struct model_parameters * params)
 {
 	size_t r, k, i, u, n, vv;
 
@@ -78,25 +78,25 @@ update_learned_factors_social (struct learned_factors* lfactors, struct training
 	double prediction;
 	double sig_score;
 	double score;
-	double *sum = malloc (sizeof (double) * params.dimensionality);
-	double *friend_sum = malloc (sizeof (double) * params.dimensionality);
+	double *sum = malloc (sizeof (double) * params->dimensionality);
+	double *friend_sum = malloc (sizeof (double) * params->dimensionality);
 	double* user_bias_copy;
 	double** user_factors_copy;
-	lfactors->dimensionality = params.dimensionality;
-	lfactors->items_number = params.items_number;
-	lfactors->users_number = params.users_number;
+	lfactors->dimensionality = params->dimensionality;
+	lfactors->items_number = params->items_number;
+	lfactors->users_number = params->users_number;
 
 	r = k = u = i = 0;
 
-	for (k = 0; k < params.iteration_number; k++)
+	for (k = 0; k < params->iteration_number; k++)
 	{
-		user_bias_copy = malloc (sizeof (double) * params.users_number);
-		user_factors_copy = malloc (sizeof (double*) *params.users_number);
-		memcpy (user_bias_copy, lfactors->user_bias, sizeof (double) *params.users_number);
-		for (r = 0; r < params.users_number; r++)
+		user_bias_copy = malloc (sizeof (double) * params->users_number);
+		user_factors_copy = malloc (sizeof (double*) *params->users_number);
+		memcpy (user_bias_copy, lfactors->user_bias, sizeof (double) *params->users_number);
+		for (r = 0; r < params->users_number; r++)
 		{
-			user_factors_copy[r] = malloc (sizeof (double) * params.dimensionality);
-			memcpy (user_factors_copy[r], lfactors->user_factor_vectors[r], params.dimensionality * sizeof (double) );
+			user_factors_copy[r] = malloc (sizeof (double) * params->dimensionality);
+			memcpy (user_factors_copy[r], lfactors->user_factor_vectors[r], params->dimensionality * sizeof (double) );
 		}
 
 		for (r = 0; r < tset->training_set_size; r++)
@@ -114,35 +114,35 @@ update_learned_factors_social (struct learned_factors* lfactors, struct training
 			e_iu = r_iu - prediction;
 			if (e_iu)
 			{
-				compute_factors_social (u, i, lfactors, e_iu , &params);
+				compute_factors_social (u, i, lfactors, e_iu , params);
 			}
 
 		}
 		
-		for (u = 0; u < params.users_number; u++)
-			lfactors->user_bias[u] += params.step_bias * user_bias_copy[u] * params.lambda_bias;
-		for (i = 0; i < params.items_number; i++) 
-			lfactors->item_bias[i] += params.step_bias * lfactors->item_bias[i] * params.lambda_bias;
+		for (u = 0; u < params->users_number; u++)
+			lfactors->user_bias[u] += params->step_bias * user_bias_copy[u] * params->lambda_bias;
+		for (i = 0; i < params->items_number; i++) 
+			lfactors->item_bias[i] += params->step_bias * lfactors->item_bias[i] * params->lambda_bias;
 			
-		for (u = 0; u < params.users_number; u++)
-			for (r = 0; r < params.dimensionality; r++)
-				lfactors->user_factor_vectors[u][r] +=params.step * user_factors_copy[u][r] * params.lambda;
+		for (u = 0; u < params->users_number; u++)
+			for (r = 0; r < params->dimensionality; r++)
+				lfactors->user_factor_vectors[u][r] +=params->step * user_factors_copy[u][r] * params->lambda;
 
-		for (i = 0; i < params.items_number; i++)
-			for (r = 0; r < params.dimensionality; r++)
-				lfactors->item_factor_vectors[i][r] +=params.step * lfactors->item_factor_vectors[i][r] * params.lambda;
+		for (i = 0; i < params->items_number; i++)
+			for (r = 0; r < params->dimensionality; r++)
+				lfactors->item_factor_vectors[i][r] +=params->step * lfactors->item_factor_vectors[i][r] * params->lambda;
 		
-		for (u = 0; u < params.users_number; u++)
+		for (u = 0; u < params->users_number; u++)
 		{
 			coo_matrix_t* user_relations = get_row_in_coo (social_matrix, u);
 
 			size_t v;
 			double bias_diff = 0;
-			memset (sum, 0, params.dimensionality * sizeof (double) );
+			memset (sum, 0, params->dimensionality * sizeof (double) );
 
 			for (v = 0 ; v < user_relations->current_size; v++)
 			{
-				for (r = 0; r < params.dimensionality; r++)
+				for (r = 0; r < params->dimensionality; r++)
 				{
 					sum[r] += user_factors_copy[user_relations->entries[v].column_j][r] / user_relations->current_size;
 				}
@@ -151,31 +151,31 @@ update_learned_factors_social (struct learned_factors* lfactors, struct training
 
 
 
-			for (r = 0; r < params.dimensionality; r++)
+			for (r = 0; r < params->dimensionality; r++)
 			{
-				lfactors->user_factor_vectors[u][r] += params.betha * params.step* (user_factors_copy[u][r] - sum[r]);
+				lfactors->user_factor_vectors[u][r] += params->betha * params->step* (user_factors_copy[u][r] - sum[r]);
 			}
-			lfactors->user_bias[u] += params.betha  * params.step_bias * (user_bias_copy[u] - bias_diff);
+			lfactors->user_bias[u] += params->betha  * params->step_bias * (user_bias_copy[u] - bias_diff);
 
 
 			bias_diff=0;
-			memset(sum,0,params.dimensionality * sizeof (double));
+			memset(sum,0,params->dimensionality * sizeof (double));
 			for (v = 0 ; v < user_relations->current_size; v++)
 			{
 				size_t friend_id = user_relations->entries[v].column_j;
 				coo_matrix_t* friend_relations = get_row_in_coo (social_matrix, friend_id);
 				double friend_bias_diff = 0;
-				memset (friend_sum, 0, params.dimensionality * sizeof (double) );
+				memset (friend_sum, 0, params->dimensionality * sizeof (double) );
 
 				for (vv = 0 ; vv < friend_relations->current_size; vv++)
 				{
-					for (r = 0; r < params.dimensionality; r++)
+					for (r = 0; r < params->dimensionality; r++)
 					{
 						friend_sum[r] += user_factors_copy[friend_relations->entries[vv].column_j][r] / friend_relations->current_size;
 					}
 					friend_bias_diff += user_bias_copy[friend_relations->entries[vv].column_j] / friend_relations->current_size;
 				}
-				for (r = 0; r < params.dimensionality; r++)
+				for (r = 0; r < params->dimensionality; r++)
 				{
 					sum[r] += (user_factors_copy[friend_id][r] - friend_sum[r]) / user_relations->current_size;
 				}
@@ -183,11 +183,11 @@ update_learned_factors_social (struct learned_factors* lfactors, struct training
 
 				free_coo_matrix (friend_relations);
 			}
-			for (r = 0; r < params.dimensionality; r++)
+			for (r = 0; r < params->dimensionality; r++)
 			{
-				lfactors->user_factor_vectors[u][r] -= params.betha * params.step * ( sum[r]);
+				lfactors->user_factor_vectors[u][r] -= params->betha * params->step * ( sum[r]);
 			}
-			lfactors->user_bias[u] -=  params.betha  * params.step_bias * (bias_diff);
+			lfactors->user_bias[u] -=  params->betha  * params->step_bias * (bias_diff);
 
 			
 			free_coo_matrix (user_relations);
@@ -195,7 +195,7 @@ update_learned_factors_social (struct learned_factors* lfactors, struct training
 
 
 		free (user_bias_copy);
-		for (n = 0; n < params.users_number; n++)
+		for (n = 0; n < params->users_number; n++)
 		{
 			free (user_factors_copy[n]);
 		}
@@ -216,7 +216,7 @@ learn_social (learning_algorithm_params_t* learning_param)
 {
 	struct training_set* tset = learning_param->tset;
 	struct model_parameters params = learning_param->params;
-	struct learned_factors* lfactors = init_learned_factors (params);
+	struct learned_factors* lfactors = init_learned_factors (&params);
 	sparse_matrix_t * social_matrix = learning_param->social_matrix;
 
 	if (!lfactors)
@@ -236,7 +236,7 @@ learn_social (learning_algorithm_params_t* learning_param)
 		tset->ratings_matrix = NULL;
 	}
 
-	update_learned_factors_social (lfactors, tset, social_matrix, params);
+	update_learned_factors_social (lfactors, tset, social_matrix, &params);
 
 	return lfactors;
 }

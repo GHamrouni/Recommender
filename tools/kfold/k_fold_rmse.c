@@ -17,7 +17,7 @@
 #include "social_reg.h"
 #include "model_parameters.h"
 #define ABS(a) ((a)<0 ? -(a) : (a))
-double RMSE_mean (k_fold_parameters_t k_fold_params)
+double RMSE_mean (k_fold_parameters_t* k_fold_params)
 {
 	double RMSE_sum;
 	int index;
@@ -25,30 +25,30 @@ double RMSE_mean (k_fold_parameters_t k_fold_params)
 	learned_factors_t *learned;
 	training_set_t* tset = NULL;
 	training_set_t* validation_set = NULL;
-	k_fold_params.model.parameters = k_fold_params.params;
+	k_fold_params->model.parameters = k_fold_params->params;
 	RMSE_sum = 0;
-	if(k_fold_params.model.parameters.algoithm_type == SOCIAL)
+	if(k_fold_params->model.parameters.algoithm_type == SOCIAL)
 	{
-		k_fold_params.model.social_matrix = extract_social_realtions(k_fold_params.social_relations_file_path,
-										k_fold_params.params.users_number,k_fold_params.social_relations_number);
+		k_fold_params->model.social_matrix = extract_social_realtions(k_fold_params->social_relations_file_path,
+										k_fold_params->params.users_number,k_fold_params->social_relations_number);
 	}
-	for (index = 0; index < k_fold_params.K; index++)
+	for (index = 0; index < k_fold_params->K; index++)
 	{
 		extract_data (k_fold_params, &tset, &validation_set, index);
 		
 		compile_training_set (tset);
-		learned = learn(tset,k_fold_params.model);
+		learned = learn(tset,  &k_fold_params->model);
 		RMSE_sum += RMSE (learned,validation_set,tset);
 		
 		free_learned_factors(learned);
 		free_training_set (tset);
 		free_training_set (validation_set);
 	}
-	if(k_fold_params.model.social_matrix)
+	if(k_fold_params->model.social_matrix)
 	{
-		free(k_fold_params.model.social_matrix);
+		free(k_fold_params->model.social_matrix);
 	}
-	return (RMSE_sum / k_fold_params.K);
+	return (RMSE_sum / k_fold_params->K);
 }
 
 

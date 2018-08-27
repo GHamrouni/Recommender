@@ -87,19 +87,19 @@
 //	unsigned int i, j, l,ss;
 //	double m;
 //	
-//	params.items_number = 1682;
-//	params.users_number = 943;
+//	params->items_number = 1682;
+//	params->users_number = 943;
 //
-//	params.training_set_size = sample_size*((K-1)/K);
+//	params->training_set_size = sample_size*((K-1)/K);
 //
-//	params.dimensionality = 30;
-//	params.iteration_number = 30;
+//	params->dimensionality = 30;
+//	params->iteration_number = 30;
 //
-//	params.lambda = 0.055f;
-//	params.step = 0.0095f;
+//	params->lambda = 0.055f;
+//	params->step = 0.0095f;
 //
-//	params.lambda_bias = 0.02f;
-//	params.step_bias = 0.001f;
+//	params->lambda_bias = 0.02f;
+//	params->step_bias = 0.001f;
 //
 //	//Use the basic matrix factorization model
 //	_model->learning_algorithm = learn_mf_bias;
@@ -109,7 +109,7 @@
 //	//Learning
 //	//Initialize a training set
 //	*_tset = init_training_set(params);
-//	params.training_set_size = sample_size/K;
+//	params->training_set_size = sample_size/K;
 //	*_tset_test=init_training_set(params);
 //	file = fopen("u.data", "r"); 
 //
@@ -174,7 +174,7 @@
 //
 //
 ////	printf("users [12] item [203], rating = %f expected 1 \n", estimate_rating_from_factors(21, 376, learned, model));
-//// 	params.iteration_number = 20;
+//// 	params->iteration_number = 20;
 //// 
 //// 	for (i = 0; i < 10; i++)
 //// 		update_learned_factors_mf_bias(learned, tset, params);

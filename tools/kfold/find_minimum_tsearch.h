@@ -17,7 +17,7 @@ double d_find_minimum_tsearch(float* param_to_find,
 	double precision, 
 	size_t max_iter,
 	k_fold_parameters_t *k_fold_params,
-	double (*function)(k_fold_parameters_t));
+	double (*function)(k_fold_parameters_t*));
 
 
 // Ternary search algorithm
@@ -27,6 +27,6 @@ int i_find_minimum_tsearch(int* param_to_find,
 			int max,
 			int max_iter,
 			k_fold_parameters_t *k_fold_params,
-			double (*function)(k_fold_parameters_t));
+			double (*function)(k_fold_parameters_t*));
 
 #endif

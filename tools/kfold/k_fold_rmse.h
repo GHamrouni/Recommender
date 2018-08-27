@@ -29,6 +29,6 @@ double RMSE (learned_factors_t* learned, training_set_t * _validation_set,
 *Returns :
 *		return the RMSE
 **/
-double RMSE_mean(k_fold_parameters_t k_fold_params);
+double RMSE_mean(k_fold_parameters_t* k_fold_params);
 
 #endif

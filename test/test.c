@@ -45,13 +45,10 @@ main(void) {
 	params.items_number = 3;
 	params.users_number = 2;
 	params.training_set_size = 5;
-
 	params.dimensionality = 100;
 	params.iteration_number = 600;
-
 	params.lambda = 0.055f;
 	params.step = 0.0095f;
-
 	params.lambda_bias = 0.02f;
 	params.step_bias = 0.001f;
 	
@@ -62,7 +59,7 @@ main(void) {
 
 	//Learning
 	//Initialize a training set
-	tset = init_training_set(params);
+	tset = init_training_set(&params);
 
 	set_known_rating(0, 0, 1, tset);
 	set_known_rating(0, 1, 0, tset);
@@ -73,39 +70,39 @@ main(void) {
 
 	compile_training_set(tset);
 
-	learned = learn(tset, model);
+	learned = learn(tset, &model);
 
 	rating_estimator_parameters_t rating_params = { 0, 0, learned, tset};
 
 	//Rating estimation
 	printf(	"users [0] item [0], rating = %f \n",
-		 estimate_rating_from_factors(&rating_params, model));
+		 estimate_rating_from_factors(&rating_params, &model));
 
     rating_params.user_index = 0;
     rating_params.item_index = 1;
 
 	printf(	"users [0] item [1], rating = %f \n",
-		 estimate_rating_from_factors(&rating_params, model));
+		 estimate_rating_from_factors(&rating_params, &model));
 
     rating_params.user_index = 0;
     rating_params.item_index = 2;
 
 	printf(	"users [0] item [2], rating = %f \n", 
-		estimate_rating_from_factors(&rating_params, model));
+		estimate_rating_from_factors(&rating_params, &model));
 
     rating_params.user_index = 1;
     rating_params.item_index = 1;
 
 	printf(	"users [1] item [1], rating = %f \n", 
-		estimate_rating_from_factors(&rating_params, model));
+		estimate_rating_from_factors(&rating_params, &model));
 
     rating_params.user_index = 1;
     rating_params.item_index = 0;
 
 	printf(	"users [1] item [0], rating = %f \n",
-		 estimate_rating_from_factors(&rating_params, model));
+		 estimate_rating_from_factors(&rating_params, &model));
 
-	r_items = recommend_items(&rating_params, model);
+	r_items = recommend_items(&rating_params, &model);
 
 	for (i = 0; i < r_items->items_number; i++)
 	{

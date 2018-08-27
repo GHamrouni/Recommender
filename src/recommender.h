@@ -69,10 +69,10 @@ typedef struct learning_model learning_model_t;
  *
  */
 struct learned_factors*
-learn(struct training_set* tset, struct learning_model model);
+learn(struct training_set* tset, struct learning_model * model);
 
 /*
-* estimate_rating_from_factors:  Return the approximates user’s rating of an item based on 
+* estimate_rating_from_factors:  Return the approximates userï¿½s rating of an item based on 
 *                                some learned factors.
 *
 * Arguments:
@@ -87,7 +87,7 @@ learn(struct training_set* tset, struct learning_model model);
 */
 double
 	estimate_rating_from_factors(rating_estimator_parameters_t* estim_param, 
-		struct learning_model model);
+		struct learning_model * model);
 
 
 /*
@@ -107,9 +107,9 @@ double
 */
 recommended_items_t*
 	recommend_items(rating_estimator_parameters_t* estim_param,
-		learning_model_t model);
+		learning_model_t * model);
 
 void update_learning(training_set_t * old_tset, training_set_t* new_tset, learned_factors_t* lfactors,
-		struct learning_model model);
+		struct learning_model * model);
 
 #endif /* RECOMMANDER_H */

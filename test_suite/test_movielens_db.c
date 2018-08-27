@@ -24,7 +24,7 @@
 //
 //	training_set_t * tset_test;
 //	//Calculate RMSE
-// 	params.training_set_size = 20000;
+// 	params->training_set_size = 20000;
 // 
 // 	tset_test = init_training_set(params);
 // 
@@ -101,23 +101,23 @@
 //
 //	clock_t start = clock();
 //
-//	params.items_number = 1682;
-//	params.users_number = 943;
-//	params.training_set_size = 100000;
+//	params->items_number = 1682;
+//	params->users_number = 943;
+//	params->training_set_size = 100000;
 //
-//	params.dimensionality = 30;
-//	params.iteration_number = 30;
+//	params->dimensionality = 30;
+//	params->iteration_number = 30;
 //
-//	params.lambda = 0.055f;
-//	params.step = 0.0095f;
+//	params->lambda = 0.055f;
+//	params->step = 0.0095f;
 //
-//	params.lambda_bias = 0.02f;
-//	params.step_bias = 0.001f;
+//	params->lambda_bias = 0.02f;
+//	params->step_bias = 0.001f;
 //
 //	//Use the basic matrix factorization model
-//	model.learning_algorithm = learn_mf_bias;
-//	model.rating_estimator   = estimate_rating_mf_bias;
-//	model.parameters		 = params;
+//	model->learning_algorithm = learn_mf_bias;
+//	model->rating_estimator   = estimate_rating_mf_bias;
+//	model->parameters		 = params;
 //
 //	//Learning
 //	//Initialize a training set
@@ -147,7 +147,7 @@
 //	
 //
 //	printf("users [12] item [203], rating = %f expected 1 \n", estimate_rating_from_factors(21, 376, learned, model));
-//// 	params.iteration_number = 20;
+//// 	params->iteration_number = 20;
 //// 
 //// 	for (i = 0; i < 10; i++)
 //// 		update_learned_factors_mf_bias(learned, tset, params);

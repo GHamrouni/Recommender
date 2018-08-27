@@ -241,7 +241,7 @@ int main (int argc, char** argv)
 		}
 	else
 	{
-		printf ("mean(RMSE)=%f \n", RMSE_mean (k_fold_params) );
+		printf ("mean(RMSE)=%f \n", RMSE_mean (&k_fold_params) );
 	}
 	free_recommended_items (r_items);
 	free_learned_factors (learned);

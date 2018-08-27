@@ -58,7 +58,7 @@ typedef struct learned_factors learned_factors_t;
  * Create a new factors set
  */
 learned_factors_t* 
-init_learned_factors(model_parameters_t params);
+init_learned_factors(model_parameters_t* params);
 
 /*
  * free_learned_factors:  delete the learned factors from memory

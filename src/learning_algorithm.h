@@ -55,6 +55,6 @@ typedef struct learning_algorithm_params learning_algorithm_params_t ;
  */
 typedef struct learned_factors* (*learning_algorithm_t)(learning_algorithm_params_t* learning_param);
 
-typedef void (*update_learning_t) (training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,model_parameters_t params);
+typedef void (*update_learning_t) (training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors, model_parameters_t* params);
 
 #endif /* LEARNING_ALGORITHM_H */

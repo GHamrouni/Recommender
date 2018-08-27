@@ -34,7 +34,7 @@ learn_mf_neighbor(learning_algorithm_params_t* learning_param);
  *		params				Parameters of the model
  */
 void
-update_learned_factors_mf_neighbor(training_set_t* tset, model_parameters_t params);
+update_learned_factors_mf_neighbor(training_set_t* tset, model_parameters_t * params);
 
 
 
@@ -78,7 +78,7 @@ double
  *
  */
 void update_learning_with_training_set_neighborMF(training_set_t * old_tset,training_set_t* new_tset,learned_factors_t* lfactors,
-		model_parameters_t params);
+		model_parameters_t * params);
 
 #endif 
 

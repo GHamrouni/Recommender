@@ -7,28 +7,28 @@
 #pragma warning(disable:4996)
 #endif
 
-int extract_data (struct k_fold_parameters _k_fold_params, training_set_t** _t_set, training_set_t ** _validation_set,
+int extract_data (struct k_fold_parameters * _k_fold_params, training_set_t** _t_set, training_set_t ** _validation_set,
                   size_t index)
 {
 	FILE* file;
 	unsigned int i, j, ss;
 	double m;
 
-	_k_fold_params.params.training_set_size =
-	    (size_t) (_k_fold_params.K - 1) * (size_t) (_k_fold_params.ratings_number / (size_t) _k_fold_params.K)  +
-	    _k_fold_params.ratings_number % (size_t) _k_fold_params.K;
-	if ( (_k_fold_params.ratings_number % (size_t) _k_fold_params.K) && index)
+	_k_fold_params->params.training_set_size =
+	    (size_t) (_k_fold_params->K - 1) * (size_t) (_k_fold_params->ratings_number / (size_t) _k_fold_params->K)  +
+	    _k_fold_params->ratings_number % (size_t) _k_fold_params->K;
+	if ( (_k_fold_params->ratings_number % (size_t) _k_fold_params->K) && index)
 	{
-		_k_fold_params.params.training_set_size--;
+		_k_fold_params->params.training_set_size--;
 	}
-	*_t_set = init_training_set (_k_fold_params.params);
-	_k_fold_params.params.training_set_size = (size_t) (_k_fold_params.ratings_number / _k_fold_params.K) ;
-	if ( (_k_fold_params.ratings_number % (size_t) _k_fold_params.K) && index)
+	*_t_set = init_training_set (&_k_fold_params->params);
+	_k_fold_params->params.training_set_size = (size_t) (_k_fold_params->ratings_number / _k_fold_params->K) ;
+	if ( (_k_fold_params->ratings_number % (size_t) _k_fold_params->K) && index)
 	{
-		_k_fold_params.params.training_set_size++;
+		_k_fold_params->params.training_set_size++;
 	}
-	*_validation_set = init_training_set (_k_fold_params.params);
-	file = fopen (_k_fold_params.file_path, "r");
+	*_validation_set = init_training_set (&_k_fold_params->params);
+	file = fopen (_k_fold_params->file_path, "r");
 
 	assert (file);
 
@@ -46,7 +46,7 @@ int extract_data (struct k_fold_parameters _k_fold_params, training_set_t** _t_s
 			break;
 		}
 		++ss;
-		if ( ss % (size_t) _k_fold_params.K == index )
+		if ( ss % (size_t) _k_fold_params->K == index )
 		{
 			set_known_rating (i-1  , j-1 , (float) m, *_validation_set);
 		}
@@ -61,21 +61,21 @@ int extract_data (struct k_fold_parameters _k_fold_params, training_set_t** _t_s
 }
 
 
-int extract_data_2_tset (struct k_fold_parameters _k_fold_params, training_set_t** _t_set,
+int extract_data_2_tset (struct k_fold_parameters* _k_fold_params, training_set_t** _t_set,
                          training_set_t ** _validation_set, training_set_t ** new_tset, int index)
 {
 	FILE* file;
 	unsigned int i, j, l, ss;
 	double m;
-	_k_fold_params.params.training_set_size = (size_t) (0.5 * (_k_fold_params.K - 1) * (_k_fold_params.ratings_number / _k_fold_params.K) );
-	*_t_set = init_training_set (_k_fold_params.params);
-	*new_tset = init_training_set (_k_fold_params.params);
-	_k_fold_params.params.training_set_size = (size_t) (2 * _k_fold_params.params.training_set_size / (_k_fold_params.K - 1) );
-	*_validation_set = init_training_set (_k_fold_params.params);
+	_k_fold_params->params.training_set_size = (size_t) (0.5 * (_k_fold_params->K - 1) * (_k_fold_params->ratings_number / _k_fold_params->K) );
+	*_t_set = init_training_set (&_k_fold_params->params);
+	*new_tset = init_training_set (&_k_fold_params->params);
+	_k_fold_params->params.training_set_size = (size_t) (2 * _k_fold_params->params.training_set_size / (_k_fold_params->K - 1) );
+	*_validation_set = init_training_set (&_k_fold_params->params);
 
 
 
-	file = fopen (_k_fold_params.file_path, "r");
+	file = fopen (_k_fold_params->file_path, "r");
 
 	assert (file);
 
@@ -93,7 +93,7 @@ int extract_data_2_tset (struct k_fold_parameters _k_fold_params, training_set_t
 			break;
 		}
 		++ss;
-		if ( (ss <= index * _k_fold_params.ratings_number / _k_fold_params.K) || (ss > (index + 1) *_k_fold_params.ratings_number / _k_fold_params.K) )
+		if ( (ss <= index * _k_fold_params->ratings_number / _k_fold_params->K) || (ss > (index + 1) *_k_fold_params->ratings_number / _k_fold_params->K) )
 		{
 			if (ss % 2 == 0)
 			{

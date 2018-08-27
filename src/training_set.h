@@ -66,7 +66,7 @@ typedef struct training_set training_set_t;
  *
  */
 struct training_set* 
-init_training_set(model_parameters_t params);
+init_training_set(model_parameters_t* params);
 
 void
 compile_training_set(training_set_t* tset);
@@ -133,7 +133,7 @@ item_ratings_average(size_t item_index, training_set_t* tset);
  *
  */
 void
-add_rating(size_t user_index,size_t item_index,float _value,training_set_t* tset);
+add_rating(size_t user_index, size_t item_index, float _value, training_set_t* tset);
 
 
 /*

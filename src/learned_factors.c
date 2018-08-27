@@ -41,7 +41,7 @@
 #include <assert.h>
 #include "utils.h"
 struct learned_factors*
-init_learned_factors (struct model_parameters params)
+init_learned_factors (struct model_parameters * params)
 {
 	struct learned_factors* lfactors =
 	    malloc (sizeof (struct learned_factors) );
@@ -57,17 +57,17 @@ init_learned_factors (struct model_parameters params)
 
 
 
-	lfactors->item_factor_vectors = generate_random_matrix (params.items_number, params.dimensionality, params.seed);
-	if(params.algoithm_type == NEIGHBOURS_MF)
+	lfactors->item_factor_vectors = generate_random_matrix (params->items_number, params->dimensionality, params->seed);
+	if(params->algoithm_type == NEIGHBOURS_MF)
 	{
-	lfactors->y = generate_random_matrix (params.items_number, params.dimensionality, params.seed);
-	lfactors->x = generate_random_matrix (params.items_number, params.items_number, params.seed);
+	lfactors->y = generate_random_matrix (params->items_number, params->dimensionality, params->seed);
+	lfactors->x = generate_random_matrix (params->items_number, params->items_number, params->seed);
 	}
-	lfactors->user_factor_vectors = generate_random_matrix (params.users_number, params.dimensionality, params.seed);
-	lfactors->user_bias = malloc (sizeof (double) *params.users_number);
-	lfactors->item_bias = malloc (sizeof (double) *params.items_number);
-	memset (lfactors->user_bias, 0.0, params.users_number*sizeof (double) );
-	memset (lfactors->item_bias, 0.0, params.items_number*sizeof (double) );
+	lfactors->user_factor_vectors = generate_random_matrix (params->users_number, params->dimensionality, params->seed);
+	lfactors->user_bias = malloc (sizeof (double) *params->users_number);
+	lfactors->item_bias = malloc (sizeof (double) *params->items_number);
+	memset (lfactors->user_bias, 0.0, params->users_number*sizeof (double) );
+	memset (lfactors->item_bias, 0.0, params->items_number*sizeof (double) );
 	lfactors->R = NULL;
 	lfactors->R_K = NULL;
 

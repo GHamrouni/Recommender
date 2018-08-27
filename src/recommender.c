@@ -48,15 +48,15 @@
  * Stochastic gradient descent
  */
 struct learned_factors*
-learn(struct training_set* tset, struct learning_model model)
+learn(struct training_set* tset, struct learning_model *model)
 {
 	learning_algorithm_params_t learning_param;
-	assert (model.learning_algorithm && model.rating_estimator);
+	assert (model->learning_algorithm && model->rating_estimator);
 	assert(tset->ratings_matrix);
-	learning_param.params = model.parameters;
+	learning_param.params = model->parameters;
 	learning_param.tset=tset;
-	learning_param.social_matrix=model.social_matrix;
-	return model.learning_algorithm(&learning_param);
+	learning_param.social_matrix=model->social_matrix;
+	return model->learning_algorithm(&learning_param);
 }
 
 /*
@@ -65,9 +65,9 @@ learn(struct training_set* tset, struct learning_model model)
  */
 double
 	estimate_rating_from_factors(rating_estimator_parameters_t* estim_param, 
-		struct learning_model model)
+		struct learning_model * model)
 {
-	return model.rating_estimator(estim_param);
+	return model->rating_estimator(estim_param);
 }
 
 /*
@@ -76,16 +76,16 @@ double
  */
 recommended_items_t*
 	recommend_items(rating_estimator_parameters_t* estim_param,
-		learning_model_t model)
+		learning_model_t * model)
 {
 	size_t j;
 	recommended_items_t* r_items = init_recommended_items(estim_param->lfactors->items_number);
 
-	assert (model.learning_algorithm && model.rating_estimator);
+	assert (model->learning_algorithm && model->rating_estimator);
 
 	for (j = 0; j < estim_param->tset->items_number; j++)
 	{
-		insert_recommended_item(j, (float) model.rating_estimator(estim_param), r_items);
+		insert_recommended_item(j, (float) model->rating_estimator(estim_param), r_items);
 	}
 
 	j = 0;
@@ -110,9 +110,9 @@ recommended_items_t*
 
 void
 update_learning(training_set_t * old_tset, training_set_t* new_tset, learned_factors_t* lfactors,
-		struct learning_model model)
+		struct learning_model * model)
 {
-	assert (model.update_algorithm);
+	assert (model->update_algorithm);
 
-	model.update_algorithm(old_tset, new_tset, lfactors,model.parameters);
+	model->update_algorithm(old_tset, new_tset, lfactors, &model->parameters);
 }
