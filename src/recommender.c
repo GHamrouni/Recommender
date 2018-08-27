@@ -85,6 +85,7 @@ recommended_items_t*
 
 	for (j = 0; j < estim_param->tset->items_number; j++)
 	{
+		estim_param->item_index = j;
 		insert_recommended_item(j, (float) model->rating_estimator(estim_param), r_items);
 	}
 

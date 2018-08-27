@@ -45,10 +45,10 @@ main(void) {
 	params.items_number = 3;
 	params.users_number = 2;
 	params.training_set_size = 5;
-	params.dimensionality = 100;
-	params.iteration_number = 600;
-	params.lambda = 0.055f;
-	params.step = 0.0095f;
+	params.dimensionality = 128;
+	params.iteration_number = 5000;
+	params.lambda = 0.005f;
+	params.step = 0.0005f;
 	params.lambda_bias = 0.02f;
 	params.step_bias = 0.001f;
 	
@@ -61,11 +61,11 @@ main(void) {
 	//Initialize a training set
 	tset = init_training_set(&params);
 
-	set_known_rating(0, 0, 1, tset);
-	set_known_rating(0, 1, 0, tset);
+	set_known_rating(0, 0, 4, tset);
+	set_known_rating(0, 1, 1, tset);
 	set_known_rating(0, 2, 6, tset);
 
-	set_known_rating(1, 1, 0, tset);
+	set_known_rating(1, 1, 1, tset);
 	set_known_rating(1, 0, 2, tset);
 
 	compile_training_set(tset);
@@ -102,6 +102,7 @@ main(void) {
 	printf(	"users [1] item [0], rating = %f \n",
 		 estimate_rating_from_factors(&rating_params, &model));
 
+	// rating_params.user_index = 0;
 	r_items = recommend_items(&rating_params, &model);
 
 	for (i = 0; i < r_items->items_number; i++)
