@@ -3,6 +3,7 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/GHamrouni/Recommender.svg)](https://github.com/GHamrouni/Recommender/stargazers)
 [![GitHub license](https://img.shields.io/github/license/GHamrouni/Recommender.svg)](https://github.com/GHamrouni/Recommender/blob/master/LICENSE)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/GHamrouni/Recommender.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/GHamrouni/Recommender/context:cpp)
 
 A C library for product recommendations/suggestions using collaborative filtering (CF).
 
