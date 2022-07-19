@@ -5,7 +5,6 @@
 default:
 	- ( cd src && $(MAKE) all )
 	- ( cd tools/kfold && $(MAKE) all )
-	- ( cd tools/serialization && $(MAKE) all )
 all:
 	- ( cd src && $(MAKE) all )
 	- ( cd tools/kfold && $(MAKE) all )
